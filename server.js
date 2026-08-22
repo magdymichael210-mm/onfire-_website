@@ -30,7 +30,7 @@ const videoStorage = multer.diskStorage({
 
 const upload = multer({
   storage: videoStorage,
-  limits: { fileSize: 500 * 1024 * 1024 }, // 500MB
+  limits: { fileSize: 2 * 1024 * 1024 * 1024 }, // 2GB
   fileFilter: (req, file, cb) => {
     if (file.fieldname === 'video') {
       const allowed = /\.(mp4|mkv|avi|mov|webm)$/i;
@@ -192,7 +192,7 @@ app.post('/api/courses/upload', verifyToken, (req, res, next) => {
   ])(req, res, (err) => {
     if (err instanceof multer.MulterError) {
       if (err.code === 'LIMIT_FILE_SIZE')
-        return res.status(400).json({ message: 'حجم الفيديو يتجاوز الحد المسموح (500MB)' });
+        return res.status(400).json({ message: 'حجم الفيديو يتجاوز الحد المسموح (2GB)' });
       return res.status(400).json({ message: 'خطأ في رفع الملف: ' + err.message });
     } else if (err) {
       return res.status(400).json({ message: err.message });
