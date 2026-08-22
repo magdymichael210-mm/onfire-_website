@@ -1,0 +1,2110 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>On Fire — v2026-06-30-courses-badge</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.383.0/lucide.min.js"></script>
+<style>
+.lucide{width:18px;height:18px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;display:inline-block;vertical-align:middle}
+.lucide-lg{width:22px;height:22px}
+.lucide-xl{width:28px;height:28px}
+/* Icon containers */
+.sb-icon svg{vertical-align:middle}
+.sc-icon svg{display:block;margin-bottom:4px}
+.ac-dot svg{display:block}
+.ls-res-icon svg{display:block}
+.ls-dl svg{display:block;margin:0 auto}
+.vplay svg{display:block}
+.vicons svg{cursor:pointer;opacity:.85}
+.vicons svg:hover{opacity:1}
+.lm svg{margin-left:4px}
+.t-notif svg{display:block}
+.topbar-search svg{flex-shrink:0;color:var(--muted)}
+.t-lang svg{vertical-align:middle}
+.hero-eyebrow svg{vertical-align:middle}
+</style>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --navy:#1a2b4a;
+  --navy2:#243659;
+  --navy3:#1e3a6e;
+  --cream:#f5f3ef;
+  --cream2:#ede9e3;
+  --white:#ffffff;
+  --orange:#e8935a;
+  --orange2:#d4834a;
+  --text:#1a2b4a;
+  --muted:#6b7a90;
+  --border:#e0dbd4;
+  --green:#22c55e;
+  --sidebar-w:260px;
+  --topbar-h:64px;
+}
+
+body{font-family:'Tajawal',sans-serif;background:var(--cream);color:var(--text);direction:rtl;overflow-x:hidden}
+
+/* ─── PAGES ─── */
+.page{display:none}
+.page.active{display:flex;flex-direction:column;min-height:100vh}
+
+/* ─── TOP NAV ─── */
+.topbar{
+  position:fixed;top:0;right:0;left:0;height:var(--topbar-h);
+  background:var(--white);border-bottom:1px solid var(--border);
+  display:flex;align-items:center;padding:0 28px;gap:20px;z-index:200;
+}
+.topbar-logo{font-size:20px;font-weight:900;color:var(--navy);white-space:nowrap;text-decoration:none}
+.topbar-logo span{color:var(--orange)}
+.topbar-search{
+  flex:1;max-width:480px;margin:0 auto;
+  background:var(--cream);border:1px solid var(--border);border-radius:10px;
+  display:flex;align-items:center;gap:10px;padding:8px 14px;
+}
+.topbar-search input{flex:1;border:none;outline:none;background:transparent;font-family:'Tajawal',sans-serif;font-size:14px;color:var(--text)}
+.topbar-search input::placeholder{color:var(--muted)}
+.topbar-right{display:flex;align-items:center;gap:14px;margin-right:auto}
+.topbar-left{display:flex;align-items:center;gap:14px;margin-left:0}
+.t-btn{background:none;border:none;cursor:pointer;font-size:14px;color:var(--muted);font-family:'Tajawal',sans-serif;display:flex;align-items:center;gap:5px}
+.t-btn:hover{color:var(--navy)}
+.t-btn-primary{background:var(--navy);color:var(--white);border:none;border-radius:9px;padding:9px 20px;font-size:14px;font-weight:700;font-family:'Tajawal',sans-serif;cursor:pointer;transition:background .2s}
+.t-btn-primary:hover{background:var(--navy2)}
+.t-avatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--navy),var(--navy3));color:white;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;cursor:pointer}
+.t-lang{border:1px solid var(--border);border-radius:8px;padding:6px 12px;font-size:13px;color:var(--muted);cursor:pointer;background:none;font-family:'Tajawal',sans-serif}
+.t-notif{position:relative;cursor:pointer;font-size:20px;color:var(--muted)}
+.t-notif-dot{position:absolute;top:0;left:0;width:8px;height:8px;background:var(--orange);border-radius:50%;border:2px solid white}
+
+/* ─── LAYOUT SHELL ─── */
+.shell{display:flex;padding-top:var(--topbar-h);min-height:100vh}
+
+/* ─── SIDEBAR ─── */
+.sidebar{
+  width:var(--sidebar-w);min-width:var(--sidebar-w);
+  background:var(--white);border-left:1px solid var(--border);
+  position:fixed;top:var(--topbar-h);right:0;bottom:0;
+  overflow-y:auto;padding:24px 0;display:flex;flex-direction:column;gap:4px;
+}
+.sidebar::-webkit-scrollbar{width:4px}
+.sidebar::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+.sb-section{padding:8px 20px 4px;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.sb-item{
+  display:flex;align-items:center;gap:12px;padding:10px 20px;
+  cursor:pointer;font-size:14px;font-weight:600;color:var(--muted);
+  border-radius:0;transition:all .15s;border-right:3px solid transparent;
+}
+.sb-item:hover{background:var(--cream);color:var(--navy)}
+.sb-item.active{background:#eef2ff;color:var(--navy);border-right-color:var(--navy);font-weight:700}
+.sb-icon{font-size:18px;width:22px;text-align:center}
+.sb-badge{margin-right:auto;background:var(--orange);color:white;font-size:11px;font-weight:700;padding:2px 8px;border-radius:10px}
+.sb-divider{height:1px;background:var(--border);margin:12px 20px}
+
+/* ─── MAIN CONTENT ─── */
+.main{
+  margin-right:var(--sidebar-w);flex:1;
+  padding:32px 36px;min-height:calc(100vh - var(--topbar-h));
+}
+
+/* ─── DASHBOARD ─── */
+.page-title{font-size:26px;font-weight:900;color:var(--navy);margin-bottom:4px}
+.page-subtitle{font-size:14px;color:var(--muted);margin-bottom:28px}
+
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:32px}
+.stat-card{
+  background:var(--white);border-radius:16px;padding:22px 20px;
+  border:1px solid var(--border);position:relative;overflow:hidden;
+}
+.stat-card::after{content:'';position:absolute;bottom:-16px;left:-16px;width:72px;height:72px;border-radius:50%;opacity:.06}
+.stat-card.c1::after{background:var(--navy)}
+.stat-card.c2::after{background:var(--orange)}
+.stat-card.c3::after{background:#22c55e}
+.stat-card.c4::after{background:#a855f7}
+.sc-icon{font-size:24px;margin-bottom:10px}
+.sc-num{font-size:28px;font-weight:900;color:var(--navy);line-height:1}
+.sc-label{font-size:13px;color:var(--muted);margin-top:4px}
+.sc-delta{font-size:12px;font-weight:700;margin-top:8px;display:flex;align-items:center;gap:3px}
+.sc-delta.up{color:var(--green)}
+.sc-delta.down{color:#ef4444}
+
+.two-col{display:grid;grid-template-columns:1fr 380px;gap:24px;margin-bottom:28px}
+.card{background:var(--white);border-radius:16px;padding:24px;border:1px solid var(--border)}
+.card-title{font-size:16px;font-weight:800;color:var(--navy);margin-bottom:18px;display:flex;align-items:center;justify-content:space-between}
+.card-title a{font-size:13px;font-weight:600;color:var(--orange);text-decoration:none}
+
+/* Course rows */
+.course-row{display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid var(--border)}
+.course-row:last-child{border-bottom:none;padding-bottom:0}
+.cr-thumb{width:56px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.cr-info{flex:1}
+.cr-name{font-size:14px;font-weight:700;color:var(--navy)}
+.cr-teacher{font-size:12px;color:var(--muted);margin-top:2px}
+.cr-progress-wrap{display:flex;align-items:center;gap:10px;margin-top:6px}
+.cr-bar{flex:1;height:5px;background:var(--cream2);border-radius:3px}
+.cr-fill{height:100%;border-radius:3px;background:var(--navy)}
+.cr-pct{font-size:12px;font-weight:700;color:var(--navy);white-space:nowrap}
+.cr-badge{font-size:11px;padding:3px 10px;border-radius:20px;font-weight:700;white-space:nowrap}
+.cr-badge.math{background:#eef2ff;color:var(--navy3)}
+.cr-badge.sci{background:#f0fdf4;color:#16a34a}
+.cr-badge.lang{background:#fdf4ff;color:#9333ea}
+
+/* Activity feed */
+.activity-item{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)}
+.activity-item:last-child{border-bottom:none}
+.ac-dot{width:36px;height:36px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:16px}
+.ac-dot.d1{background:#eef2ff}
+.ac-dot.d2{background:#f0fdf4}
+.ac-dot.d3{background:#fff7ed}
+.ac-dot.d4{background:#fdf4ff}
+.ac-info .ac-text{font-size:13px;color:var(--text);line-height:1.5}
+.ac-info .ac-time{font-size:11px;color:var(--muted);margin-top:2px}
+
+/* ─── COURSES PAGE ─── */
+.filters-row{display:flex;align-items:center;gap:12px;margin-bottom:24px;flex-wrap:wrap}
+.filter-chip{padding:8px 18px;border-radius:22px;border:1.5px solid var(--border);background:var(--white);font-size:14px;font-weight:600;color:var(--muted);cursor:pointer;font-family:'Tajawal',sans-serif;transition:all .15s}
+.filter-chip:hover{border-color:var(--navy);color:var(--navy)}
+.filter-chip.active{background:var(--navy);color:white;border-color:var(--navy)}
+.courses-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.cg-card{background:var(--white);border-radius:18px;overflow:hidden;border:1px solid var(--border);cursor:pointer;transition:transform .15s,box-shadow .15s}
+.cg-card:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(26,43,74,.1)}
+.cg-thumb{height:148px;display:flex;align-items:center;justify-content:center;font-size:52px;position:relative}
+.cg-cat{position:absolute;top:10px;right:10px;font-size:11px;font-weight:700;padding:4px 12px;border-radius:12px;color:white}
+.cg-cat.m{background:var(--navy)}
+.cg-cat.s{background:#16a34a}
+.cg-cat.l{background:#9333ea}
+.cg-cat.c{background:#d97706}
+.cg-body{padding:16px}
+.cg-title{font-size:15px;font-weight:800;color:var(--navy);margin-bottom:8px;line-height:1.4}
+.cg-teacher{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.cg-av{width:26px;height:26px;border-radius:50%;color:white;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
+.cg-tname{font-size:12px;color:var(--muted)}
+.cg-meta{display:flex;align-items:center;justify-content:space-between;font-size:12px;color:var(--muted)}
+.cg-rating{color:#f59e0b;font-weight:700}
+.cg-btn{width:100%;background:var(--navy);color:white;border:none;border-radius:10px;padding:10px;font-size:14px;font-weight:700;font-family:'Tajawal',sans-serif;cursor:pointer;margin-top:12px;transition:background .15s}
+.cg-btn:hover{background:var(--navy2)}
+
+/* ─── LESSON PAGE ─── */
+.lesson-layout{display:grid;grid-template-columns:1fr 340px;gap:24px}
+.video-wrap{background:#060d1f;border-radius:18px;overflow:hidden;position:relative;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;margin-bottom:20px}
+.vplay{width:64px;height:64px;background:rgba(255,255,255,.15);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px;color:white;border:2px solid rgba(255,255,255,.3);cursor:pointer;backdrop-filter:blur(6px)}
+.vcontrols{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.75));padding:16px 20px 14px;display:flex;align-items:center;gap:14px}
+.vtime{color:rgba(255,255,255,.8);font-size:13px;white-space:nowrap}
+.vprog{flex:1;height:4px;background:rgba(255,255,255,.2);border-radius:2px;cursor:pointer}
+.vprog-fill{height:100%;width:38%;background:var(--orange);border-radius:2px}
+.vicons{display:flex;gap:10px;color:rgba(255,255,255,.8);font-size:16px}
+
+.lesson-info{margin-bottom:20px}
+.lesson-crumb{display:flex;gap:8px;margin-bottom:10px}
+.lc-chip{font-size:12px;padding:4px 12px;border-radius:20px;font-weight:600}
+.lc-chip.cat{background:#fff3ea;color:var(--orange2)}
+.lc-chip.lvl{background:var(--cream2);color:var(--muted)}
+.lesson-title-big{font-size:22px;font-weight:900;color:var(--navy);line-height:1.4;margin-bottom:14px}
+.teacher-card-row{display:flex;align-items:center;gap:14px;padding:14px 16px;background:var(--cream);border-radius:12px;margin-bottom:16px}
+.tc-av{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#e67e22,#d35400);color:white;display:flex;align-items:center;justify-content:center;font-size:19px;font-weight:800;flex-shrink:0}
+.tc-name{font-size:15px;font-weight:800;color:var(--navy)}
+.tc-exp{font-size:12px;color:var(--muted)}
+.lesson-meta-row{display:flex;gap:20px;margin-bottom:18px}
+.lm{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--muted)}
+.lm .icon{font-size:16px}
+.lm.star .icon{color:#f59e0b}
+
+.desc-block{background:var(--white);border-radius:14px;padding:20px;border:1px solid var(--border);margin-bottom:20px}
+.desc-block h3{font-size:15px;font-weight:800;color:var(--navy);margin-bottom:10px}
+.desc-block p{font-size:14px;color:var(--muted);line-height:1.8}
+
+/* Sidebar panel */
+.lesson-sidebar .card{margin-bottom:16px}
+.ls-resource{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)}
+.ls-resource:last-child{border-bottom:none}
+.ls-res-icon{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+.ls-res-icon.pdf{background:#ffe8e8}
+.ls-res-icon.doc{background:#e8f0fe}
+.ls-res-name{font-size:13px;font-weight:600;color:var(--navy)}
+.ls-res-size{font-size:11px;color:var(--muted)}
+.ls-dl{margin-right:auto;cursor:pointer;font-size:18px;color:var(--muted)}
+
+.comment-list{display:flex;flex-direction:column;gap:12px}
+.cm{display:flex;gap:10px}
+.cm-av{width:34px;height:34px;border-radius:50%;color:white;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0}
+.cm-body{}
+.cm-meta{display:flex;align-items:center;gap:8px;margin-bottom:4px;flex-wrap:wrap}
+.cm-name{font-size:13px;font-weight:700;color:var(--navy)}
+.cm-badge{background:#e8f0fe;color:#3367d6;font-size:10px;padding:2px 8px;border-radius:10px}
+.cm-time{font-size:11px;color:var(--muted)}
+.cm-text{font-size:13px;color:var(--text);line-height:1.6;background:var(--cream);padding:10px 12px;border-radius:10px}
+.cm-text.reply{background:#eef2ff}
+
+.ask-area{background:var(--cream);border-radius:12px;padding:14px;margin-bottom:14px}
+.ask-placeholder{font-size:13px;color:#b0b8c8;margin-bottom:10px}
+.ask-btn{background:var(--navy);color:white;border:none;border-radius:8px;padding:8px 18px;font-size:13px;font-weight:600;font-family:'Tajawal',sans-serif;cursor:pointer}
+
+.next-card{background:var(--navy);border-radius:16px;padding:20px}
+/* ─── PLAYLIST ─── */
+.pl-item{display:flex;align-items:center;gap:10px;padding:8px;border-radius:10px;cursor:pointer;transition:background .15s;border:1.5px solid transparent}
+.pl-item:hover{background:var(--cream)}
+.pl-item.active{background:#eef2ff;border-color:var(--navy)}
+.pl-thumb{width:64px;height:42px;border-radius:8px;overflow:hidden;flex-shrink:0;position:relative;background:#1e3a5f;display:flex;align-items:center;justify-content:center;font-size:20px}
+.pl-thumb img{width:100%;height:100%;object-fit:cover}
+.pl-thumb .pl-playing{position:absolute;inset:0;background:rgba(26,43,74,.55);display:flex;align-items:center;justify-content:center;color:white;font-size:11px;font-weight:800}
+.pl-info{flex:1;min-width:0}
+.pl-title{font-size:13px;font-weight:700;color:var(--navy);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pl-meta{font-size:11px;color:var(--muted);margin-top:2px;display:flex;gap:6px;align-items:center}
+.pl-num{width:20px;height:20px;border-radius:50%;background:var(--cream2);color:var(--muted);font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.pl-item.active .pl-num{background:var(--navy);color:white}
+.next-label{font-size:11px;color:rgba(255,255,255,.6);margin-bottom:4px}
+.next-title-s{font-size:15px;font-weight:800;color:white;line-height:1.4;margin-bottom:14px}
+.next-btn{background:var(--orange);color:white;border:none;border-radius:10px;padding:11px;font-size:14px;font-weight:700;font-family:'Tajawal',sans-serif;cursor:pointer;width:100%;transition:background .15s}
+.next-btn:hover{background:var(--orange2)}
+
+/* ─── PAYMENT PAGE ─── */
+.pay-layout{display:grid;grid-template-columns:1fr 400px;gap:32px;max-width:1000px}
+.pay-card{background:var(--white);border-radius:18px;padding:28px;border:1px solid var(--border);margin-bottom:20px}
+.pay-card-title{font-size:17px;font-weight:800;color:var(--navy);margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(--border)}
+.plan-box{background:linear-gradient(135deg,var(--navy),var(--navy3));border-radius:14px;padding:20px;display:flex;align-items:center;justify-content:space-between;margin-bottom:0}
+.plan-name-big{font-size:17px;font-weight:900;color:white}
+.plan-desc-s{font-size:13px;color:rgba(255,255,255,.7);margin-top:4px}
+.plan-price-big{font-size:18px;font-weight:900;color:var(--orange);white-space:nowrap}
+.coupon-wrap{display:flex;gap:10px;margin-top:20px}
+.coupon-in{flex:1;padding:12px 16px;border:1.5px solid var(--border);border-radius:10px;font-size:14px;font-family:'Tajawal',sans-serif;outline:none;text-align:right;background:var(--cream)}
+.coupon-in:focus{border-color:var(--navy)}
+.apply-btn-d{background:var(--navy);color:white;border:none;border-radius:10px;padding:12px 24px;font-size:14px;font-weight:700;font-family:'Tajawal',sans-serif;cursor:pointer}
+
+.pm-option{border:2px solid var(--border);border-radius:12px;padding:16px 18px;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;transition:border-color .15s;background:var(--white)}
+.pm-option.sel{border-color:var(--navy);background:#fafbff}
+.pm-left-d{display:flex;align-items:center;gap:12px;font-size:15px;font-weight:600;color:var(--navy)}
+.pm-ic{font-size:22px}
+.pm-radio-d{width:20px;height:20px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;transition:border-color .15s}
+.pm-radio-d.on{border-color:var(--navy)}
+.pm-radio-d.on::after{content:'';width:10px;height:10px;border-radius:50%;background:var(--navy);display:block}
+
+/* Summary sidebar */
+.summary-card{background:var(--white);border-radius:18px;padding:24px;border:1px solid var(--border);position:sticky;top:calc(var(--topbar-h) + 20px)}
+.sum-title{font-size:16px;font-weight:800;color:var(--navy);margin-bottom:18px}
+.sum-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border);font-size:14px}
+.sum-row:last-of-type{border-bottom:none}
+.sum-row .sl{color:var(--muted)}
+.sum-row .sv{color:var(--navy);font-weight:600}
+.sum-row .disc{color:var(--orange2);font-weight:600}
+.sum-divider{height:1px;background:var(--border);margin:8px 0}
+.sum-total{display:flex;justify-content:space-between;align-items:center;padding:12px 0}
+.sum-total .tl{font-size:18px;font-weight:900;color:var(--navy)}
+.sum-total .tv{font-size:22px;font-weight:900;color:var(--navy)}
+.secure-row{display:flex;align-items:center;justify-content:center;gap:6px;font-size:12px;color:var(--muted);margin:14px 0 10px}
+.pay-final-btn{width:100%;background:var(--navy);color:white;border:none;border-radius:12px;padding:16px;font-size:16px;font-weight:800;font-family:'Tajawal',sans-serif;cursor:pointer;transition:background .15s}
+.pay-final-btn:hover{background:var(--navy2)}
+.privacy-s{font-size:12px;color:var(--muted);text-align:center;margin-top:10px;line-height:1.6}
+.privacy-s a{color:var(--navy)}
+
+/* ─── SUCCESS PAGE ─── */
+.success-shell{display:flex;align-items:center;justify-content:center;min-height:calc(100vh - var(--topbar-h));background:var(--cream)}
+.success-box{background:var(--white);border-radius:24px;padding:50px 44px;text-align:center;max-width:500px;width:100%;border:1px solid var(--border);box-shadow:0 8px 40px rgba(26,43,74,.08)}
+.suc-circle{width:100px;height:100px;border-radius:50%;background:linear-gradient(135deg,var(--navy),var(--navy3));display:flex;align-items:center;justify-content:center;margin:0 auto 10px;box-shadow:0 0 0 14px #e8eef8,0 0 0 24px #f0f4fc;font-size:40px;color:white}
+.suc-title{font-size:26px;font-weight:900;color:var(--navy);margin:32px 0 10px}
+.suc-desc{font-size:15px;color:var(--muted);line-height:1.7;margin-bottom:30px}
+.order-box{background:var(--cream);border-radius:14px;padding:20px;text-align:right;margin-bottom:28px}
+.ob-header{display:flex;align-items:center;gap:14px;margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--border)}
+.ob-icon{width:48px;height:48px;background:var(--navy);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;color:white}
+.ob-label{font-size:12px;color:var(--muted)}
+.ob-name{font-size:18px;font-weight:900;color:var(--navy)}
+.ob-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--border)}
+.ob-row:last-child{border-bottom:none}
+.ob-key{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted)}
+.ob-val{font-size:13px;font-weight:700;color:var(--navy)}
+.status-chip{background:#f0fdf4;color:#16a34a;font-size:12px;font-weight:700;padding:5px 14px;border-radius:20px}
+.suc-btns{display:flex;flex-direction:column;gap:10px}
+.btn-suc{width:100%;border-radius:12px;padding:15px;font-size:15px;font-weight:800;font-family:'Tajawal',sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;border:none;transition:background .15s}
+.btn-suc.primary{background:var(--navy);color:white}
+.btn-suc.primary:hover{background:var(--navy2)}
+.btn-suc.outline{background:none;border:2px solid var(--navy);color:var(--navy)}
+.support-note{margin-top:18px;font-size:13px;color:var(--muted)}
+.support-note a{color:var(--navy);font-weight:600}
+
+/* ─── HERO LANDING ─── */
+.landing-page .topbar-right{margin-right:auto;display:flex;gap:16px}
+.hero-section{
+  background:linear-gradient(135deg,var(--navy) 0%,var(--navy3) 60%,#0f1e38 100%);
+  padding:90px 80px 70px;display:flex;align-items:center;gap:60px;
+  min-height:520px;
+}
+.hero-text{flex:1}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.85);font-size:13px;font-weight:600;padding:6px 14px;border-radius:20px;margin-bottom:20px;border:1px solid rgba(255,255,255,.15)}
+.hero-h1{font-size:50px;font-weight:900;color:white;line-height:1.2;margin-bottom:16px}
+.hero-h1 span{color:var(--orange)}
+.hero-p{font-size:16px;color:rgba(255,255,255,.75);line-height:1.8;margin-bottom:32px;max-width:500px}
+.hero-btns{display:flex;gap:14px}
+.hero-btn-p{background:var(--orange);color:white;border:none;border-radius:12px;padding:16px 32px;font-size:16px;font-weight:800;font-family:'Tajawal',sans-serif;cursor:pointer;transition:background .15s}
+.hero-btn-p:hover{background:var(--orange2)}
+.hero-btn-o{background:transparent;color:white;border:2px solid rgba(255,255,255,.4);border-radius:12px;padding:14px 32px;font-size:16px;font-weight:700;font-family:'Tajawal',sans-serif;cursor:pointer;transition:all .15s}
+.hero-btn-o:hover{background:rgba(255,255,255,.1)}
+.hero-visual{flex:0 0 420px}
+.hero-card{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:20px;padding:24px;backdrop-filter:blur(10px)}
+.hc-progress{background:white;border-radius:12px;padding:16px;margin-bottom:12px;display:flex;align-items:center;gap:14px}
+.hc-pr-num{font-size:30px;font-weight:900;color:var(--navy)}
+.hc-pr-label{font-size:13px;color:var(--muted)}
+.hc-pr-arrow{font-size:24px;color:var(--green);margin-right:auto}
+.hc-teachers{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.hc-av-grp{display:flex}
+.hc-av-grp span{width:32px;height:32px;border-radius:50%;border:2px solid var(--white);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:white;margin-left:-8px}
+.hc-av1{background:#e67e22}.hc-av2{background:#8e44ad}.hc-av3{background:#27ae60}
+.hc-av-more{background:var(--navy);font-size:11px}
+.hc-teacher-label{color:rgba(255,255,255,.8);font-size:13px}
+.hc-courses{display:flex;flex-direction:column;gap:8px}
+.hc-course{background:rgba(255,255,255,.1);border-radius:10px;padding:12px;display:flex;align-items:center;gap:10px}
+.hcc-emoji{font-size:22px}
+.hcc-name{font-size:13px;font-weight:700;color:white;flex:1}
+.hcc-pct{font-size:12px;font-weight:700;color:var(--orange)}
+.landing-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:0;background:var(--white);border-bottom:1px solid var(--border)}
+.lstat{text-align:center;padding:32px 20px;border-left:1px solid var(--border)}
+.lstat:last-child{border-left:none}
+.lstat-num{font-size:32px;font-weight:900;color:var(--navy)}
+.lstat-label{font-size:14px;color:var(--muted);margin-top:4px}
+.landing-courses-section{padding:64px 80px}
+.sec-eyebrow{font-size:13px;font-weight:700;color:var(--orange);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px}
+.sec-title{font-size:30px;font-weight:900;color:var(--navy);margin-bottom:32px}
+.landing-footer{background:var(--navy);color:rgba(255,255,255,.6);padding:32px 80px;display:flex;align-items:center;justify-content:space-between;font-size:13px}
+.lf-logo{font-size:18px;font-weight:900;color:white}
+.lf-logo span{color:var(--orange)}
+.lf-links{display:flex;gap:24px}
+.lf-links a{color:rgba(255,255,255,.6);text-decoration:none;font-size:13px}
+.lf-links a:hover{color:white}
+.lf-socials{display:flex;gap:12px;font-size:18px}
+
+
+/* ─── LOGIN PAGE ─── */
+.login-page-shell{
+  display:flex;min-height:100vh;
+}
+.login-image-side{
+  flex:1;position:relative;overflow:hidden;
+  background:linear-gradient(135deg,var(--navy),var(--navy3));
+}
+.login-image-side img{
+  width:100%;height:100%;object-fit:cover;opacity:.6;
+  display:block;
+}
+.login-image-overlay{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:48px;
+  background:linear-gradient(to top, rgba(10,20,50,.85) 30%, transparent 100%);
+}
+.login-overlay-logo{
+  font-size:28px;font-weight:900;color:white;
+  position:absolute;top:36px;right:36px;
+}
+.login-overlay-logo span{color:var(--orange)}
+.login-overlay-title{
+  font-size:32px;font-weight:900;color:white;line-height:1.3;margin-bottom:12px;
+}
+.login-overlay-desc{
+  font-size:15px;color:rgba(255,255,255,.7);line-height:1.7;max-width:380px;
+}
+.login-overlay-stats{
+  display:flex;gap:32px;margin-top:28px;
+}
+.los-num{font-size:22px;font-weight:900;color:var(--orange)}
+.los-label{font-size:12px;color:rgba(255,255,255,.6);margin-top:2px}
+
+.login-form-side{
+  width:480px;min-width:480px;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--white);padding:48px 52px;
+}
+.login-form-inner{width:100%}
+.login-tabs{display:flex;background:var(--cream);border-radius:12px;padding:4px;margin-bottom:32px;gap:4px}
+.login-tab{
+  flex:1;padding:10px;border:none;border-radius:9px;
+  font-size:14px;font-weight:700;font-family:'Tajawal',sans-serif;
+  cursor:pointer;background:transparent;color:var(--muted);transition:all .2s;
+}
+.login-tab.active{background:var(--white);color:var(--navy);box-shadow:0 2px 8px rgba(26,43,74,.1)}
+.login-h2{font-size:26px;font-weight:900;color:var(--navy);margin-bottom:6px}
+.login-sub{font-size:14px;color:var(--muted);margin-bottom:28px;line-height:1.6}
+.login-label{font-size:13px;font-weight:600;color:var(--navy);margin-bottom:6px;display:block}
+.login-input{
+  width:100%;padding:13px 16px;border:1.5px solid var(--border);
+  border-radius:10px;font-size:14px;font-family:'Tajawal',sans-serif;
+  color:var(--text);outline:none;background:var(--cream);
+  margin-bottom:18px;transition:border-color .2s;
+}
+.login-input:focus{border-color:var(--navy);background:white}
+.login-input::placeholder{color:#b0b8c8}
+.login-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.login-check-wrap{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted)}
+.login-check-wrap input{width:16px;height:16px;accent-color:var(--navy);cursor:pointer}
+.login-forgot{font-size:13px;color:var(--navy);text-decoration:none;font-weight:600}
+.login-btn{
+  width:100%;background:var(--navy);color:white;border:none;border-radius:12px;
+  padding:15px;font-size:16px;font-weight:800;font-family:'Tajawal',sans-serif;
+  cursor:pointer;margin-bottom:20px;transition:background .2s;
+}
+.login-btn:hover{background:var(--navy2)}
+.login-divider{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+.login-divider::before,.login-divider::after{content:'';flex:1;height:1px;background:var(--border)}
+.login-divider span{font-size:12px;color:var(--muted);white-space:nowrap}
+.login-social-btn{
+  width:100%;border:1.5px solid var(--border);background:white;border-radius:10px;
+  padding:12px;font-size:14px;font-weight:600;font-family:'Tajawal',sans-serif;
+  cursor:pointer;color:var(--text);display:flex;align-items:center;justify-content:center;gap:10px;
+  margin-bottom:10px;transition:border-color .2s;
+}
+.login-social-btn:hover{border-color:var(--navy)}
+.login-footer-note{text-align:center;font-size:13px;color:var(--muted);margin-top:6px}
+.login-footer-note a{color:var(--navy);font-weight:700;text-decoration:none}
+
+@media(max-width:900px){
+  .login-image-side{display:none}
+  .login-form-side{width:100%;min-width:unset;padding:32px 24px}
+}
+
+/* Nav items landing */
+.topbar-nav{display:flex;gap:4px}
+.tn-item{padding:8px 16px;border-radius:8px;font-size:14px;font-weight:600;color:var(--muted);cursor:pointer;background:none;border:none;font-family:'Tajawal',sans-serif;transition:all .15s}
+.tn-item:hover{background:var(--cream);color:var(--navy)}
+.tn-item.active{background:var(--cream);color:var(--navy)}
+
+/* Responsive */
+@media(max-width:1100px){
+  .courses-grid{grid-template-columns:repeat(2,1fr)}
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
+  .two-col{grid-template-columns:1fr}
+  .lesson-layout{grid-template-columns:1fr}
+  .pay-layout{grid-template-columns:1fr}
+  .hero-section{padding:60px 40px;flex-direction:column}
+  .hero-visual{flex:none;width:100%}
+  .landing-courses-section{padding:40px}
+  .landing-footer{padding:24px 40px;flex-direction:column;gap:16px;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<!-- ======================================================== -->
+<!-- LANDING PAGE                                              -->
+<!-- ======================================================== -->
+<div id="page-landing" class="page active">
+  <nav class="topbar">
+    <a class="topbar-logo"><span style="color:var(--orange)">On Fire</span></a>
+    <div class="topbar-nav">
+      <button class="tn-item active" data-i18n="nav-home">الرئيسية</button>
+      <button class="tn-item" onclick="showPage('page-courses-d')" data-i18n="nav-courses">الدورات</button>
+      <button class="tn-item" data-i18n="nav-teachers">المعلمون</button>
+      <button class="tn-item" data-i18n="nav-contact">اتصل بنا</button>
+    </div>
+    <div class="topbar-left" style="margin-right:auto">
+      <button class="t-lang"><svg class="lucide" viewBox="0 0 24 24" style="width:16px;height:16px;vertical-align:middle;margin-left:4px"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> EN</button>
+      <button class="t-btn-primary" onclick="showPage('page-login')" data-i18n="btn-login">تسجيل الدخول</button>
+      
+    </div>
+  </nav>
+
+  <div style="padding-top:var(--topbar-h)">
+    <!-- Hero -->
+    <section class="hero-section">
+      <div class="hero-text">
+        <div class="hero-eyebrow" data-i18n="hero-eyebrow"><svg class="lucide" viewBox="0 0 24 24" style="width:16px;height:16px"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg> منصة تعليمية رائدة في العالم العربي</div>
+        <h1 class="hero-h1" data-i18n="hero-h1">مرحباً بك في <span>On Fire</span><br>رفيقك في رحلة النجاح</h1>
+        <p class="hero-p" data-i18n="hero-p">نحن هنا لتمكينك من الوصول إلى آفاق جديدة في مسيرتك التعليمية. اكتشف دروساً تفاعلية، وتابع تقدمك، وتواصل مع معلمين خبراء في بيئة تعليمية ذكية.</p>
+        <div class="hero-btns">
+          <button class="hero-btn-p" onclick="showPage('page-login')" data-i18n="hero-btn-start">← ابدأ رحلتك الآن</button>
+          <button class="hero-btn-o" onclick="showPage('page-courses-d')" data-i18n="hero-btn-browse">تصفح الدورات</button>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-card">
+          <div class="hc-progress">
+            <div>
+              <div class="hc-pr-num">85%</div>
+              <div class="hc-pr-label" data-i18n="hero-progress">معدل التقدم</div>
+            </div>
+            <div class="hc-pr-arrow">↗</div>
+          </div>
+          <div class="hc-teachers">
+            <div class="hc-av-grp">
+              <span class="hc-av1">أ</span>
+              <span class="hc-av2">م</span>
+              <span class="hc-av3">س</span>
+              <span class="hc-av-more">+10</span>
+            </div>
+            <span class="hc-teacher-label" data-i18n="hero-teachers-online">معلمون متواجدون الآن</span>
+          </div>
+          <div class="hc-courses">
+            <div class="hc-course"><span class="hcc-emoji"><img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=36&h=36&fit=crop" style="width:28px;height:28px;border-radius:6px;object-fit:cover"></span><span class="hcc-name" data-i18n="course1-title">أساسيات الجبر المتقدمة</span><span class="hcc-pct">72%</span></div>
+            <div class="hc-course"><span class="hcc-emoji"><img src="https://images.unsplash.com/photo-1530026186672-2cd00ffc50fe?w=36&h=36&fit=crop" style="width:28px;height:28px;border-radius:6px;object-fit:cover"></span><span class="hcc-name" data-i18n="hcc-course2">رحلة في أعماق الخلية</span><span class="hcc-pct">45%</span></div>
+            <div class="hc-course"><span class="hcc-emoji"><img src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=36&h=36&fit=crop" style="width:28px;height:28px;border-radius:6px;object-fit:cover"></span><span class="hcc-name" data-i18n="hcc-course3">جماليات الشعر الجاهلي</span><span class="hcc-pct">90%</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats -->
+    <div class="landing-stats">
+      <div class="lstat"><div class="lstat-num">4.9/5</div><div class="lstat-label" data-i18n="rating-label">تقييم الطلاب</div></div>
+      <div class="lstat"><div class="lstat-num">1,200+</div><div class="lstat-label" data-i18n="stat-courses">دورة متخصصة</div></div>
+      <div class="lstat"><div class="lstat-num">50,000+</div><div class="lstat-label" data-i18n="stat-students">طالب نشط</div></div>
+    </div>
+
+    <!-- Featured Courses -->
+    <section class="landing-courses-section">
+      <div class="sec-eyebrow" data-i18n="sec-eyebrow">الدورات المميزة</div>
+      <div class="sec-title" data-i18n="sec-title">اكتشف أبرز دوراتنا التعليمية</div>
+      <div class="courses-grid">
+        <div class="cg-card" onclick="showPage('page-lesson-d')">
+          <div class="cg-thumb" style="padding:0;overflow:hidden;position:relative"><img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=400&h=148&fit=crop" style="width:100%;height:100%;object-fit:cover;display:block"><span class="cg-cat m" data-i18n="cat-math">رياضيات</span></div>
+          <div class="cg-body">
+            <div class="cg-title" data-i18n="course1-title">أساسيات الجبر المتقدمة</div>
+            <div class="cg-teacher"><div class="cg-av" style="background:var(--navy)">ك</div><span class="cg-tname" data-i18n="course1-teacher">أ. محمد الكتاني</span></div>
+            <div class="cg-meta"><span class="cg-rating"><svg class="lucide" viewBox="0 0 24 24" style="width:13px;height:13px;color:#f59e0b;vertical-align:-2px;fill:#f59e0b"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> 4.8</span><span>45 درس</span><span>120 طالب</span></div>
+            <button class="cg-btn" data-i18n="btn-subscribe">ابدأ الآن</button>
+          </div>
+        </div>
+        <div class="cg-card" onclick="showPage('page-lesson-d')">
+          <div class="cg-thumb" style="padding:0;overflow:hidden;position:relative"><img src="https://images.unsplash.com/photo-1530026186672-2cd00ffc50fe?w=400&h=148&fit=crop" style="width:100%;height:100%;object-fit:cover;display:block"><span class="cg-cat s" data-i18n="cat-sci">العلوم</span></div>
+          <div class="cg-body">
+            <div class="cg-title" data-i18n="course2-title">رحلة في أعماق الخلية الحية</div>
+            <div class="cg-teacher"><div class="cg-av" style="background:#27ae60">س</div><span class="cg-tname" data-i18n="course2-teacher">أ. سارة أحمد</span></div>
+            <div class="cg-meta"><span class="cg-rating"><svg class="lucide" viewBox="0 0 24 24" style="width:13px;height:13px;color:#f59e0b;vertical-align:-2px;fill:#f59e0b"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> 4.9</span><span>38 درس</span><span>98 طالب</span></div>
+            <button class="cg-btn" data-i18n="btn-subscribe">ابدأ الآن</button>
+          </div>
+        </div>
+        <div class="cg-card" onclick="showPage('page-lesson-d')">
+          <div class="cg-thumb" style="padding:0;overflow:hidden;position:relative"><img src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=400&h=148&fit=crop" style="width:100%;height:100%;object-fit:cover;display:block"><span class="cg-cat l" data-i18n="cat-lang">اللغة العربية</span></div>
+          <div class="cg-body">
+            <div class="cg-title" data-i18n="course3-title">جماليات الشعر الجاهلي</div>
+            <div class="cg-teacher"><div class="cg-av" style="background:#8e44ad">م</div><span class="cg-tname" data-i18n="course3-teacher">أ. محمود إبراهيم</span></div>
+            <div class="cg-meta"><span class="cg-rating"><svg class="lucide" viewBox="0 0 24 24" style="width:13px;height:13px;color:#f59e0b;vertical-align:-2px;fill:#f59e0b"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> 4.7</span><span>28 درس</span><span>76 طالب</span></div>
+            <button class="cg-btn" data-i18n="btn-subscribe">ابدأ الآن</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="landing-footer">
+      <div class="lf-logo"><span>On Fire</span> &nbsp;|&nbsp; <span style="color:rgba(255,255,255,.5);font-size:12px;font-weight:400" data-i18n="footer-rights">© 2026 جميع الحقوق محفوظة</span></div>
+      <div class="lf-links"><a href="#" data-i18n="footer-privacy">سياسة الخصوصية</a><a href="#" data-i18n="footer-terms">شروط الاستخدام</a><a href="#" data-i18n="footer-faq">الأسئلة الشائعة</a></div>
+      <div class="lf-socials"><svg class="lucide" viewBox="0 0 24 24" style="width:18px;height:18px;color:rgba(255,255,255,.6)"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></div>
+    </footer>
+  </div>
+</div>
+
+<!-- ======================================================== -->
+<!-- DASHBOARD                                                 -->
+<!-- ======================================================== -->
+<div id="page-dashboard" class="page">
+  <nav class="topbar">
+    <a class="topbar-logo" onclick="showPage('page-landing')" style="cursor:pointer"><span style="color:var(--orange)">On Fire</span></a>
+    <div class="topbar-search"><svg class="lucide" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input placeholder="ابحث عن دروس، معلمين، أو مواضيع..." data-i18n-ph="search-ph">
+    </div>
+    <div class="topbar-left">
+      <button class="t-lang"><svg class="lucide" viewBox="0 0 24 24" style="width:16px;height:16px;vertical-align:middle;margin-left:4px"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> EN</button>
+      <span class="t-notif"><svg class="lucide" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><span class="t-notif-dot"></span></span>
+      <div class="t-avatar" id="user-avatar">أ</div>
+      <span id="user-name-topbar" style="font-size:14px;font-weight:700;color:var(--navy);cursor:pointer"></span>
+    </div>
+  </nav>
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="sb-section" data-i18n="sb-main">القائمة الرئيسية</div>
+      <div class="sb-item active" onclick="setActive(this);showPage('page-dashboard')"><span class="sb-icon"><svg class="lucide lucide-lg" viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span><span data-i18n="sb-dashboard">لوحة التحكم</span></div>
+      <div class="sb-item" onclick="setActive(this);showPage('page-courses-d')"><span class="sb-icon"><svg class="lucide lucide-lg" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span><span data-i18n="sb-courses">تصفح الدورات</span><span class="sb-badge" id="sb-courses-badge">6</span></div>
+      <div class="sb-item admin-only" style="display:none" onclick="setActive(this);showPage('page-upload')"><span class="sb-icon"><svg class="lucide lucide-lg" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></span>رفع فيديو</div>
+      <div class="sb-item admin-only" style="display:none" onclick="setActive(this);showPage('page-my-videos');loadVideos()"><span class="sb-icon"><svg class="lucide lucide-lg" viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg></span>فيديوهاتي</div>
+      <div class="sb-item" onclick="setActive(this);showPage('page-lesson-d')"><span class="sb-icon"><svg class="lucide lucide-lg" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></span><span data-i18n="sb-mylessons">دروسي</span><span class="sb-badge">3</span></div>
+      <div class="sb-divider"></div>
+      <div class="sb-section" data-i18n="sb-account">الحساب</div>
+      <div class="sb-item" onclick="setActive(this);showPage('page-payment-d')"><span class="sb-icon"><svg class="lucide lucide-lg" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg></span><span data-i18n="sb-subscription">الاشتراك</span></div>
+      <div class="sb-item" onclick="setActive(this)"><span class="sb-icon"><svg class="lucide lucide-lg" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></span><span data-i18n="sb-notifications">الإشعارات</span></div>
+      <div class="sb-item" onclick="setActive(this)"><span class="sb-icon"><svg class="lucide lucide-lg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span><span data-i18n="sb-settings">الإعدادات</span></div>
+      <div class="sb-divider"></div>
+      <div class="sb-item" style="margin-top:auto" onclick="showPage('page-landing')"><span class="sb-icon"><svg class="lucide lucide-lg" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg></span><span data-i18n="sb-logout">تسجيل الخروج</span></div>
+    </aside>
+    <main class="main">
+      <div class="page-title" id="dash-welcome" data-i18n="dash-title">مرحباً، أحمد <svg class="lucide" viewBox="0 0 24 24" style="width:1em;height:1em;vertical-align:-3px"><path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0"/><path d="M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v2"/><path d="M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg></div>
+      <div class="page-subtitle" data-i18n="dash-subtitle">ماذا تريد أن تتعلم اليوم؟</div>
+
+      <div class="stats-grid">
+        <div class="stat-card c1"><div class="sc-icon"><svg class="lucide lucide-xl" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div><div class="sc-num">12</div><div class="sc-label" data-i18n="stat1-label">دورة مسجل بها</div><div class="sc-delta up">↑ 2 هذا الشهر</div></div>
+        <div class="stat-card c2"><div class="sc-icon"><svg class="lucide lucide-xl" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div class="sc-num">84</div><div class="sc-label" data-i18n="stat4-label">ساعة تعلم</div><div class="sc-delta up">↑ 12 هذا الأسبوع</div></div>
+        <div class="stat-card c3"><div class="sc-icon"><svg class="lucide lucide-xl" viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg></div><div class="sc-num">7</div><div class="sc-label" data-i18n="stat3-label">شهادة مكتملة</div><div class="sc-delta up">↑ 1 جديدة</div></div>
+        <div class="stat-card c4"><div class="sc-icon"><svg class="lucide lucide-xl" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div><div class="sc-num">4.8</div><div class="sc-label" data-i18n="stat2-label">متوسط التقييم</div><div class="sc-delta up">↑ ممتاز</div></div>
+      </div>
+
+      <div class="two-col">
+        <div class="card">
+          <div class="card-title"><span data-i18n="ongoing-title">دوراتي الحالية</span> <a href="#" onclick="showPage('page-courses-d')">عرض الكل ←</a></div>
+          <div class="course-row">
+            <div class="cr-thumb" style="padding:0;overflow:hidden"><img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=56&h=42&fit=crop" style="width:100%;height:100%;object-fit:cover;border-radius:10px"></div>
+            <div class="cr-info">
+              <div class="cr-name" data-i18n="course1-title">أساسيات الجبر المتقدمة</div>
+              <div class="cr-teacher" data-i18n="course1-teacher">أ. محمد الكتاني</div>
+              <div class="cr-progress-wrap"><div class="cr-bar"><div class="cr-fill" style="width:72%"></div></div><span class="cr-pct">72%</span></div>
+            </div>
+            <span class="cr-badge math">رياضيات</span>
+          </div>
+          <div class="course-row">
+            <div class="cr-thumb" style="padding:0;overflow:hidden"><img src="https://images.unsplash.com/photo-1530026186672-2cd00ffc50fe?w=56&h=42&fit=crop" style="width:100%;height:100%;object-fit:cover;border-radius:10px"></div>
+            <div class="cr-info">
+              <div class="cr-name" data-i18n="course2-title">رحلة في أعماق الخلية الحية</div>
+              <div class="cr-teacher" data-i18n="course2-teacher">أ. سارة أحمد</div>
+              <div class="cr-progress-wrap"><div class="cr-bar"><div class="cr-fill" style="width:45%"></div></div><span class="cr-pct">45%</span></div>
+            </div>
+            <span class="cr-badge sci">العلوم</span>
+          </div>
+          <div class="course-row">
+            <div class="cr-thumb" style="padding:0;overflow:hidden"><img src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=56&h=42&fit=crop" style="width:100%;height:100%;object-fit:cover;border-radius:10px"></div>
+            <div class="cr-info">
+              <div class="cr-name" data-i18n="course3-title">جماليات الشعر الجاهلي</div>
+              <div class="cr-teacher" data-i18n="course3-teacher">أ. محمود إبراهيم</div>
+              <div class="cr-progress-wrap"><div class="cr-bar"><div class="cr-fill" style="width:90%"></div></div><span class="cr-pct">90%</span></div>
+            </div>
+            <span class="cr-badge lang">اللغة العربية</span>
+          </div>
+          <div class="course-row">
+            <div class="cr-thumb" style="padding:0;overflow:hidden"><img src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=56&h=42&fit=crop" style="width:100%;height:100%;object-fit:cover;border-radius:10px"></div>
+            <div class="cr-info">
+              <div class="cr-name" data-i18n="course4-title">مبادئ التفاعلات الكيميائية</div>
+              <div class="cr-teacher" data-i18n="course4-teacher">أ. حسن علي</div>
+              <div class="cr-progress-wrap"><div class="cr-bar"><div class="cr-fill" style="width:28%"></div></div><span class="cr-pct">28%</span></div>
+            </div>
+            <span class="cr-badge sci">العلوم</span>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title" data-i18n="activity-title">آخر النشاطات</div>
+          <div class="activity-item"><div class="ac-dot d1"><svg class="lucide" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><div class="ac-info"><div class="ac-text" data-i18n="act1">أكملت الدرس الثامن من دورة الجبر المتقدم</div><div class="ac-time">منذ ساعتين</div></div></div>
+          <div class="activity-item"><div class="ac-dot d2"><svg class="lucide" viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg></div><div class="ac-info"><div class="ac-text" data-i18n="act2">حصلت على شهادة إتمام دورة الأحياء الأساسية</div><div class="ac-time">أمس</div></div></div>
+          <div class="activity-item"><div class="ac-dot d3"><svg class="lucide" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div><div class="ac-info"><div class="ac-text" data-i18n="act3">علّقت على درس المعادلات التربيعية</div><div class="ac-time">منذ يومين</div></div></div>
+          <div class="activity-item"><div class="ac-dot d4"><svg class="lucide" viewBox="0 0 24 24"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg></div><div class="ac-info"><div class="ac-text" data-i18n="act4">سجّلت في دورة مبادئ التفاعلات الكيميائية</div><div class="ac-time">منذ 3 أيام</div></div></div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- ======================================================== -->
+<!-- COURSES                                                   -->
+<!-- ======================================================== -->
+<div id="page-courses-d" class="page">
+  <nav class="topbar">
+    <a class="topbar-logo" onclick="showPage('page-landing')" style="cursor:pointer"><span style="color:var(--orange)">On Fire</span></a>
+    <div class="topbar-search"><svg class="lucide" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg><input placeholder="ابحث عن دروس، معلمين، أو مواضيع..." data-i18n-ph="search-ph"></div>
+    <div class="topbar-left"><button class="t-lang"><svg class="lucide" viewBox="0 0 24 24" style="width:16px;height:16px;vertical-align:middle;margin-left:4px"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> EN</button><span class="t-notif"><svg class="lucide" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><span class="t-notif-dot"></span></span><div class="t-avatar" id="user-avatar-sync">أ</div><span id="user-name-sync" style="font-size:14px;font-weight:700;color:var(--navy);cursor:pointer;margin-right:4px"></span></div>
+  </nav>
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="sb-section" data-i18n="sb-main">القائمة الرئيسية</div>
+      <div class="sb-item" onclick="setActive(this);showPage('page-dashboard')"><span class="sb-icon"><svg class="lucide lucide-lg" viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span><span data-i18n="sb-dashboard">لوحة التحكم</span></div>
+      <div class="sb-item active" onclick="setActive(this)"><span class="sb-icon"><svg class="lucide lucide-lg" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span><span data-i18n="sb-courses">تصفح الدورات</span><span class="sb-badge" id="sb-courses-badge">6</span></div>
+      <div class="sb-item" onclick="setActive(this);showPage('page-lesson-d')"><span class="sb-icon"><svg class="lucide lucide-lg" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></span><span data-i18n="sb-mylessons">دروسي</span><span class="sb-badge">3</span></div>
+      <div class="sb-divider"></div>
+      <div class="sb-section" data-i18n="sb-account">الحساب</div>
+      <div class="sb-item" onclick="setActive(this);showPage('page-payment-d')"><span class="sb-icon"><svg class="lucide lucide-lg" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg></span><span data-i18n="sb-subscription">الاشتراك</span></div>
+      <div class="sb-item" onclick="setActive(this)"><span class="sb-icon"><svg class="lucide lucide-lg" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></span><span data-i18n="sb-notifications">الإشعارات</span></div>
+      <div class="sb-item" onclick="setActive(this)"><span class="sb-icon"><svg class="lucide lucide-lg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span>الإعدادات</div>
+    </aside>
+    <main class="main">
+      <div class="page-title" data-i18n="courses-title">تصفح الدورات</div>
+      <div class="page-subtitle" data-i18n="courses-sub">اختر من بين 1,200+ دورة متخصصة</div>
+      <div class="filters-row">
+        <button class="filter-chip active" onclick="chipActive(this)" data-i18n="filter-all">الكل</button>
+        <button class="filter-chip" onclick="chipActive(this)" data-i18n="filter-math">الرياضيات</button>
+        <button class="filter-chip" onclick="chipActive(this)" data-i18n="filter-sci">العلوم</button>
+        <button class="filter-chip" onclick="chipActive(this)" data-i18n="filter-lang">اللغة العربية</button>
+        <button class="filter-chip" onclick="chipActive(this)" data-i18n="filter-phys">الفيزياء</button>
+        <button class="filter-chip" onclick="chipActive(this)" data-i18n="filter-chem">الكيمياء</button>
+        <button class="filter-chip" onclick="chipActive(this)" data-i18n="filter-hist">التاريخ</button>
+      </div>
+
+      <!-- ─── فيديوهات مرفوعة (تظهر لأي مستخدم بأي إيميل) ─── -->
+      <div id="uploaded-courses-section" style="margin-bottom:8px">
+        <div id="uploaded-courses-grid" class="courses-grid" style="margin-bottom:8px"></div>
+      </div>
+
+      <div class="courses-grid">
+        <div class="cg-card" onclick="showPage('page-lesson-d')"><div class="cg-thumb" style="padding:0;overflow:hidden;position:relative"><img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=400&h=148&fit=crop" style="width:100%;height:100%;object-fit:cover;display:block"><span class="cg-cat m" data-i18n="cat-math">رياضيات</span></div><div class="cg-body"><div class="cg-title" data-i18n="course1-title">أساسيات الجبر المتقدمة</div><div class="cg-teacher"><div class="cg-av" style="background:var(--navy)">ك</div><span class="cg-tname" data-i18n="course1-teacher">أ. محمد الكتاني</span></div><div class="cg-meta"><span class="cg-rating"><svg class="lucide" viewBox="0 0 24 24" style="width:13px;height:13px;color:#f59e0b;vertical-align:-2px;fill:#f59e0b"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> 4.8</span><span>45 درس</span><span>٢٩٩ ر.س</span></div><button class="cg-btn">ابدأ الآن</button></div></div>
+        <div class="cg-card" onclick="showPage('page-lesson-d')"><div class="cg-thumb" style="padding:0;overflow:hidden;position:relative"><img src="https://images.unsplash.com/photo-1530026186672-2cd00ffc50fe?w=400&h=148&fit=crop" style="width:100%;height:100%;object-fit:cover;display:block"><span class="cg-cat s" data-i18n="cat-sci">العلوم</span></div><div class="cg-body"><div class="cg-title" data-i18n="course2-title">رحلة في أعماق الخلية الحية</div><div class="cg-teacher"><div class="cg-av" style="background:#27ae60">س</div><span class="cg-tname" data-i18n="course2-teacher">أ. سارة أحمد</span></div><div class="cg-meta"><span class="cg-rating"><svg class="lucide" viewBox="0 0 24 24" style="width:13px;height:13px;color:#f59e0b;vertical-align:-2px;fill:#f59e0b"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> 4.9</span><span>38 درس</span><span>٢٤٩ ر.س</span></div><button class="cg-btn">ابدأ الآن</button></div></div>
+        <div class="cg-card" onclick="showPage('page-lesson-d')"><div class="cg-thumb" style="padding:0;overflow:hidden;position:relative"><img src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=400&h=148&fit=crop" style="width:100%;height:100%;object-fit:cover;display:block"><span class="cg-cat l" data-i18n="cat-lang">اللغة العربية</span></div><div class="cg-body"><div class="cg-title" data-i18n="course3-title">جماليات الشعر الجاهلي</div><div class="cg-teacher"><div class="cg-av" style="background:#8e44ad">م</div><span class="cg-tname" data-i18n="course3-teacher">أ. محمود إبراهيم</span></div><div class="cg-meta"><span class="cg-rating"><svg class="lucide" viewBox="0 0 24 24" style="width:13px;height:13px;color:#f59e0b;vertical-align:-2px;fill:#f59e0b"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> 4.7</span><span>28 درس</span><span>١٩٩ ر.س</span></div><button class="cg-btn">ابدأ الآن</button></div></div>
+        <div class="cg-card" onclick="showPage('page-lesson-d')"><div class="cg-thumb" style="background:linear-gradient(135deg,#1a1a0a,#3a3a0d);font-size:56px"><svg class="lucide" viewBox="0 0 24 24" style="width:52px;height:52px;color:rgba(255,255,255,.9)"><path d="M9 3h6l1 9H8L9 3z"/><path d="M6.5 21a5.5 5.5 0 0 0 11 0"/><line x1="3" y1="21" x2="21" y2="21"/><path d="M9 12h6"/></svg><span class="cg-cat c" data-i18n="cat-chem">الكيمياء</span></div><div class="cg-body"><div class="cg-title" data-i18n="course4-title">مبادئ التفاعلات الكيميائية</div><div class="cg-teacher"><div class="cg-av" style="background:#d97706">ح</div><span class="cg-tname" data-i18n="course4-teacher">أ. حسن علي</span></div><div class="cg-meta"><span class="cg-rating"><svg class="lucide" viewBox="0 0 24 24" style="width:13px;height:13px;color:#f59e0b;vertical-align:-2px;fill:#f59e0b"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> 4.6</span><span>32 درس</span><span>٢٢٩ ر.س</span></div><button class="cg-btn">ابدأ الآن</button></div></div>
+        <div class="cg-card" onclick="showPage('page-lesson-d')"><div class="cg-thumb" style="background:linear-gradient(135deg,#0d2040,#153068);font-size:56px"><svg class="lucide" viewBox="0 0 24 24" style="width:52px;height:52px;color:rgba(255,255,255,.9)"><circle cx="12" cy="12" r="1"/><path d="M20.2 20.2c2.04-2.03.02-7.36-4.5-11.9-4.54-4.52-9.87-6.54-11.9-4.5-2.04 2.03-.02 7.36 4.5 11.9 4.54 4.52 9.87 6.54 11.9 4.5z"/><path d="M15.7 15.7c4.52-4.54 6.54-9.87 4.5-11.9-2.03-2.04-7.36-.02-11.9 4.5-4.52 4.54-6.54 9.87-4.5 11.9 2.03 2.04 7.36.02 11.9-4.5z"/></svg><span class="cg-cat m" data-i18n="cat-phys">الفيزياء</span></div><div class="cg-body"><div class="cg-title" data-i18n="course5-title">ميكانيكا الكم للمبتدئين</div><div class="cg-teacher"><div class="cg-av" style="background:#3b82f6">ف</div><span class="cg-tname" data-i18n="course5-teacher">أ. فيصل النجار</span></div><div class="cg-meta"><span class="cg-rating"><svg class="lucide" viewBox="0 0 24 24" style="width:13px;height:13px;color:#f59e0b;vertical-align:-2px;fill:#f59e0b"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> 4.9</span><span>50 درس</span><span>٣٤٩ ر.س</span></div><button class="cg-btn">ابدأ الآن</button></div></div>
+        <div class="cg-card" onclick="showPage('page-lesson-d')"><div class="cg-thumb" style="background:linear-gradient(135deg,#1a0f00,#3a2200);font-size:56px"><svg class="lucide" viewBox="0 0 24 24" style="width:52px;height:52px;color:rgba(255,255,255,.9)"><path d="M8 21h12a2 2 0 0 0 2-2v-2H10v2a2 2 0 1 1-4 0V5a2 2 0 1 0-4 0v3h4"/><path d="M19 17V5a2 2 0 0 0-2-2H4"/><path d="M15 8H10"/><path d="M15 12H10"/></svg><span class="cg-cat c" data-i18n="cat-hist">التاريخ</span></div><div class="cg-body"><div class="cg-title" data-i18n="course6-title">تاريخ الحضارة الإسلامية</div><div class="cg-teacher"><div class="cg-av" style="background:#b45309">ن</div><span class="cg-tname" data-i18n="course6-teacher">أ. نورة السالم</span></div><div class="cg-meta"><span class="cg-rating"><svg class="lucide" viewBox="0 0 24 24" style="width:13px;height:13px;color:#f59e0b;vertical-align:-2px;fill:#f59e0b"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> 4.8</span><span>40 درس</span><span>١٧٩ ر.س</span></div><button class="cg-btn">ابدأ الآن</button></div></div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- ======================================================== -->
+<!-- LESSON                                                    -->
+<!-- ======================================================== -->
+<div id="page-lesson-d" class="page">
+  <nav class="topbar">
+    <a class="topbar-logo" onclick="showPage('page-landing')" style="cursor:pointer"><span style="color:var(--orange)">On Fire</span></a>
+    <div class="topbar-search"><svg class="lucide" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg><input placeholder="ابحث عن دروس، معلمين، أو مواضيع..." data-i18n-ph="search-ph"></div>
+    <div class="topbar-left"><button class="t-lang"><svg class="lucide" viewBox="0 0 24 24" style="width:16px;height:16px;vertical-align:middle;margin-left:4px"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> EN</button><span class="t-notif"><svg class="lucide" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><span class="t-notif-dot"></span></span><div class="t-avatar" id="user-avatar-sync">أ</div><span id="user-name-sync" style="font-size:14px;font-weight:700;color:var(--navy);cursor:pointer;margin-right:4px"></span></div>
+  </nav>
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="sb-section">القائمة الرئيسية</div>
+      <div class="sb-item" onclick="setActive(this);showPage('page-dashboard')"><span class="sb-icon"><svg class="lucide lucide-lg" viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>لوحة التحكم</div>
+      <div class="sb-item" onclick="setActive(this);showPage('page-courses-d')"><span class="sb-icon"><svg class="lucide lucide-lg" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span><span data-i18n="sb-courses">تصفح الدورات</span><span class="sb-badge" id="sb-courses-badge">6</span></div>
+      <div class="sb-item active" onclick="setActive(this)"><span class="sb-icon"><svg class="lucide lucide-lg" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></span><span data-i18n="sb-mylessons">دروسي</span><span class="sb-badge">3</span></div>
+      <div class="sb-divider"></div>
+      <div class="sb-section" data-i18n="sb-account">الحساب</div>
+      <div class="sb-item" onclick="setActive(this);showPage('page-payment-d')"><span class="sb-icon"><svg class="lucide lucide-lg" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg></span><span data-i18n="sb-subscription">الاشتراك</span></div>
+      <div class="sb-item" onclick="setActive(this)"><span class="sb-icon"><svg class="lucide lucide-lg" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></span><span data-i18n="sb-notifications">الإشعارات</span></div>
+      <div class="sb-item" onclick="setActive(this)"><span class="sb-icon"><svg class="lucide lucide-lg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span>الإعدادات</div>
+    </aside>
+    <main class="main">
+      <div class="lesson-layout">
+        <!-- Left: video + info -->
+        <div>
+          <div class="video-wrap" id="lesson-video-wrap">
+            <video id="lesson-video-player" controls style="width:100%;height:100%;display:none;background:#000;position:absolute;inset:0;object-fit:contain"></video>
+            <div id="lesson-video-empty" style="text-align:center;color:#9aa5b8">
+              <div style="margin-bottom:10px;display:flex;justify-content:center"><svg class="lucide" viewBox="0 0 24 24" style="width:40px;height:40px;color:#9aa5b8"><path d="m22 8-6 4 6 4V8Z"/><rect x="2" y="6" width="14" height="12" rx="2"/></svg></div>
+              لا يوجد فيديو محدد بعد — اختر فيديو من "فيديوهاتي"
+            </div>
+          </div>
+
+          <div class="lesson-info">
+            <div class="lesson-crumb"><span class="lc-chip cat" id="lesson-subject-badge" data-i18n="cat-math">رياضيات</span><span class="lc-chip lvl">المستوى المتقدم</span></div>
+            <div class="lesson-title-big" id="lesson-title-dynamic" data-i18n="lesson-title">مقدمة في الجبر: المفاهيم الأساسية والمعادلات</div>
+            <div class="teacher-card-row">
+              <div class="tc-av">م</div>
+              <div><div class="tc-name" data-i18n="lesson-teacher-name">أ. محمد العتيبي</div><div class="tc-exp" data-i18n="lesson-teacher-exp">خبير في تعليم الرياضيات · 15 عام خبرة</div></div>
+            </div>
+            <div class="lesson-meta-row">
+              <div class="lm"><svg class="lucide" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span id="lesson-duration-dynamic">45 دقيقة</span></div>
+              <div class="lm"><svg class="lucide" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>مستوى متوسط</div>
+              <div class="lm star"><svg class="lucide" viewBox="0 0 24 24" style="color:#f59e0b"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>4.6 (120 تقييم)</div>
+            </div>
+          </div>
+
+          <div class="desc-block">
+            <h3 data-i18n="lesson-desc-title">وصف الدرس</h3>
+            <p id="lesson-desc-dynamic">في هذا الدرس، سنستكشف عالم الجبر المثير. سنبدأ بفهم المتغيرات وكيفية تمثيل الكميات غير المعروفة. سنتعرف على كيفية صياغة المعادلات الخطية البسيطة وحلها خطوة بخطوة. هذا الدرس هو حجر الزاوية لكل ما سيأتي في رحلتك مع الرياضيات المتقدمة.</p>
+          </div>
+
+          <div class="desc-block">
+            <h3 data-i18n="discussions-title">النقاشات والاستفسارات (24)</h3>
+            <div class="ask-area"><div class="ask-placeholder" data-i18n="ask-placeholder">لديك سؤال؟ اطرحه هنا...</div><button class="ask-btn" data-i18n="ask-btn">إرسال التعليق</button></div>
+            <div class="comment-list">
+              <div class="cm"><div class="cm-av" style="background:#3498db">أ</div><div class="cm-body"><div class="cm-meta"><span class="cm-name">أحمد خالد</span><span class="cm-time">منذ ساعتين</span></div><div class="cm-text">هل يمكننا استخدام الآلة الحاسبة في حل هذه النوعية من المعادلات في الاختبار النهائي؟</div></div></div>
+              <div class="cm"><div class="cm-av" style="background:var(--navy)">م</div><div class="cm-body"><div class="cm-meta"><span class="cm-name">أ. محمد العتيبي</span><span class="cm-badge">مدرس</span><span class="cm-time">منذ ساعة</span></div><div class="cm-text reply">أهلاً بك يا أحمد، نعم، مسموح بالآلة الحاسبة العلمية فقط، ولكن من الضروري إظهار خطوات الحل كاملة.</div></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right sidebar -->
+        <div class="lesson-sidebar">
+          <div class="card" id="playlist-card">
+            <div class="card-title">
+              <svg class="lucide" viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+              <span>قائمة الفيديوهات</span>
+              <span id="playlist-count" style="margin-right:auto;font-size:12px;color:var(--muted);font-weight:600"></span>
+            </div>
+            <div id="playlist-list" style="display:flex;flex-direction:column;gap:8px;max-height:340px;overflow-y:auto">
+              <div style="text-align:center;color:#aaa;font-size:13px;padding:20px 0">جاري تحميل القائمة...</div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-title"><svg class="lucide" viewBox="0 0 24 24"><path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg> <span data-i18n="attachments-title">المرفقات التعليمية</span></div>
+            <div class="ls-resource"><div class="ls-res-icon pdf"><svg class="lucide" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div><div><div class="ls-res-name" data-i18n="res1-name">ملخص الدرس.pdf</div><div class="ls-res-size">MB 2.4</div></div><div class="ls-dl"><svg class="lucide" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></div></div>
+            <div class="ls-resource"><div class="ls-res-icon doc"><svg class="lucide" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div><div><div class="ls-res-name" data-i18n="res2-name">تمارين إضافية.pdf</div><div class="ls-res-size">MB 1.1</div></div><div class="ls-dl"><svg class="lucide" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></div></div>
+          </div>
+          <div class="next-card">
+            <div class="next-label" data-i18n="next-lesson">الدرس التالي</div>
+            <div class="next-title-s" data-i18n="next-lesson-title">المتطابقات الجبرية والفرق بين مربعين</div>
+            <button class="next-btn" onclick="showPage('page-payment-d')" data-i18n="next-btn">بدء الدرس التالي →</button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- ======================================================== -->
+<!-- PAYMENT                                                   -->
+<!-- ======================================================== -->
+<div id="page-payment-d" class="page">
+  <nav class="topbar">
+    <a class="topbar-logo" onclick="showPage('page-landing')" style="cursor:pointer"><span style="color:var(--orange)">On Fire</span></a>
+    <div style="flex:1"></div>
+    <div class="topbar-left"><button class="t-lang"><svg class="lucide" viewBox="0 0 24 24" style="width:16px;height:16px;vertical-align:middle;margin-left:4px"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> EN</button><div class="t-avatar" id="user-avatar-sync">أ</div><span id="user-name-sync" style="font-size:14px;font-weight:700;color:var(--navy);cursor:pointer;margin-right:4px"></span></div>
+  </nav>
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="sb-section" data-i18n="sb-main">القائمة الرئيسية</div>
+      <div class="sb-item" onclick="setActive(this);showPage('page-dashboard')"><span class="sb-icon"><svg class="lucide lucide-lg" viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span><span data-i18n="sb-dashboard">لوحة التحكم</span></div>
+      <div class="sb-item" onclick="setActive(this);showPage('page-courses-d')"><span class="sb-icon"><svg class="lucide lucide-lg" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span><span data-i18n="sb-courses">تصفح الدورات</span><span class="sb-badge" id="sb-courses-badge">6</span></div>
+      <div class="sb-item" onclick="setActive(this);showPage('page-lesson-d')"><span class="sb-icon"><svg class="lucide lucide-lg" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></span><span data-i18n="sb-mylessons">دروسي</span><span class="sb-badge">3</span></div>
+      <div class="sb-divider"></div>
+      <div class="sb-section" data-i18n="sb-account">الحساب</div>
+      <div class="sb-item active" onclick="setActive(this)"><span class="sb-icon"><svg class="lucide lucide-lg" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg></span><span data-i18n="sb-subscription">الاشتراك</span></div>
+      <div class="sb-item" onclick="setActive(this)"><span class="sb-icon"><svg class="lucide lucide-lg" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></span><span data-i18n="sb-notifications">الإشعارات</span></div>
+      <div class="sb-item" onclick="setActive(this)"><span class="sb-icon"><svg class="lucide lucide-lg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span><span data-i18n="sb-settings">الإعدادات</span></div>
+    </aside>
+    <main class="main">
+      <div class="page-title" data-i18n="pay-title">صفحة الدفع</div>
+      <div class="page-subtitle" data-i18n="pay-subtitle">اشترك الآن وابدأ رحلتك التعليمية</div>
+      <div class="pay-layout">
+        <!-- Left: form -->
+        <div>
+          <div class="pay-card">
+            <div class="pay-card-title" data-i18n="pay-details">تفاصيل الاشتراك</div>
+            <div class="plan-box">
+              <div><div class="plan-name-big" data-i18n="plan-name">باقة التميز الأكاديمي</div><div class="plan-desc-s" data-i18n="plan-desc">وصول كامل لجميع المحاضرات والمصادر التعليمية</div></div>
+              <div class="plan-price-big" data-i18n="plan-price">٢٩٩ ر.س / سنوياً</div>
+            </div>
+            <div class="coupon-wrap">
+              <input class="coupon-in" placeholder="أدخل كود الخصم" data-i18n-ph="coupon-ph">
+              <button class="apply-btn-d" data-i18n="apply-btn">تطبيق</button>
+            </div>
+          </div>
+          <div class="pay-card">
+            <div class="pay-card-title" data-i18n="pay-method">طريقة الدفع</div>
+            <div class="pm-option sel" onclick="selPay(this)"><div class="pm-left-d"><span class="pm-ic"><svg class="lucide" viewBox="0 0 24 24" style="width:20px;height:20px"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg></span><span data-i18n="pay-mada">مدى (Mada)</span></div><div class="pm-radio-d on"></div></div>
+            <div class="pm-option" onclick="selPay(this)"><div class="pm-left-d"><span class="pm-ic"><svg class="lucide" viewBox="0 0 24 24" style="width:20px;height:20px"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg></span><span data-i18n="pay-visa">البطاقات البنكية (Visa/Mastercard)</span></div><div class="pm-radio-d"></div></div>
+            <div class="pm-option" onclick="selPay(this)"><div class="pm-left-d"><span class="pm-ic"><svg class="lucide" viewBox="0 0 24 24" style="width:20px;height:20px"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></span><span data-i18n="pay-apple">Apple Pay</span></div><div class="pm-radio-d"></div></div>
+          </div>
+        </div>
+        <!-- Right: summary -->
+        <div>
+          <div class="summary-card">
+            <div class="sum-title" data-i18n="sum-title">ملخص السعر</div>
+            <div class="sum-row"><span class="sl" data-i18n="sum-sub">المجموع الفرعي</span><span class="sv">٢٩٩.٠٠ ر.س</span></div>
+            <div class="sum-row"><span class="sl" data-i18n="sum-disc">الخصم</span><span class="disc">٠.٠٠ - ر.س</span></div>
+            <div class="sum-row"><span class="sl" data-i18n="sum-tax">ضريبة القيمة المضافة (١٥٪)</span><span class="sv">٤٤.٨٥ ر.س</span></div>
+            <div class="sum-divider"></div>
+            <div class="sum-total"><span class="tl" data-i18n="sum-total">الإجمالي</span><span class="tv">٣٤٣.٨٥ ر.س</span></div>
+            <div class="secure-row" data-i18n="pay-secure"><svg class="lucide" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> دفع آمن ومشفر ١٠٠٪</div>
+            <button class="pay-final-btn" onclick="showPage('page-success-d')" data-i18n="pay-btn">إتمام عملية الدفع</button>
+            <div class="privacy-s" data-i18n="pay-privacy">بالنقر على إتمام الدفع، فأنك توافق على <a href="#">شروط الخدمة</a> و<a href="#">سياسة الخصوصية</a></div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- ======================================================== -->
+<!-- SUCCESS                                                   -->
+<!-- ======================================================== -->
+<div id="page-success-d" class="page">
+  <nav class="topbar">
+    <a class="topbar-logo" onclick="showPage('page-landing')" style="cursor:pointer"><span style="color:var(--orange)">On Fire</span></a>
+  </nav>
+  <div style="padding-top:var(--topbar-h)" class="success-shell">
+    <div class="success-box">
+      <div class="suc-circle"><svg class="lucide" viewBox="0 0 24 24" style="width:44px;height:44px;color:white"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <div class="suc-title" data-i18n="suc-title">تم الاشتراك بنجاح!</div>
+      <div class="suc-desc" data-i18n="suc-desc">أهلاً بك في رحلة التعلم. يمكنك الآن البدء في تصفح دروسك المفضلة.</div>
+      <div class="order-box">
+        <div class="ob-header">
+          <div class="ob-icon"><svg class="lucide" viewBox="0 0 24 24" style="width:26px;height:26px;color:white"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
+          <div><div class="ob-label" data-i18n="suc-type">نوع الباقة</div><div class="ob-name" data-i18n="suc-plan">الباقة الكاملة</div></div>
+        </div>
+        <div class="ob-row"><div class="ob-key"><span><svg class="lucide" viewBox="0 0 24 24" style="width:15px;height:15px;vertical-align:-3px"><path d="M9 17H7A5 5 0 0 1 7 7h2"/><path d="M15 7h2a5 5 0 1 1 0 10h-2"/><line x1="8" y1="12" x2="16" y2="12"/></svg></span> <span data-i18n="suc-order">رقم الطلب</span></div><div class="ob-val">#123456</div></div>
+        <div class="ob-row"><div class="ob-key"><span><svg class="lucide" viewBox="0 0 24 24" style="width:15px;height:15px;vertical-align:-3px"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span> <span data-i18n="suc-date">التاريخ</span></div><div class="ob-val">٢٨ يونيو ٢٠٢٦</div></div>
+        <div class="ob-row"><div class="ob-key"><span><svg class="lucide" viewBox="0 0 24 24" style="width:15px;height:15px;vertical-align:-3px"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span> <span data-i18n="suc-status">الحالة</span></div><span class="status-chip" data-i18n="suc-done">مكتمل</span></div>
+      </div>
+      <div class="suc-btns">
+        <button class="btn-suc primary" onclick="showPage('page-dashboard')" data-i18n="suc-start">← ابدأ التعلم الآن</button>
+        <button class="btn-suc outline" data-i18n="suc-invoice"><svg class="lucide" viewBox="0 0 24 24" style="width:1em;height:1em;vertical-align:-3px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> تحميل الفاتورة</button>
+      </div>
+      <div class="support-note"><span data-i18n="suc-support">تواجه مشكلة؟</span> <a href="#" data-i18n="suc-contact">تواصل مع الدعم الفني</a></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ======================================================== -->
+<!-- LOGIN PAGE                                               -->
+<!-- ======================================================== -->
+<!-- ─── Upload Video Page ──────────────────────────────────── -->
+<div id="page-upload" class="page">
+  <style>
+    .up-shell{display:flex;padding-top:var(--topbar-h);min-height:100vh}
+    .up-main{flex:1;overflow-y:auto;background:#f4f6f9;margin-right:var(--sidebar-w);min-width:0}
+    .up-topbar2{background:white;border-bottom:1px solid var(--border);padding:0 32px;height:64px;display:flex;align-items:center;justify-content:space-between}
+    .up-topbar-title{font-size:18px;font-weight:900;color:var(--navy);display:flex;align-items:center;gap:10px}
+    .up-topbar-title svg{color:var(--orange)}
+    .up-topbar-actions{display:flex;gap:10px}
+    .up-btn-draft{padding:9px 20px;border:1.5px solid var(--border);background:white;border-radius:10px;font-size:14px;font-weight:700;font-family:inherit;color:var(--text);cursor:pointer}
+    .up-btn-publish{padding:9px 20px;background:var(--navy);color:white;border:none;border-radius:10px;font-size:14px;font-weight:700;font-family:inherit;cursor:pointer;transition:.2s}
+    .up-btn-publish:hover{background:var(--navy2)}
+    .up-btn-publish:disabled{opacity:.5;cursor:not-allowed}
+    .up-content{display:grid;grid-template-columns:1fr 340px;gap:24px;padding:28px 32px;max-width:1100px}
+    .up-card{background:white;border-radius:16px;padding:28px;box-shadow:0 1px 8px rgba(0,0,0,.06)}
+    .up-card-title{font-size:15px;font-weight:800;color:var(--navy);margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid #f0f2f5;display:flex;align-items:center;gap:8px}
+    .up-field{margin-bottom:20px}
+    .up-field:last-child{margin-bottom:0}
+    .up-label{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:7px;display:flex;align-items:center;gap:6px}
+    .up-label .req{color:var(--orange);font-size:15px}
+    .up-input{width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:14px;font-family:inherit;color:var(--text);outline:none;background:#fafafa;transition:border-color .2s;box-sizing:border-box}
+    .up-input:focus{border-color:var(--navy);background:white}
+    .up-input::placeholder{color:#b0b8c8}
+    .up-textarea{width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:14px;font-family:inherit;color:var(--text);outline:none;background:#fafafa;resize:vertical;min-height:110px;direction:rtl;transition:border-color .2s;box-sizing:border-box}
+    .up-textarea:focus{border-color:var(--navy);background:white}
+    /* Subject grid */
+    .up-subjects{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+    .up-subject-item{border:2px solid #e5e7eb;border-radius:12px;padding:12px 6px;text-align:center;cursor:pointer;transition:all .2s}
+    .up-subject-item:hover{border-color:var(--navy);background:#f0f4ff}
+    .up-subject-item.selected{border-color:var(--navy);background:var(--navy);color:white}
+    .up-subject-item.selected .up-sub-name{color:white}
+    .up-sub-emoji{font-size:22px}
+    .up-sub-name{font-size:11px;font-weight:700;margin-top:5px;color:#555}
+    /* Drop zones */
+    .up-dropzone{border:2px dashed #d1d5db;border-radius:14px;padding:36px 20px;text-align:center;cursor:pointer;transition:all .2s;background:#fafafa}
+    .up-dropzone:hover,.up-dropzone.drag-over{border-color:var(--navy);background:#f0f4ff}
+    .up-dropzone.has-file{border-color:#10b981;background:#f0fdf4;border-style:solid}
+    .up-dz-icon{font-size:36px;margin-bottom:10px}
+    .up-dz-text{font-size:14px;font-weight:700;color:#444}
+    .up-dz-sub{font-size:12px;color:#999;margin-top:4px}
+    .up-dz-filename{font-size:13px;font-weight:700;color:#10b981;margin-top:6px;word-break:break-all}
+    /* Thumb preview */
+    .up-thumb-preview{width:100%;height:160px;border-radius:10px;object-fit:cover;margin-top:10px;display:none}
+    /* Progress */
+    .up-progress-wrap{background:#f0f2f5;border-radius:99px;height:10px;overflow:hidden;margin-top:8px}
+    .up-progress-bar{height:10px;border-radius:99px;background:linear-gradient(90deg,var(--navy),var(--orange));width:0%;transition:width .3s}
+    /* Status badge */
+    .up-status{display:flex;align-items:center;gap:8px;padding:12px 16px;border-radius:10px;font-size:13px;font-weight:700;margin-top:16px;display:none}
+    .up-status.success{background:#f0fdf4;color:#16a34a;border:1px solid #bbf7d0}
+    .up-status.error{background:#fef2f2;color:#dc2626;border:1px solid #fecaca}
+    .up-status.loading{background:#eff6ff;color:var(--navy);border:1px solid #bfdbfe}
+    /* Info card right */
+    .up-info-box{background:#f8faff;border-radius:12px;padding:16px;margin-bottom:16px}
+    .up-info-box-title{font-size:13px;font-weight:800;color:var(--navy);margin-bottom:10px}
+    .up-info-row{display:flex;justify-content:space-between;align-items:center;font-size:13px;padding:7px 0;border-bottom:1px solid #eef0f5}
+    .up-info-row:last-child{border-bottom:none}
+    .up-info-key{color:#888;font-weight:600}
+    .up-info-val{color:var(--navy);font-weight:700}
+    .up-tips{font-size:12px;color:#888;line-height:1.8}
+    .up-tip{display:flex;align-items:flex-start;gap:6px;margin-bottom:6px}
+  </style>
+  <nav class="topbar">
+    <a class="topbar-logo" onclick="showPage('page-landing')" style="cursor:pointer"><span style="color:var(--orange)">On Fire</span></a>
+    <div class="topbar-search"><svg class="lucide" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input placeholder="ابحث عن دروس، معلمين، أو مواضيع..." data-i18n-ph="search-ph">
+    </div>
+    <div class="topbar-left">
+      <button class="t-lang"><svg class="lucide" viewBox="0 0 24 24" style="width:16px;height:16px;vertical-align:middle;margin-left:4px"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> EN</button>
+      <span class="t-notif"><svg class="lucide" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><span class="t-notif-dot"></span></span>
+      <div class="t-avatar" id="user-avatar-sync">أ</div>
+      <span id="user-name-sync" style="font-size:14px;font-weight:700;color:var(--navy);cursor:pointer;margin-right:4px"></span>
+    </div>
+  </nav>
+  <div class="up-shell">
+    <aside class="sidebar">
+      <div class="sb-section" data-i18n="sb-main">القائمة الرئيسية</div>
+      <div class="sb-item" onclick="setActive(this);showPage('page-dashboard')"><span class="sb-icon"><svg class="lucide lucide-lg" viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span><span data-i18n="sb-dashboard">لوحة التحكم</span></div>
+      <div class="sb-item" onclick="setActive(this);showPage('page-courses-d')"><span class="sb-icon"><svg class="lucide lucide-lg" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span><span data-i18n="sb-courses">تصفح الدورات</span><span class="sb-badge" id="sb-courses-badge">6</span></div>
+      <div class="sb-item active" onclick="setActive(this);showPage('page-upload')"><span class="sb-icon"><svg class="lucide lucide-lg" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></span>رفع فيديو</div>
+      <div class="sb-item" onclick="setActive(this);showPage('page-my-videos');loadVideos()"><span class="sb-icon"><svg class="lucide lucide-lg" viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg></span>فيديوهاتي</div>
+      <div class="sb-divider"></div>
+      <div class="sb-item" style="margin-top:auto" onclick="showPage('page-landing')"><span class="sb-icon"><svg class="lucide lucide-lg" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg></span><span data-i18n="sb-logout">تسجيل الخروج</span></div>
+    </aside>
+    <div class="up-main">
+      <!-- Page top bar -->
+      <div class="up-topbar2">
+        <div class="up-topbar-title">
+          <svg class="lucide" viewBox="0 0 24 24" style="width:22px;height:22px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          رفع فيديو جديد
+        </div>
+        <div class="up-topbar-actions">
+          <button class="up-btn-draft" onclick="resetUploadForm()">مسح الكل</button>
+          <button class="up-btn-publish" id="up-btn" onclick="handleUpload()">
+            <svg class="lucide" viewBox="0 0 24 24" style="width:15px;height:15px;vertical-align:middle;margin-left:6px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            رفع الفيديو
+          </button>
+        </div>
+      </div>
+
+      <!-- Main content grid -->
+      <div class="up-content">
+
+        <!-- Left: main form -->
+        <div>
+          <!-- Basic Info -->
+          <div class="up-card" style="margin-bottom:20px">
+            <div class="up-card-title">
+              <svg class="lucide" viewBox="0 0 24 24" style="width:17px;height:17px"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+              معلومات الفيديو
+            </div>
+            <div class="up-field">
+              <div class="up-label">عنوان الفيديو <span class="req">*</span></div>
+              <input class="up-input" id="up-title" type="text" placeholder="مثال: مقدمة في الجبر الخطي — الدرس الأول" oninput="updateInfoCard()">
+            </div>
+            <div class="up-field">
+              <div class="up-label">وصف الفيديو</div>
+              <textarea class="up-textarea" id="up-desc" placeholder="اكتب وصفاً للمحتوى ليساعد الطلاب على فهم ما سيتعلمونه..."></textarea>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+              <div class="up-field" style="margin-bottom:0">
+                <div class="up-label">مدة الفيديو</div>
+                <input class="up-input" id="up-duration" type="text" placeholder="مثال: 45:00" oninput="updateInfoCard()">
+              </div>
+              <div class="up-field" style="margin-bottom:0">
+                <div class="up-label">المستوى</div>
+                <select class="up-input" id="up-level" onchange="updateInfoCard()">
+                  <option value="">اختر المستوى</option>
+                  <option value="مبتدئ">مبتدئ</option>
+                  <option value="متوسط">متوسط</option>
+                  <option value="متقدم">متقدم</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Subject -->
+          <div class="up-card" style="margin-bottom:20px">
+            <div class="up-card-title">
+              <svg class="lucide" viewBox="0 0 24 24" style="width:17px;height:17px"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+              المادة الدراسية <span style="color:var(--orange);font-size:15px">*</span>
+            </div>
+            <div class="up-subjects" id="up-subject-grid">
+              <div class="up-subject-item" data-subject="رياضيات" data-color="#3b82f6" data-emoji="math" onclick="selectSubject(this)">
+                <div class="up-sub-emoji"><svg class="lucide" viewBox="0 0 24 24" style="width:22px;height:22px"><line x1="4" y1="9" x2="20" y2="9"/><line x1="4" y1="15" x2="20" y2="15"/><line x1="10" y1="3" x2="8" y2="21"/><line x1="16" y1="3" x2="14" y2="21"/></svg></div><div class="up-sub-name">رياضيات</div>
+              </div>
+              <div class="up-subject-item" data-subject="علوم" data-color="#10b981" data-emoji="science" onclick="selectSubject(this)">
+                <div class="up-sub-emoji"><svg class="lucide" viewBox="0 0 24 24" style="width:22px;height:22px"><path d="M9 3h6l1 9H8L9 3z"/><path d="M6.5 21a5.5 5.5 0 0 0 11 0"/><line x1="3" y1="21" x2="21" y2="21"/><path d="M9 12h6"/></svg></div><div class="up-sub-name">علوم</div>
+              </div>
+              <div class="up-subject-item" data-subject="لغة عربية" data-color="#f59e0b" data-emoji="arabic" onclick="selectSubject(this)">
+                <div class="up-sub-emoji"><svg class="lucide" viewBox="0 0 24 24" style="width:22px;height:22px"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div><div class="up-sub-name">عربية</div>
+              </div>
+              <div class="up-subject-item" data-subject="لغة إنجليزية" data-color="#8b5cf6" data-emoji="english" onclick="selectSubject(this)">
+                <div class="up-sub-emoji"><svg class="lucide" viewBox="0 0 24 24" style="width:22px;height:22px"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div><div class="up-sub-name">إنجليزية</div>
+              </div>
+              <div class="up-subject-item" data-subject="تاريخ" data-color="#ef4444" data-emoji="history" onclick="selectSubject(this)">
+                <div class="up-sub-emoji"><svg class="lucide" viewBox="0 0 24 24" style="width:22px;height:22px"><path d="M8 21h12a2 2 0 0 0 2-2v-2H10v2a2 2 0 1 1-4 0V5a2 2 0 1 0-4 0v3h4"/><path d="M19 17V5a2 2 0 0 0-2-2H4"/><path d="M15 8H10"/><path d="M15 12H10"/></svg></div><div class="up-sub-name">تاريخ</div>
+              </div>
+              <div class="up-subject-item" data-subject="كيمياء" data-color="#06b6d4" data-emoji="chemistry" onclick="selectSubject(this)">
+                <div class="up-sub-emoji"><svg class="lucide" viewBox="0 0 24 24" style="width:22px;height:22px"><path d="M9 3h6l1 9H8L9 3z"/><path d="M6.5 21a5.5 5.5 0 0 0 11 0"/><line x1="3" y1="21" x2="21" y2="21"/></svg></div><div class="up-sub-name">كيمياء</div>
+              </div>
+              <div class="up-subject-item" data-subject="فيزياء" data-color="#f97316" data-emoji="physics" onclick="selectSubject(this)">
+                <div class="up-sub-emoji"><svg class="lucide" viewBox="0 0 24 24" style="width:22px;height:22px"><circle cx="12" cy="12" r="1"/><path d="M20.2 20.2c2.04-2.03.02-7.36-4.5-11.9-4.54-4.52-9.87-6.54-11.9-4.5-2.04 2.03-.02 7.36 4.5 11.9 4.54 4.52 9.87 6.54 11.9 4.5z"/><path d="M15.7 15.7c4.52-4.54 6.54-9.87 4.5-11.9-2.03-2.04-7.36-.02-11.9 4.5-4.52 4.54-6.54 9.87-4.5 11.9 2.03 2.04 7.36.02 11.9-4.5z"/></svg></div><div class="up-sub-name">فيزياء</div>
+              </div>
+              <div class="up-subject-item" data-subject="أحياء" data-color="#22c55e" data-emoji="biology" onclick="selectSubject(this)">
+                <div class="up-sub-emoji"><svg class="lucide" viewBox="0 0 24 24" style="width:22px;height:22px"><path d="M4.93 4.93a10 10 0 1 0 14.14 14.14M4.93 4.93 19.07 19.07M4.93 4.93a10 10 0 0 1 14.14 0M19.07 19.07a10 10 0 0 1-14.14 0"/></svg></div><div class="up-sub-name">أحياء</div>
+              </div>
+              <div class="up-subject-item" data-subject="جغرافيا" data-color="#64748b" data-emoji="geography" onclick="selectSubject(this)">
+                <div class="up-sub-emoji"><svg class="lucide" viewBox="0 0 24 24" style="width:22px;height:22px"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div><div class="up-sub-name">جغرافيا</div>
+              </div>
+              <div class="up-subject-item" data-subject="دين" data-color="#a16207" data-emoji="religion" onclick="selectSubject(this)">
+                <div class="up-sub-emoji"><svg class="lucide" viewBox="0 0 24 24" style="width:22px;height:22px"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></div><div class="up-sub-name">دين</div>
+              </div>
+            </div>
+            <input type="hidden" id="up-subject" value="">
+            <input type="hidden" id="up-subject-color" value="">
+            <input type="hidden" id="up-subject-emoji" value="">
+          </div>
+
+          <!-- Video file -->
+          <div class="up-card" style="margin-bottom:20px">
+            <div class="up-card-title">
+              <svg class="lucide" viewBox="0 0 24 24" style="width:17px;height:17px"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+              ملف الفيديو <span style="color:var(--orange);font-size:15px">*</span>
+            </div>
+            <div class="up-dropzone" id="up-video-drop"
+              onclick="document.getElementById('up-video-input').click()"
+              ondragover="event.preventDefault();this.classList.add('drag-over')"
+              ondragleave="this.classList.remove('drag-over')"
+              ondrop="handleVideoDrop(event)">
+              <div class="up-dz-icon"><svg class="lucide" viewBox="0 0 24 24" style="width:36px;height:36px;color:var(--navy)"><path d="m22 8-6 4 6 4V8Z"/><rect x="2" y="6" width="14" height="12" rx="2"/></svg></div>
+              <div class="up-dz-text" id="up-video-name">اسحب الفيديو هنا أو اضغط للاختيار</div>
+              <div class="up-dz-sub">MP4 · MKV · AVI · MOV · WEBM — حتى 500MB</div>
+            </div>
+            <input type="file" id="up-video-input" accept="video/*" style="display:none" onchange="onVideoSelected(this)">
+          </div>
+
+          <!-- Thumbnail -->
+          <div class="up-card">
+            <div class="up-card-title">
+              <svg class="lucide" viewBox="0 0 24 24" style="width:17px;height:17px"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              الصورة المصغرة <span style="font-size:12px;color:#aaa;font-weight:500">(اختياري)</span>
+            </div>
+            <div class="up-dropzone" id="up-thumb-drop"
+              onclick="document.getElementById('up-thumb-input').click()"
+              ondragover="event.preventDefault();this.classList.add('drag-over')"
+              ondragleave="this.classList.remove('drag-over')"
+              ondrop="handleThumbDrop(event)">
+              <div class="up-dz-icon"><svg class="lucide" viewBox="0 0 24 24" style="width:36px;height:36px;color:var(--orange)"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
+              <div class="up-dz-text" id="up-thumb-name">اسحب الصورة هنا أو اضغط للاختيار</div>
+              <div class="up-dz-sub">JPG · PNG · WEBP — يُفضل 1280×720</div>
+            </div>
+            <input type="file" id="up-thumb-input" accept="image/*" style="display:none" onchange="onThumbSelected(this)">
+            <img id="up-thumb-preview" class="up-thumb-preview" alt="معاينة الصورة">
+          </div>
+        </div>
+
+        <!-- Right: status + info -->
+        <div>
+          <!-- Upload progress card -->
+          <div class="up-card" style="margin-bottom:20px">
+            <div class="up-card-title">
+              <svg class="lucide" viewBox="0 0 24 24" style="width:17px;height:17px"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+              حالة الرفع
+            </div>
+            <div id="up-progress" style="display:none">
+              <div style="display:flex;justify-content:space-between;font-size:13px;color:#555;margin-bottom:8px">
+                <span>جاري الرفع...</span><span id="up-percent" style="font-weight:800;color:var(--navy)">0%</span>
+              </div>
+              <div class="up-progress-wrap"><div id="up-bar" class="up-progress-bar"></div></div>
+              <div id="up-speed" style="font-size:12px;color:#aaa;margin-top:6px;text-align:center"></div>
+            </div>
+            <div id="up-msg" class="up-status"></div>
+            <div id="up-idle-msg" style="font-size:13px;color:#aaa;text-align:center;padding:16px 0">
+              <div style="margin-bottom:8px;display:flex;justify-content:center"><svg class="lucide" viewBox="0 0 24 24" style="width:28px;height:28px;color:#aaa"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div>
+              اختر الملفات واضغط "رفع الفيديو"
+            </div>
+          </div>
+
+          <!-- File info card -->
+          <div class="up-card" style="margin-bottom:20px">
+            <div class="up-card-title">
+              <svg class="lucide" viewBox="0 0 24 24" style="width:17px;height:17px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              تفاصيل الفيديو
+            </div>
+            <div class="up-info-box">
+              <div class="up-info-row"><span class="up-info-key">العنوان</span><span class="up-info-val" id="info-title" style="max-width:160px;text-align:left;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">—</span></div>
+              <div class="up-info-row"><span class="up-info-key">المادة</span><span class="up-info-val" id="info-subject">—</span></div>
+              <div class="up-info-row"><span class="up-info-key">المدة</span><span class="up-info-val" id="info-duration">—</span></div>
+              <div class="up-info-row"><span class="up-info-key">المستوى</span><span class="up-info-val" id="info-level">—</span></div>
+              <div class="up-info-row"><span class="up-info-key">حجم الملف</span><span class="up-info-val" id="info-size">—</span></div>
+            </div>
+          </div>
+
+          <!-- Tips -->
+          <div class="up-card">
+            <div class="up-card-title">
+              <svg class="lucide" viewBox="0 0 24 24" style="width:17px;height:17px"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              نصائح للرفع
+            </div>
+            <div class="up-tips">
+              <div class="up-tip"><span><svg class="lucide" viewBox="0 0 24 24" style="width:16px;height:16px;color:#16a34a"><polyline points="20 6 9 17 4 12"/></svg></span><span>أفضل صيغة للفيديو: <b>MP4 H.264</b></span></div>
+              <div class="up-tip"><span><svg class="lucide" viewBox="0 0 24 24" style="width:16px;height:16px;color:#16a34a"><polyline points="20 6 9 17 4 12"/></svg></span><span>جودة مُوصى بها: <b>1080p أو 720p</b></span></div>
+              <div class="up-tip"><span><svg class="lucide" viewBox="0 0 24 24" style="width:16px;height:16px;color:#16a34a"><polyline points="20 6 9 17 4 12"/></svg></span><span>الصورة المصغرة بنسبة <b>16:9</b> (1280×720)</span></div>
+              <div class="up-tip"><span><svg class="lucide" viewBox="0 0 24 24" style="width:16px;height:16px;color:#16a34a"><polyline points="20 6 9 17 4 12"/></svg></span><span>الحد الأقصى لحجم الفيديو: <b>500MB</b></span></div>
+              <div class="up-tip"><span><svg class="lucide" viewBox="0 0 24 24" style="width:16px;height:16px;color:#f59e0b"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span><span>تأكد من اتصال إنترنت مستقر أثناء الرفع</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── My Videos Page ─────────────────────────────────────── -->
+<div id="page-my-videos" class="page">
+  <nav class="topbar">
+    <a class="topbar-logo" onclick="showPage('page-landing')" style="cursor:pointer"><span style="color:var(--orange)">On Fire</span></a>
+    <div class="topbar-search"><svg class="lucide" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input placeholder="ابحث عن دروس، معلمين، أو مواضيع..." data-i18n-ph="search-ph">
+    </div>
+    <div class="topbar-left">
+      <button class="t-lang"><svg class="lucide" viewBox="0 0 24 24" style="width:16px;height:16px;vertical-align:middle;margin-left:4px"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> EN</button>
+      <span class="t-notif"><svg class="lucide" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><span class="t-notif-dot"></span></span>
+      <div class="t-avatar" id="user-avatar-sync">أ</div>
+      <span id="user-name-sync" style="font-size:14px;font-weight:700;color:var(--navy);cursor:pointer;margin-right:4px"></span>
+    </div>
+  </nav>
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="sb-section" data-i18n="sb-main">القائمة الرئيسية</div>
+      <div class="sb-item" onclick="setActive(this);showPage('page-dashboard')"><span class="sb-icon"><svg class="lucide lucide-lg" viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span><span data-i18n="sb-dashboard">لوحة التحكم</span></div>
+      <div class="sb-item" onclick="setActive(this);showPage('page-courses-d')"><span class="sb-icon"><svg class="lucide lucide-lg" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span><span data-i18n="sb-courses">تصفح الدورات</span><span class="sb-badge" id="sb-courses-badge">6</span></div>
+      <div class="sb-item" onclick="setActive(this);showPage('page-upload')"><span class="sb-icon"><svg class="lucide lucide-lg" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></span>رفع فيديو</div>
+      <div class="sb-item active" onclick="setActive(this);showPage('page-my-videos');loadVideos()"><span class="sb-icon"><svg class="lucide lucide-lg" viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg></span>فيديوهاتي</div>
+      <div class="sb-divider"></div>
+      <div class="sb-item" style="margin-top:auto" onclick="showPage('page-landing')"><span class="sb-icon"><svg class="lucide lucide-lg" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg></span><span data-i18n="sb-logout">تسجيل الخروج</span></div>
+    </aside>
+    <main class="main">
+      <div class="page-title" style="display:flex;align-items:center;gap:10px">فيديوهاتي <svg class="lucide" viewBox="0 0 24 24" style="width:22px;height:22px;color:var(--orange)"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg></div>
+      <div id="videos-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;margin-top:24px">
+        <div style="text-align:center;color:#888;padding:40px;grid-column:1/-1">جاري التحميل...</div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<div id="page-login" class="page">
+  <div class="login-page-shell">
+    <!-- Left: image side -->
+    <div class="login-image-side">
+      <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=900&h=1200&fit=crop" alt="تعلم مع أفضل المعلمين">
+      <div class="login-image-overlay">
+        <div class="login-overlay-logo"><span>On</span> Fire</div>
+        <div class="login-overlay-title" data-i18n="login-img-title">ابدأ رحلتك<br>التعليمية اليوم</div>
+        <div class="login-overlay-desc" data-i18n="login-img-desc">انضم إلى آلاف الطلاب الذين يطورون مهاراتهم يومياً مع أفضل المعلمين في العالم العربي.</div>
+        <div class="login-overlay-stats">
+          <div><div class="los-num">50,000+</div><div class="los-label" data-i18n="stat-students">طالب نشط</div></div>
+          <div><div class="los-num">1,200+</div><div class="los-label" data-i18n="stat-courses">دورة تعليمية</div></div>
+          <div><div class="los-num">4.9/5</div><div class="los-label" data-i18n="login-rating-label">تقييم الطلاب</div></div>
+        </div>
+      </div>
+    </div>
+    <!-- Right: form side -->
+    <div class="login-form-side">
+      <div class="login-form-inner">
+        <div class="login-tabs">
+          <button class="login-tab active" onclick="switchLoginTab(this,'tab-register')" data-i18n="login-tab-register">إنشاء حساب</button>
+          <button class="login-tab" onclick="switchLoginTab(this,'tab-login')" data-i18n="login-tab-signin">تسجيل الدخول</button>
+        </div>
+
+        <!-- Register Tab -->
+        <div id="tab-register">
+          <div class="login-h2" data-i18n="login-reg-title">إنشاء حساب</div>
+          <div class="login-sub" data-i18n="login-reg-sub">ابدأ رحلتك التعليمية في دقائق.</div>
+          <label class="login-label" data-i18n="login-name-label">الاسم الكامل</label>
+          <input class="login-input" id="reg-name" type="text" placeholder="أدخل اسمك الثلاثي">
+          <label class="login-label" data-i18n="login-email-label">البريد الإلكتروني</label>
+          <input class="login-input" id="reg-email" type="email" placeholder="email@example.com">
+          <label class="login-label" data-i18n="login-pass-label">كلمة المرور</label>
+          <input class="login-input" id="reg-password" type="password" placeholder="••••••••">
+          <div class="login-row" style="margin-bottom:22px">
+            <label class="login-check-wrap"><input type="checkbox" id="reg-terms"> <span data-i18n="login-terms">أوافق على <a href="#" style="color:var(--navy);margin-right:4px">شروط الاستخدام</a> و <a href="#" style="color:var(--navy);margin-right:4px">سياسة الخصوصية</a></span></label>
+          </div>
+          <div id="reg-error" style="color:#ef4444;font-size:13px;margin-bottom:10px;display:none;text-align:center"></div>
+          <button class="login-btn" id="reg-btn" onclick="handleRegister()" data-i18n="login-reg-btn">إنشاء حساب</button>
+          <div class="login-divider"><span data-i18n="login-or">أو سجّل بواسطة</span></div>
+          <button class="login-social-btn">
+            <img src="https://www.google.com/favicon.ico" width="18" height="18" alt="Google">
+            <span data-i18n="login-google">المتابعة مع Google</span>
+          </button>
+          <div class="login-footer-note"><span data-i18n="login-have-acc">لديك حساب بالفعل؟ <a href="#" onclick="switchToLogin()">سجل دخولك</a></span></div>
+        </div>
+
+        <!-- Login Tab -->
+        <div id="tab-login" style="display:none">
+          <div class="login-h2" data-i18n="login-signin-title">مرحباً بعودتك</div>
+          <div class="login-sub" data-i18n="login-signin-sub">سجّل دخولك لمتابعة رحلتك التعليمية.</div>
+          <label class="login-label" data-i18n="login-email-label">البريد الإلكتروني</label>
+          <input class="login-input" id="login-email" type="email" placeholder="email@example.com">
+          <label class="login-label" data-i18n="login-pass-label">كلمة المرور</label>
+          <input class="login-input" id="login-password" type="password" placeholder="••••••••">
+          <div class="login-row">
+            <label class="login-check-wrap"><input type="checkbox"> <span data-i18n="login-remember">تذكرني</span></label>
+            <a href="#" class="login-forgot" onclick="showForgotPopup()" data-i18n="login-forgot">نسيت كلمة المرور؟</a>
+          </div>
+          <div id="login-error" style="color:#ef4444;font-size:13px;margin-bottom:10px;display:none;text-align:center"></div>
+          <button class="login-btn" id="login-btn" onclick="handleLogin()" data-i18n="login-signin-btn">تسجيل الدخول</button>
+          <div class="login-divider"><span data-i18n="login-or">أو سجّل بواسطة</span></div>
+          <button class="login-social-btn">
+            <img src="https://www.google.com/favicon.ico" width="18" height="18" alt="Google">
+            <span data-i18n="login-google">المتابعة مع Google</span>
+          </button>
+          <div class="login-footer-note"><span data-i18n="login-no-acc">ليس لديك حساب؟ <a href="#" onclick="switchToRegister()">أنشئ حساباً</a></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ── Navigation ── */
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
+  if (id === 'page-lesson-d') {
+    const currentSrc = document.getElementById('lesson-video-player')?.src || '';
+    const currentFile = currentSrc.split('/uploads/')[1] || null;
+    loadPlaylist(currentFile);
+  }
+  if (id === 'page-courses-d') {
+    loadUploadedCoursesIntoGrid();
+  }
+}
+
+// ─── عرض الفيديوهات المرفوعة في صفحة "تصفح الدورات" — متاحة لأي مستخدم بأي إيميل ───
+async function loadUploadedCoursesIntoGrid() {
+  const grid = document.getElementById('uploaded-courses-grid');
+  if (!grid) return;
+  try {
+    const res = await fetch(`${API}/courses`);
+    const courses = await res.json();
+    loadedVideosCache = courses;
+
+    // تحديث رقم الـ badge جنب "تصفح الدورات" في كل السايدبارات
+    const totalCount = 6 + (courses ? courses.length : 0);
+    document.querySelectorAll('#sb-courses-badge').forEach(el => el.textContent = totalCount);
+
+    if (!courses || courses.length === 0) {
+      grid.innerHTML = '';
+      return;
+    }
+    grid.innerHTML = courses.map((c, idx) => {
+      const thumbHtml = c.thumbnail
+        ? `<img src="${API.replace('/api','')}/uploads/thumbnails/${c.thumbnail}" style="width:100%;height:100%;object-fit:cover;display:block">`
+        : `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:32px;color:white;background:${c.subject_color || '#1e3a5f'}">${subjectIcon(c.subject_emoji)}</div>`;
+      return `
+        <div class="cg-card" onclick="playVideo('${c.video_filename}','${(c.title||'').replace(/'/g,"\\'")}', loadedVideosCache[${idx}])">
+          <div class="cg-thumb" style="padding:0;overflow:hidden;position:relative">
+            ${thumbHtml}
+            ${c.subject ? `<span class="cg-cat m">${c.subject}</span>` : ''}
+          </div>
+          <div class="cg-body">
+            <div class="cg-title">${c.title}</div>
+            <div class="cg-teacher"><div class="cg-av" style="background:${c.subject_color || 'var(--navy)'};font-size:13px">${subjectIcon(c.subject_emoji)}</div><span class="cg-tname">${c.description ? c.description.slice(0,40) : 'فيديو تعليمي'}</span></div>
+            <div class="cg-meta"><span><svg class="lucide" viewBox="0 0 24 24" style="width:13px;height:13px;vertical-align:-2px"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg> ${c.views || 0} مشاهدة</span>${c.duration ? `<span>${c.duration}</span>` : ''}</div>
+            <button class="cg-btn">شاهد الآن</button>
+          </div>
+        </div>`;
+    }).join('');
+  } catch (e) {
+    grid.innerHTML = '';
+  }
+}
+function setActive(el){
+  el.closest('.sidebar').querySelectorAll('.sb-item').forEach(i=>i.classList.remove('active'));
+  el.classList.add('active');
+}
+function chipActive(el){
+  el.closest('.filters-row').querySelectorAll('.filter-chip').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');
+}
+function selPay(el){
+  el.closest('.pay-card').querySelectorAll('.pm-option').forEach(o=>{
+    o.classList.remove('sel');
+    o.querySelector('.pm-radio-d').classList.remove('on');
+    o.querySelector('.pm-radio-d').innerHTML='';
+  });
+  el.classList.add('sel');
+  const r=el.querySelector('.pm-radio-d');
+  r.classList.add('on');
+}
+
+/* ── Language System ── */
+const translations = {
+  ar: {
+    // Landing topbar
+    'nav-home':'الرئيسية','nav-courses':'الدورات','nav-teachers':'المعلمون','nav-contact':'اتصل بنا',
+    'btn-login':'تسجيل الدخول','btn-start':'ابدأ مجاناً',
+    // Hero
+    'hero-eyebrow':'<svg class="lucide" viewBox="0 0 24 24" style="width:16px;height:16px"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg> منصة تعليمية رائدة في العالم العربي',
+    'hero-h1':'مرحباً بك في <span>On Fire</span><br>رفيقك في رحلة النجاح',
+    'hero-p':'نحن هنا لتمكينك من الوصول إلى آفاق جديدة في مسيرتك التعليمية. اكتشف دروساً تفاعلية، وتابع تقدمك، وتواصل مع معلمين خبراء في بيئة تعليمية ذكية.',
+    'hero-btn-start':'← ابدأ رحلتك الآن','hero-btn-browse':'تصفح الدورات',
+    // Stats bar
+    'stat-students':'طالب نشط','stat-courses':'دورة تعليمية','stat-teachers':'معلم خبير',
+    // Courses section
+    'sec-eyebrow':'<svg class="lucide" viewBox="0 0 24 24" style="width:1em;height:1em;vertical-align:-2px"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg> دوراتنا المميزة','sec-title':'أكثر الدورات شعبية',
+    // Course cards
+    'course1-title':'الجبر المتقدم وحل المعادلات','course1-teacher':'محمد العتيبي',
+    'course2-title':'الفيزياء الحديثة والكهرومغناطيسية','course2-teacher':'سارة القحطاني',
+    'course3-title':'اللغة الإنجليزية للمحترفين','course3-teacher':'خالد الشمري',
+    'btn-subscribe':'اشترك الآن',
+    // Footer
+    'footer-rights':'© 2026 On Fire. جميع الحقوق محفوظة.',
+    // Sidebar
+    'sb-main':'القائمة الرئيسية','sb-dashboard':'لوحة التحكم','sb-courses':'تصفح الدورات',
+    'sb-mylessons':'دروسي','sb-account':'الحساب','sb-subscription':'الاشتراك',
+    'sb-notifications':'الإشعارات','sb-settings':'الإعدادات',
+    // Dashboard
+    'dash-title':'مرحباً، أحمد <svg class="lucide" viewBox="0 0 24 24" style="width:1em;height:1em;vertical-align:-3px"><path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0"/><path d="M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v2"/><path d="M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg>','dash-subtitle':'استمر في رحلتك التعليمية اليوم!',
+    'stat1-label':'دورة مسجلة','stat2-label':'درس مكتمل','stat3-label':'شهادة حاصل عليها','stat4-label':'ساعة تعلّم',
+    'ongoing-title':'دوراتي الجارية','activity-title':'النشاط الأخير',
+    // Payment
+    'pay-title':'صفحة الدفع','pay-subtitle':'اشترك الآن وابدأ رحلتك التعليمية',
+    'pay-details':'تفاصيل الاشتراك','plan-name':'باقة التميز الأكاديمي',
+    'plan-desc':'وصول كامل لجميع المحاضرات والمصادر التعليمية',
+    'plan-price':'٢٩٩ ر.س / سنوياً','coupon-ph':'أدخل كود الخصم','apply-btn':'تطبيق',
+    'pay-method':'طريقة الدفع','pay-mada':'مدى (Mada)',
+    'pay-visa':'البطاقات البنكية (Visa/Mastercard)','pay-apple':'Apple Pay',
+    'sum-title':'ملخص السعر','sum-sub':'المجموع الفرعي','sum-disc':'الخصم',
+    'sum-tax':'ضريبة القيمة المضافة (١٥٪)','sum-total':'الإجمالي',
+    'pay-secure':'<svg class="lucide" viewBox="0 0 24 24" style="width:1em;height:1em;vertical-align:-2px"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> دفع آمن ومشفر ١٠٠٪','pay-btn':'إتمام عملية الدفع',
+    // Success
+    'suc-title':'تم الاشتراك بنجاح!',
+    'suc-desc':'أهلاً بك في رحلة التعلم. يمكنك الآن البدء في تصفح دروسك المفضلة.',
+    'suc-type':'نوع الباقة','suc-plan':'الباقة الكاملة',
+    'suc-order':'رقم الطلب','suc-date':'التاريخ','suc-status':'الحالة','suc-done':'مكتمل',
+    'suc-start':'← ابدأ التعلم الآن','suc-invoice':'<svg class="lucide" viewBox="0 0 24 24" style="width:1em;height:1em;vertical-align:-3px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> تحميل الفاتورة',
+    'suc-support':'تواجه مشكلة؟','suc-contact':'تواصل مع الدعم الفني',
+    // Login page
+    'login-img-title':'ابدأ رحلتك<br>التعليمية اليوم',
+    'login-img-desc':'انضم إلى آلاف الطلاب الذين يطورون مهاراتهم يومياً مع أفضل المعلمين في العالم العربي.',
+    'login-rating-label':'تقييم الطلاب',
+    'login-tab-register':'إنشاء حساب','login-tab-signin':'تسجيل الدخول',
+    'login-reg-title':'إنشاء حساب','login-reg-sub':'ابدأ رحلتك التعليمية في دقائق.',
+    'login-name-label':'الاسم الكامل','login-email-label':'البريد الإلكتروني','login-pass-label':'كلمة المرور',
+    'login-terms':'أوافق على <a href="#" style="color:var(--navy);margin-right:4px">شروط الاستخدام</a> و <a href="#" style="color:var(--navy);margin-right:4px">سياسة الخصوصية</a>',
+    'login-reg-btn':'إنشاء حساب','login-or':'أو سجّل بواسطة',
+    'login-google':'المتابعة مع Google',
+    'login-have-acc':'لديك حساب بالفعل؟ <a href="#" onclick="switchToLogin()">سجل دخولك</a>',
+    'login-signin-title':'مرحباً بعودتك','login-signin-sub':'سجّل دخولك لمتابعة رحلتك التعليمية.',
+    'login-remember':'تذكرني','login-forgot':'نسيت كلمة المرور؟',
+    'login-signin-btn':'تسجيل الدخول',
+    'login-no-acc':'ليس لديك حساب؟ <a href="#" onclick="switchToRegister()">أنشئ حساباً</a>',
+  },
+  en: {
+    'nav-home':'Home','nav-courses':'Courses','nav-teachers':'Teachers','nav-contact':'Contact Us',
+    'btn-login':'Login','btn-start':'Sign Up',
+    'hero-eyebrow':'<svg class="lucide" viewBox="0 0 24 24" style="width:16px;height:16px"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg> Leading Educational Platform in the Arab World',
+    'hero-h1':'Welcome to <span>On Fire</span><br>Your Partner in Success',
+    'hero-p':'We are here to empower you to reach new horizons in your educational journey. Discover interactive lessons, track your progress, and connect with expert teachers in a smart learning environment.',
+    'hero-btn-start':'Start Your Journey →','hero-btn-browse':'Browse Courses',
+    'stat-students':'Active Students','stat-courses':'Courses','stat-teachers':'Expert Teachers',
+    'sec-eyebrow':'<svg class="lucide" viewBox="0 0 24 24" style="width:1em;height:1em;vertical-align:-2px"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg> Featured Courses','sec-title':'Most Popular Courses',
+    'course1-title':'Advanced Algebra & Equations','course1-teacher':'Mohammed Al-Otiabi',
+    'course2-title':'Modern Physics & Electromagnetism','course2-teacher':'Sarah Al-Qahtani',
+    'course3-title':'Professional English Language','course3-teacher':'Khaled Al-Shammari',
+    'btn-subscribe':'Subscribe Now',
+    'footer-rights':'© 2026 On Fire. All rights reserved.',
+    'sb-main':'MAIN MENU','sb-dashboard':'Dashboard','sb-courses':'Browse Courses',
+    'sb-mylessons':'My Lessons','sb-account':'ACCOUNT','sb-subscription':'Subscription',
+    'sb-notifications':'Notifications','sb-settings':'Settings',
+    'dash-title':'Welcome, Ahmed <svg class="lucide" viewBox="0 0 24 24" style="width:1em;height:1em;vertical-align:-3px"><path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0"/><path d="M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v2"/><path d="M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg>','dash-subtitle':'Continue your learning journey today!',
+    'stat1-label':'Enrolled Courses','stat2-label':'Completed Lessons','stat3-label':'Certificates','stat4-label':'Learning Hours',
+    'ongoing-title':'My Ongoing Courses','activity-title':'Recent Activity',
+    'pay-title':'Payment','pay-subtitle':'Subscribe now and start your learning journey',
+    'pay-details':'Subscription Details','plan-name':'Academic Excellence Package',
+    'plan-desc':'Full access to all lectures and educational resources',
+    'plan-price':'299 SAR / Year','coupon-ph':'Enter discount code','apply-btn':'Apply',
+    'pay-method':'Payment Method','pay-mada':'Mada',
+    'pay-visa':'Bank Cards (Visa/Mastercard)','pay-apple':'Apple Pay',
+    'sum-title':'Price Summary','sum-sub':'Subtotal','sum-disc':'Discount',
+    'sum-tax':'VAT (15%)','sum-total':'Total',
+    'pay-secure':'<svg class="lucide" viewBox="0 0 24 24" style="width:1em;height:1em;vertical-align:-2px"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> 100% Secure & Encrypted Payment','pay-btn':'Complete Payment',
+    'suc-title':'Subscription Successful!',
+    'suc-desc':'Welcome to your learning journey. You can now start browsing your favorite lessons.',
+    'suc-type':'Package Type','suc-plan':'Full Package',
+    'suc-order':'Order Number','suc-date':'Date','suc-status':'Status','suc-done':'Completed',
+    'suc-start':'Start Learning Now →','suc-invoice':'<svg class="lucide" viewBox="0 0 24 24" style="width:1em;height:1em;vertical-align:-3px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download Invoice',
+    'suc-support':'Having an issue?','suc-contact':'Contact Support',
+    // Login page
+    'login-img-title':'Start Your<br>Learning Journey Today',
+    'login-img-desc':'Join thousands of students who improve their skills daily with the best teachers in the Arab world.',
+    'login-rating-label':'Student Rating',
+    'login-tab-register':'Sign Up','login-tab-signin':'Sign In',
+    'login-reg-title':'Sign Up','login-reg-sub':'Start your learning journey in minutes.',
+    'login-name-label':'Full Name','login-email-label':'Email Address','login-pass-label':'Password',
+    'login-terms':'I agree to the <a href="#" style="color:var(--navy);margin-left:4px">Terms of Use</a> and <a href="#" style="color:var(--navy);margin-left:4px">Privacy Policy</a>',
+    'login-reg-btn':'Sign Up','login-or':'Or continue with',
+    'login-google':'Continue with Google',
+    'login-have-acc':'Already have an account? <a href="#" onclick="switchToLogin()">Sign in</a>',
+    'login-signin-title':'Welcome Back','login-signin-sub':'Sign in to continue your learning journey.',
+    'login-remember':'Remember me','login-forgot':'Forgot Password?',
+    'login-signin-btn':'Sign In',
+    'login-no-acc':'Don\'t have an account? <a href="#" onclick="switchToRegister()">Sign Up</a>',
+  }
+};
+
+
+function switchLoginTab(btn, tabId) {
+  document.querySelectorAll('.login-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('tab-register').style.display = tabId === 'tab-register' ? 'block' : 'none';
+  document.getElementById('tab-login').style.display = tabId === 'tab-login' ? 'block' : 'none';
+}
+function switchToLogin() {
+  const tabs = document.querySelectorAll('.login-tab');
+  tabs[1].click();
+}
+function switchToRegister() {
+  const tabs = document.querySelectorAll('.login-tab');
+  tabs[0].click();
+}
+
+let currentLang = 'ar';
+
+function toggleLang(){
+  currentLang = currentLang === 'ar' ? 'en' : 'ar';
+  applyLang();
+}
+
+function applyLang(){
+  const t = translations[currentLang];
+  const isAr = currentLang === 'ar';
+
+  // Direction & font
+  document.documentElement.lang = currentLang;
+  document.documentElement.dir = isAr ? 'rtl' : 'ltr';
+  document.body.style.direction = isAr ? 'rtl' : 'ltr';
+
+  // Sidebar borders flip
+  document.querySelectorAll('.sb-item').forEach(el=>{
+    el.style.borderRight = isAr ? '' : 'none';
+    el.style.borderLeft  = isAr ? 'none' : '3px solid transparent';
+  });
+  document.querySelectorAll('.sb-item.active').forEach(el=>{
+    el.style.borderRightColor = isAr ? 'var(--navy)' : 'transparent';
+    el.style.borderLeftColor  = isAr ? 'transparent' : 'var(--navy)';
+  });
+
+  // Update all lang buttons label
+  const globeSvg = '<svg class="lucide" viewBox="0 0 24 24" style="width:16px;height:16px;vertical-align:middle;margin-right:4px"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>';
+  document.querySelectorAll('.t-lang').forEach(btn=>{
+    btn.innerHTML = isAr ? (globeSvg + ' EN') : (globeSvg + ' عربي');
+  });
+
+  // Apply all keyed translations
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const key = el.dataset.i18n;
+    if(t[key] !== undefined) el.innerHTML = t[key];
+  });
+
+  // Update placeholders
+  document.querySelectorAll('[data-i18n-ph]').forEach(el=>{
+    const key = el.dataset.i18nPh;
+    if(t[key] !== undefined) el.placeholder = t[key];
+  });
+}
+
+const API_ROOT = window.location.origin;
+const API = `${API_ROOT}/api`;
+
+// ─── تسجيل مستخدم جديد ───────────────────────────────────────
+async function handleRegister() {
+  const full_name = document.getElementById('reg-name').value.trim();
+  const email     = document.getElementById('reg-email').value.trim();
+  const password  = document.getElementById('reg-password').value;
+  const terms     = document.getElementById('reg-terms').checked;
+  const errEl     = document.getElementById('reg-error');
+  const btn       = document.getElementById('reg-btn');
+
+  errEl.style.display = 'none';
+
+  if (!full_name || !email || !password) {
+    errEl.textContent = 'يرجى ملء جميع الحقول';
+    errEl.style.display = 'block'; return;
+  }
+  if (!terms) {
+    errEl.textContent = 'يرجى الموافقة على شروط الاستخدام';
+    errEl.style.display = 'block'; return;
+  }
+
+  btn.textContent = '...جاري التسجيل';
+  btn.disabled = true;
+
+  try {
+    const res  = await fetch(`${API}/register`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ full_name, email, password })
+    });
+    const data = await res.json();
+
+    if (!res.ok) {
+      errEl.textContent = data.message || 'حدث خطأ';
+      errEl.style.display = 'block';
+    } else {
+      // تم التسجيل — انتقل لتبويب تسجيل الدخول
+      switchToLogin();
+      document.getElementById('login-email').value = email;
+      document.getElementById('login-password').value = '';
+      const msgEl = document.getElementById('login-error');
+      msgEl.innerHTML = '<svg class="lucide" viewBox="0 0 24 24" style="width:14px;height:14px;vertical-align:-2px"><polyline points="20 6 9 17 4 12"/></svg> تم إنشاء الحساب! سجل دخولك الآن.';
+      msgEl.style.color = '#10b981';
+      msgEl.style.display = 'block';
+    }
+  } catch (e) {
+    errEl.textContent = 'تعذر الاتصال بالسيرفر';
+    errEl.style.display = 'block';
+  } finally {
+    btn.textContent = 'إنشاء حساب';
+    btn.disabled = false;
+  }
+}
+
+// ─── تسجيل الدخول ────────────────────────────────────────────
+async function handleLogin() {
+  const email    = document.getElementById('login-email').value.trim();
+  const password = document.getElementById('login-password').value;
+  const errEl    = document.getElementById('login-error');
+  const btn      = document.getElementById('login-btn');
+
+  errEl.style.display = 'none';
+
+  if (!email || !password) {
+    errEl.textContent = 'يرجى ملء جميع الحقول';
+    errEl.style.display = 'block'; return;
+  }
+
+  btn.textContent = '...جاري الدخول';
+  btn.disabled = true;
+
+  try {
+    const res  = await fetch(`${API}/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password })
+    });
+    const data = await res.json();
+
+    if (!res.ok) {
+      errEl.textContent = data.message || 'حدث خطأ';
+      errEl.style.display = 'block';
+    } else {
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('user', JSON.stringify(data.user));
+      // تحديث اسم المستخدم في الـ dashboard
+      const firstName = data.user.full_name.split(' ')[0];
+      const welcomeEl = document.getElementById('dash-welcome');
+      if (welcomeEl) welcomeEl.innerHTML = 'مرحباً، ' + firstName + ' <svg class="lucide" viewBox="0 0 24 24" style="width:1em;height:1em;vertical-align:-3px"><path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0"/><path d="M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v2"/><path d="M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg>';
+      // تحديث الأيقونة بأول حرف من الاسم
+      const avatarEl = document.getElementById('user-avatar');
+      if (avatarEl) avatarEl.textContent = data.user.full_name.charAt(0).toUpperCase();
+      // تحديث الاسم في الـ topbar
+      const nameEl = document.getElementById('user-name-topbar');
+      if (nameEl) nameEl.textContent = firstName;
+      // إظهار أو إخفاء زرار رفع الفيديو حسب الـ admin
+      const isAdmin = data.user.email === 'magdymichael523@gmail.com';
+      document.querySelectorAll('.admin-only').forEach(el => {
+        el.style.display = isAdmin ? '' : 'none';
+      });
+      showPage('page-dashboard');
+    }
+  } catch (e) {
+    errEl.textContent = 'تعذر الاتصال بالسيرفر';
+    errEl.style.display = 'block';
+  } finally {
+    btn.textContent = 'تسجيل الدخول';
+    btn.disabled = false;
+  }
+}
+
+document.addEventListener('DOMContentLoaded', ()=>{
+  document.querySelectorAll('.t-lang').forEach(btn=>{
+    btn.addEventListener('click', toggleLang);
+  });
+  // تحديث عدد الدورات في الـ badge عند تحميل الصفحة لأول مرة
+  fetch(`${API}/courses`)
+    .then(r => r.json())
+    .then(courses => {
+      const total = 6 + (courses ? courses.length : 0);
+      document.querySelectorAll('#sb-courses-badge').forEach(el => el.textContent = total);
+    })
+    .catch(()=>{});
+});
+
+// ─── Subject Icon Map (SVG instead of emoji) ───────────────────
+const subjectIconMap = {
+  math:      '<svg class="lucide" viewBox="0 0 24 24" style="width:1em;height:1em;vertical-align:-2px"><line x1="4" y1="9" x2="20" y2="9"/><line x1="4" y1="15" x2="20" y2="15"/><line x1="10" y1="3" x2="8" y2="21"/><line x1="16" y1="3" x2="14" y2="21"/></svg>',
+  science:   '<svg class="lucide" viewBox="0 0 24 24" style="width:1em;height:1em;vertical-align:-2px"><path d="M9 3h6l1 9H8L9 3z"/><path d="M6.5 21a5.5 5.5 0 0 0 11 0"/><line x1="3" y1="21" x2="21" y2="21"/><path d="M9 12h6"/></svg>',
+  arabic:    '<svg class="lucide" viewBox="0 0 24 24" style="width:1em;height:1em;vertical-align:-2px"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>',
+  english:   '<svg class="lucide" viewBox="0 0 24 24" style="width:1em;height:1em;vertical-align:-2px"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>',
+  history:   '<svg class="lucide" viewBox="0 0 24 24" style="width:1em;height:1em;vertical-align:-2px"><path d="M8 21h12a2 2 0 0 0 2-2v-2H10v2a2 2 0 1 1-4 0V5a2 2 0 1 0-4 0v3h4"/><path d="M19 17V5a2 2 0 0 0-2-2H4"/><path d="M15 8H10"/><path d="M15 12H10"/></svg>',
+  chemistry: '<svg class="lucide" viewBox="0 0 24 24" style="width:1em;height:1em;vertical-align:-2px"><path d="M9 3h6l1 9H8L9 3z"/><path d="M6.5 21a5.5 5.5 0 0 0 11 0"/><line x1="3" y1="21" x2="21" y2="21"/></svg>',
+  physics:   '<svg class="lucide" viewBox="0 0 24 24" style="width:1em;height:1em;vertical-align:-2px"><circle cx="12" cy="12" r="1"/><path d="M20.2 20.2c2.04-2.03.02-7.36-4.5-11.9-4.54-4.52-9.87-6.54-11.9-4.5-2.04 2.03-.02 7.36 4.5 11.9 4.54 4.52 9.87 6.54 11.9 4.5z"/><path d="M15.7 15.7c4.52-4.54 6.54-9.87 4.5-11.9-2.03-2.04-7.36-.02-11.9 4.5-4.52 4.54-6.54 9.87-4.5 11.9 2.03 2.04 7.36.02 11.9-4.5z"/></svg>',
+  biology:   '<svg class="lucide" viewBox="0 0 24 24" style="width:1em;height:1em;vertical-align:-2px"><path d="M4.93 4.93a10 10 0 1 0 14.14 14.14M4.93 4.93 19.07 19.07M4.93 4.93a10 10 0 0 1 14.14 0M19.07 19.07a10 10 0 0 1-14.14 0"/></svg>',
+  geography: '<svg class="lucide" viewBox="0 0 24 24" style="width:1em;height:1em;vertical-align:-2px"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>',
+  religion:  '<svg class="lucide" viewBox="0 0 24 24" style="width:1em;height:1em;vertical-align:-2px"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>'
+};
+const defaultVideoIcon = '<svg class="lucide" viewBox="0 0 24 24" style="width:1em;height:1em;vertical-align:-2px"><path d="m22 8-6 4 6 4V8Z"/><rect x="2" y="6" width="14" height="12" rx="2"/></svg>';
+function subjectIcon(key) {
+  return subjectIconMap[key] || defaultVideoIcon;
+}
+
+// ─── Select Subject ───────────────────────────────────────────
+function selectSubject(el) {
+  document.querySelectorAll('.up-subject-item').forEach(s => s.classList.remove('selected'));
+  el.classList.add('selected');
+  document.getElementById('up-subject').value = el.dataset.subject;
+  document.getElementById('up-subject-color').value = el.dataset.color;
+  document.getElementById('up-subject-emoji').value = el.dataset.emoji;
+  updateInfoCard();
+}
+
+// ─── Video file selected ───────────────────────────────────────
+function onVideoSelected(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const nameEl = document.getElementById('up-video-name');
+  const dropEl = document.getElementById('up-video-drop');
+  nameEl.innerHTML = '<div class="up-dz-filename"><svg class="lucide" viewBox="0 0 24 24" style="width:14px;height:14px;vertical-align:-2px"><polyline points="20 6 9 17 4 12"/></svg> ' + file.name + '</div>';
+  dropEl.classList.add('has-file');
+  const sizeMB = (file.size / (1024*1024)).toFixed(1);
+  const infoSize = document.getElementById('info-size');
+  if (infoSize) infoSize.textContent = sizeMB + ' MB';
+  updateInfoCard();
+}
+
+// ─── Thumbnail selected ─────────────────────────────────────────
+function onThumbSelected(input) {
+  const file = input.files[0];
+  if (!file) return;
+  document.getElementById('up-thumb-name').innerHTML = '<div class="up-dz-filename"><svg class="lucide" viewBox="0 0 24 24" style="width:14px;height:14px;vertical-align:-2px"><polyline points="20 6 9 17 4 12"/></svg> ' + file.name + '</div>';
+  document.getElementById('up-thumb-drop').classList.add('has-file');
+  const reader = new FileReader();
+  reader.onload = e => {
+    const img = document.getElementById('up-thumb-preview');
+    if (img) { img.src = e.target.result; img.style.display = 'block'; }
+  };
+  reader.readAsDataURL(file);
+}
+
+// ─── Drag & Drop ─────────────────────────────────────────────────
+function handleVideoDrop(e) {
+  e.preventDefault();
+  document.getElementById('up-video-drop').classList.remove('drag-over');
+  const file = e.dataTransfer.files[0];
+  if (!file || !file.type.startsWith('video/')) return;
+  const dt = new DataTransfer();
+  dt.items.add(file);
+  const input = document.getElementById('up-video-input');
+  input.files = dt.files;
+  onVideoSelected(input);
+}
+function handleThumbDrop(e) {
+  e.preventDefault();
+  document.getElementById('up-thumb-drop').classList.remove('drag-over');
+  const file = e.dataTransfer.files[0];
+  if (!file || !file.type.startsWith('image/')) return;
+  const dt = new DataTransfer();
+  dt.items.add(file);
+  const input = document.getElementById('up-thumb-input');
+  input.files = dt.files;
+  onThumbSelected(input);
+}
+
+// ─── Live info card ───────────────────────────────────────────
+function updateInfoCard() {
+  const get = id => document.getElementById(id)?.value || '—';
+  const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+  set('info-title', get('up-title'));
+  set('info-subject', get('up-subject'));
+  set('info-duration', get('up-duration'));
+  set('info-level', get('up-level'));
+}
+
+// ─── Reset form ───────────────────────────────────────────────
+function resetUploadForm() {
+  ['up-title','up-desc','up-duration','up-level','up-subject','up-subject-color','up-subject-emoji'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = '';
+  });
+  document.getElementById('up-video-input').value = '';
+  document.getElementById('up-thumb-input').value = '';
+  document.getElementById('up-video-name').innerHTML = 'اسحب الفيديو هنا أو اضغط للاختيار';
+  document.getElementById('up-thumb-name').innerHTML = 'اسحب الصورة هنا أو اضغط للاختيار';
+  document.getElementById('up-video-drop').classList.remove('has-file');
+  document.getElementById('up-thumb-drop').classList.remove('has-file');
+  const thumbPrev = document.getElementById('up-thumb-preview');
+  if (thumbPrev) thumbPrev.style.display = 'none';
+  document.querySelectorAll('.up-subject-item').forEach(e => e.classList.remove('selected'));
+  document.getElementById('up-progress').style.display = 'none';
+  document.getElementById('up-msg').style.display = 'none';
+  const idleMsg = document.getElementById('up-idle-msg');
+  if (idleMsg) idleMsg.style.display = 'block';
+  document.getElementById('up-bar').style.width = '0%';
+  updateInfoCard();
+  const infoSize = document.getElementById('info-size');
+  if (infoSize) infoSize.textContent = '—';
+}
+
+// ─── Upload Video ─────────────────────────────────────────────
+async function handleUpload() {
+  const title    = document.getElementById('up-title').value.trim();
+  const desc     = document.getElementById('up-desc').value.trim();
+  const duration = document.getElementById('up-duration').value.trim();
+  const subject  = document.getElementById('up-subject').value;
+  const subColor = document.getElementById('up-subject-color').value;
+  const subEmoji = document.getElementById('up-subject-emoji').value;
+  const videoFile = document.getElementById('up-video-input').files[0];
+  const thumbFile = document.getElementById('up-thumb-input').files[0];
+  const msgEl    = document.getElementById('up-msg');
+  const btn      = document.getElementById('up-btn');
+
+  msgEl.style.display = 'none';
+
+  if (!title) {
+    msgEl.className='up-status error'; msgEl.innerHTML='<svg class="lucide" viewBox="0 0 24 24" style="width:14px;height:14px;vertical-align:-2px"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> يرجى كتابة عنوان الفيديو'; msgEl.style.display='flex'; document.getElementById('up-idle-msg').style.display='none'; return;
+  }
+  if (!subject) {
+    msgEl.className='up-status error'; msgEl.innerHTML='<svg class="lucide" viewBox="0 0 24 24" style="width:14px;height:14px;vertical-align:-2px"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> يرجى اختيار المادة'; msgEl.style.display='flex'; document.getElementById('up-idle-msg').style.display='none'; return;
+  }
+  if (!videoFile) {
+    msgEl.className='up-status error'; msgEl.innerHTML='<svg class="lucide" viewBox="0 0 24 24" style="width:14px;height:14px;vertical-align:-2px"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> يرجى اختيار ملف فيديو'; msgEl.style.display='flex'; document.getElementById('up-idle-msg').style.display='none'; return;
+  }
+
+  const formData = new FormData();
+  formData.append('title', title);
+  formData.append('description', desc);
+  formData.append('duration', duration);
+  formData.append('subject', subject);
+  formData.append('subject_color', subColor);
+  formData.append('subject_emoji', subEmoji);
+  formData.append('video', videoFile);
+  if (thumbFile) formData.append('thumbnail', thumbFile);
+
+  btn.disabled = true;
+  btn.textContent = 'جاري الرفع...';
+  document.getElementById('up-progress').style.display = 'block';
+  document.getElementById('up-idle-msg').style.display = 'none';
+  document.getElementById('up-msg').style.display = 'none';
+  // Upload speed tracking
+  let startTime = Date.now(); let lastLoaded = 0;
+
+  const token = localStorage.getItem('token');
+  if (!token) {
+    msgEl.textContent = 'يجب تسجيل الدخول أولاً';
+    msgEl.style.color = '#ef4444';
+    msgEl.style.display = 'flex';
+    btn.disabled = false;
+    btn.innerHTML = '<svg class="lucide" viewBox="0 0 24 24" style="width:15px;height:15px;vertical-align:middle;margin-left:6px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg> رفع الفيديو';
+    return;
+  }
+
+  const xhr = new XMLHttpRequest();
+  xhr.open('POST', `${API}/courses/upload`);
+  xhr.setRequestHeader('Authorization', 'Bearer ' + token);
+
+  xhr.upload.onprogress = (e) => {
+    if (e.lengthComputable) {
+      const pct = Math.round((e.loaded / e.total) * 100);
+      document.getElementById('up-percent').textContent = pct + '%';
+      document.getElementById('up-bar').style.width = pct + '%';
+      const elapsed = (Date.now() - startTime) / 1000;
+      const speed = e.loaded / elapsed;
+      const speedKB = (speed / 1024).toFixed(0);
+      const remaining = ((e.total - e.loaded) / speed).toFixed(0);
+      document.getElementById('up-speed').textContent = speedKB + ' KB/s · متبقي ' + remaining + ' ث';
+    }
+  };
+
+  xhr.onload = () => {
+    let data = {};
+    try { data = JSON.parse(xhr.responseText); } catch(e) { data = { message: 'خطأ غير متوقع من السيرفر' }; }
+    if (xhr.status === 201) {
+      msgEl.className = 'up-status success';
+      msgEl.innerHTML = '<svg class="lucide" viewBox="0 0 24 24" style="width:14px;height:14px;vertical-align:-2px"><polyline points="20 6 9 17 4 12"/></svg> تم رفع الفيديو بنجاح!';
+      document.getElementById('up-title').value = '';
+      document.getElementById('up-desc').value = '';
+      document.getElementById('up-duration').value = '';
+      document.getElementById('up-video-input').value = '';
+      document.getElementById('up-thumb-input').value = '';
+      document.getElementById('up-video-name').textContent = 'اضغط لاختيار فيديو أو اسحبه هنا';
+      document.getElementById('up-thumb-name').textContent = 'اضغط لاختيار صورة';
+      document.getElementById('up-bar').style.width = '100%';
+      setTimeout(() => {
+        document.getElementById('up-progress').style.display = 'none';
+        document.getElementById('up-bar').style.width = '0%';
+        document.getElementById('up-percent').textContent = '0%';
+      }, 2000);
+    } else {
+      msgEl.className = 'up-status error';
+      msgEl.innerHTML = '<svg class="lucide" viewBox="0 0 24 24" style="width:14px;height:14px;vertical-align:-2px"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> ' + (data.message || 'حدث خطأ');
+    }
+    msgEl.style.display = 'flex';
+    btn.disabled = false;
+    btn.innerHTML = '<svg class="lucide" viewBox="0 0 24 24" style="width:15px;height:15px;vertical-align:middle;margin-left:6px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg> رفع الفيديو';
+  };
+
+  xhr.onerror = () => {
+    msgEl.textContent = 'تعذر الاتصال بالسيرفر — تأكد أن السيرفر شغال على المنفذ 3000';
+    msgEl.style.color = '#ef4444';
+    msgEl.style.display = 'flex';
+    btn.disabled = false;
+    btn.innerHTML = '<svg class="lucide" viewBox="0 0 24 24" style="width:15px;height:15px;vertical-align:middle;margin-left:6px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg> رفع الفيديو';
+  };
+
+  xhr.send(formData);
+}
+
+// ─── Load Videos ──────────────────────────────────────────────
+let loadedVideosCache = [];
+async function loadVideos() {
+  const grid = document.getElementById('videos-grid');
+  grid.innerHTML = '<div style="text-align:center;color:#888;padding:40px;grid-column:1/-1">جاري التحميل...</div>';
+  try {
+    const res  = await fetch(`${API}/courses`);
+    const data = await res.json();
+    loadedVideosCache = data;
+    if (data.length === 0) {
+      grid.innerHTML = '<div style="text-align:center;color:#888;padding:40px;grid-column:1/-1">لا توجد فيديوهات بعد</div>';
+      return;
+    }
+    grid.innerHTML = data.map((c, idx) => `
+      <div style="background:white;border-radius:14px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.06)">
+        <div style="position:relative;padding-top:56.25%;background:#1e3a5f;cursor:pointer" onclick="playVideo('${c.video_filename}','${(c.title||'').replace(/'/g,"\\'")}', loadedVideosCache[${idx}])">
+          ${c.thumbnail
+            ? `<img src="${API.replace('/api','')}/uploads/thumbnails/${c.thumbnail}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">`
+            : `<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:40px;color:white">${c.subject_emoji ? subjectIcon(c.subject_emoji) : '<svg class="lucide" viewBox="0 0 24 24" style="width:1em;height:1em"><polygon points="5 3 19 12 5 21 5 3"/></svg>'}</div>`
+          }
+          ${c.subject ? `<span style="position:absolute;top:8px;right:8px;background:${c.subject_color || '#1e3a5f'};color:white;padding:4px 10px;border-radius:8px;font-size:12px;font-weight:700;display:flex;align-items:center;gap:4px">${c.subject_emoji ? subjectIcon(c.subject_emoji) : ''} ${c.subject}</span>` : ''}
+          ${c.duration ? `<span style="position:absolute;bottom:8px;left:8px;background:rgba(0,0,0,.7);color:white;padding:2px 8px;border-radius:6px;font-size:12px">${c.duration}</span>` : ''}
+        </div>
+        <div style="padding:16px">
+          <div style="font-weight:700;font-size:15px;color:#1e3a5f;margin-bottom:6px">${c.title}</div>
+          <div style="font-size:12px;color:#888">${c.description || ''}</div>
+          <div style="font-size:12px;color:#aaa;margin-top:8px;display:flex;align-items:center;gap:4px"><svg class="lucide" viewBox="0 0 24 24" style="width:13px;height:13px"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg> ${c.views} مشاهدة</div>
+        </div>
+      </div>
+    `).join('');
+  } catch (e) {
+    grid.innerHTML = '<div style="text-align:center;color:#ef4444;padding:40px;grid-column:1/-1">خطأ في تحميل الفيديوهات</div>';
+  }
+}
+
+// ─── Play Video → Open Lesson Page ─────────────────────────────
+function playVideo(filename, title, course) {
+  // course param optional (full course object) for richer info
+  const player = document.getElementById('lesson-video-player');
+  const empty  = document.getElementById('lesson-video-empty');
+  if (player) {
+    player.src = `${API_ROOT}/uploads/${filename}`;
+    player.style.display = 'block';
+    player.load();
+    player.play().catch(()=>{});
+  }
+  if (empty) empty.style.display = 'none';
+  const titleEl = document.getElementById('lesson-title-dynamic');
+  if (titleEl) titleEl.textContent = title || titleEl.textContent;
+
+  if (course) {
+    const descEl = document.getElementById('lesson-desc-dynamic');
+    if (descEl) descEl.textContent = course.description || descEl.textContent;
+    const durEl = document.getElementById('lesson-duration-dynamic');
+    if (durEl) durEl.textContent = course.duration || durEl.textContent;
+    const subjBadge = document.getElementById('lesson-subject-badge');
+    if (subjBadge && course.subject) {
+      subjBadge.innerHTML = (course.subject_emoji ? subjectIcon(course.subject_emoji) + ' ' : '') + course.subject;
+      if (course.subject_color) subjBadge.style.background = course.subject_color;
+    }
+  }
+
+  showPage('page-lesson-d');
+  setActiveByPage('page-lesson-d');
+
+  // Track view
+  if (course && course.id) {
+    fetch(`${API}/courses/${course.id}/view`, { method: 'POST' }).catch(()=>{});
+  }
+
+  // Load / refresh playlist and highlight current video
+  loadPlaylist(filename);
+}
+
+// ─── Playlist in lesson page ───────────────────────────────────
+async function loadPlaylist(activeFilename) {
+  const listEl  = document.getElementById('playlist-list');
+  const countEl = document.getElementById('playlist-count');
+  if (!listEl) return;
+
+  let courses = loadedVideosCache;
+  if (!courses || courses.length === 0) {
+    try {
+      const res = await fetch(`${API}/courses`);
+      courses = await res.json();
+      loadedVideosCache = courses;
+    } catch (e) {
+      listEl.innerHTML = '<div style="text-align:center;color:#ef4444;font-size:13px;padding:20px 0">تعذر تحميل القائمة</div>';
+      return;
+    }
+  }
+
+  if (!courses || courses.length === 0) {
+    listEl.innerHTML = '<div style="text-align:center;color:#aaa;font-size:13px;padding:20px 0">لا توجد فيديوهات بعد</div>';
+    if (countEl) countEl.textContent = '';
+    return;
+  }
+
+  if (countEl) countEl.textContent = courses.length + ' فيديو';
+
+  listEl.innerHTML = courses.map((c, idx) => {
+    const isActive = activeFilename && c.video_filename === activeFilename;
+    const thumbHtml = c.thumbnail
+      ? `<img src="${API.replace('/api','')}/uploads/thumbnails/${c.thumbnail}">`
+      : subjectIcon(c.subject_emoji);
+    return `
+      <div class="pl-item${isActive ? ' active' : ''}" data-filename="${c.video_filename}"
+        onclick="playVideo('${c.video_filename}','${(c.title||'').replace(/'/g,"\\'")}', loadedVideosCache[${idx}])">
+        <div class="pl-num">${isActive ? '▶' : idx + 1}</div>
+        <div class="pl-thumb">${thumbHtml}${isActive ? '<div class="pl-playing">يُعرض الآن</div>' : ''}</div>
+        <div class="pl-info">
+          <div class="pl-title">${c.title}</div>
+          <div class="pl-meta">${c.duration ? '<span>'+c.duration+'</span>' : ''}${c.subject ? '<span>· '+c.subject+'</span>' : ''}</div>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+// Helper: highlight correct sidebar item when navigating programmatically
+function setActiveByPage(pageId) {
+  document.querySelectorAll('.sb-item').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll(`.sb-item[onclick*="${pageId}"]`).forEach(el => el.classList.add('active'));
+}
+
+// ─── Forgot Password ──────────────────────────────────────────
+function showForgotPopup() {
+  const overlay = document.getElementById('forgot-overlay');
+  overlay.style.display = 'flex';
+  document.getElementById('forgot-email').value = document.getElementById('login-email').value || '';
+  document.getElementById('forgot-newpass').value = '';
+  document.getElementById('forgot-confirmpass').value = '';
+  document.getElementById('forgot-msg').style.display = 'none';
+}
+
+function closeForgotPopup() {
+  document.getElementById('forgot-overlay').style.display = 'none';
+}
+
+async function handleForgotPassword() {
+  const email    = document.getElementById('forgot-email').value.trim();
+  const password = document.getElementById('forgot-newpass').value;
+  const confirm  = document.getElementById('forgot-confirmpass').value;
+  const msgEl    = document.getElementById('forgot-msg');
+
+  msgEl.style.display = 'none';
+
+  if (!email || !password) {
+    msgEl.textContent = 'يرجى ملء جميع الحقول';
+    msgEl.style.color = '#ef4444';
+    msgEl.style.display = 'block'; return;
+  }
+  if (password.length < 6) {
+    msgEl.textContent = 'كلمة المرور يجب أن تكون 6 أحرف على الأقل';
+    msgEl.style.color = '#ef4444';
+    msgEl.style.display = 'block'; return;
+  }
+  if (password !== confirm) {
+    msgEl.textContent = 'كلمتا المرور غير متطابقتين';
+    msgEl.style.color = '#ef4444';
+    msgEl.style.display = 'block'; return;
+  }
+
+  try {
+    const res  = await fetch(`${API}/reset-password`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password })
+    });
+    const data = await res.json();
+
+    if (!res.ok) {
+      msgEl.className = 'up-status error';
+      msgEl.innerHTML = '<svg class="lucide" viewBox="0 0 24 24" style="width:14px;height:14px;vertical-align:-2px"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> ' + (data.message || 'حدث خطأ');
+    } else {
+      msgEl.innerHTML = '<svg class="lucide" viewBox="0 0 24 24" style="width:14px;height:14px;vertical-align:-2px"><polyline points="20 6 9 17 4 12"/></svg> تم تغيير كلمة المرور بنجاح!';
+      msgEl.style.color = '#10b981';
+      setTimeout(() => closeForgotPopup(), 2000);
+    }
+    msgEl.style.display = 'block';
+  } catch (e) {
+    msgEl.textContent = 'تعذر الاتصال بالسيرفر';
+    msgEl.style.color = '#ef4444';
+    msgEl.style.display = 'block';
+  }
+}
+</script>
+<!-- ─── Forgot Password Popup ─────────────────────────────── -->
+<div id="forgot-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9999;align-items:center;justify-content:center">
+  <div style="background:white;border-radius:20px;padding:36px;width:90%;max-width:420px;direction:rtl;box-shadow:0 20px 60px rgba(0,0,0,.2)">
+    <div style="font-size:20px;font-weight:800;color:#1e3a5f;margin-bottom:6px">إعادة تعيين كلمة المرور</div>
+    <div style="font-size:13px;color:#888;margin-bottom:24px">أدخل بريدك الإلكتروني وكلمة المرور الجديدة</div>
+    <label class="login-label">البريد الإلكتروني</label>
+    <input class="login-input" id="forgot-email" type="email" placeholder="email@example.com">
+    <label class="login-label" style="margin-top:14px">كلمة المرور الجديدة</label>
+    <input class="login-input" id="forgot-newpass" type="password" placeholder="••••••••">
+    <label class="login-label" style="margin-top:14px">تأكيد كلمة المرور</label>
+    <input class="login-input" id="forgot-confirmpass" type="password" placeholder="••••••••">
+    <div id="forgot-msg" style="font-size:13px;margin:10px 0;text-align:center;display:none"></div>
+    <button onclick="handleForgotPassword()" style="width:100%;padding:14px;background:#1e3a5f;color:white;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;margin-top:8px">تغيير كلمة المرور</button>
+    <button onclick="closeForgotPopup()" style="width:100%;padding:12px;background:transparent;color:#888;border:none;font-size:14px;cursor:pointer;margin-top:8px">إلغاء</button>
+  </div>
+</div>
+
+</body>
+</html>
