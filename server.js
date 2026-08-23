@@ -5,39 +5,10 @@ const cors    = require('cors');
 const multer  = require('multer');
 const path    = require('path');
 const fs      = require('fs');
-const crypto  = require('crypto');
 if (process.env.NODE_ENV !== 'production') require('dotenv').config();
 
 const db  = require('./db');
 const app = express();
-
-const resendApiKey = process.env.RESEND_API_KEY;
-const resendFrom = process.env.RESEND_FROM;
-
-const appBaseUrl = (process.env.APP_BASE_URL || `http://localhost:${process.env.PORT || 3000}`).replace(/\/$/, '');
-
-async function sendVerificationEmail({ email, fullName, token }) {
-  if (!resendApiKey || !resendFrom) throw new Error('إعدادات Resend غير موجودة في Railway');
-  const verifyUrl = `${appBaseUrl}/api/verify-email?token=${encodeURIComponent(token)}`;
-  const response = await fetch('https://api.resend.com/emails', {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${resendApiKey}`,
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      from: resendFrom,
-      to: [email],
-      subject: 'تفعيل حسابك في On Fire',
-      text: `مرحبًا ${fullName}، افتح الرابط التالي لتفعيل حسابك: ${verifyUrl}`,
-      html: `<div dir="rtl" style="font-family:Arial,sans-serif;line-height:1.8"><h2>مرحبًا ${fullName}</h2><p>اضغط على الزر التالي لتفعيل حسابك في On Fire:</p><p><a href="${verifyUrl}" style="display:inline-block;padding:12px 22px;background:#1e3a5f;color:#fff;text-decoration:none;border-radius:6px">تفعيل الحساب</a></p><p>الرابط صالح لمدة 24 ساعة.</p></div>`
-    })
-  });
-  if (!response.ok) {
-    const details = await response.text();
-    throw new Error(`Resend ${response.status}: ${details}`);
-  }
-}
 
 // ─── مجلدات الرفع ────────────────────────────────────────────
 const uploadsDir = path.join(__dirname, 'uploads');
@@ -106,64 +77,26 @@ app.post('/api/register', async (req, res) => {
   if (password.length < 6)
     return res.status(400).json({ message: 'كلمة المرور يجب أن تكون 6 أحرف على الأقل' });
 
-  if (!resendApiKey || !resendFrom)
-    return res.status(503).json({ message: 'خدمة البريد غير مهيأة بعد في Railway' });
-
   try {
     const [existing] = await db.query('SELECT id FROM users WHERE email = ?', [email]);
     if (existing.length > 0)
       return res.status(409).json({ message: 'البريد الإلكتروني مسجل مسبقاً' });
 
     const hashed = await bcrypt.hash(password, 10);
-    const verificationToken = crypto.randomBytes(32).toString('hex');
-    const verificationHash = crypto.createHash('sha256').update(verificationToken).digest('hex');
-    const verificationExpires = new Date(Date.now() + 24 * 60 * 60 * 1000);
-
     const [result] = await db.query(
-      'INSERT INTO users (full_name, email, password, email_verified, verification_token_hash, verification_expires_at) VALUES (?, ?, ?, 0, ?, ?)',
-      [full_name, email, hashed, verificationHash, verificationExpires]
+      'INSERT INTO users (full_name, email, password) VALUES (?, ?, ?)',
+      [full_name, email, hashed]
     );
-
-    try {
-      await sendVerificationEmail({ email, fullName: full_name, token: verificationToken });
-    } catch (mailErr) {
-      await db.query('DELETE FROM users WHERE id = ?', [result.insertId]);
-      throw mailErr;
-    }
 
     console.log('✅ User created:', result.insertId);
     res.status(201).json({
-      message: 'تم إنشاء الحساب. تحقق من بريدك الإلكتروني واضغط رابط التفعيل.',
+      message: 'تم إنشاء الحساب بنجاح. يمكنك تسجيل الدخول الآن.',
       user: { id: result.insertId, full_name, email }
     });
 
   } catch (err) {
     console.error('❌ Register Error:', err.code, err.message, err.sqlMessage);
     res.status(500).json({ message: 'خطأ في السيرفر: ' + (err.sqlMessage || err.message) });
-  }
-});
-
-// ─── تفعيل البريد الإلكتروني ────────────────────────────────
-app.get('/api/verify-email', async (req, res) => {
-  const { token } = req.query;
-  if (!token) return res.status(400).send('رابط التفعيل غير صالح');
-
-  try {
-    const hash = crypto.createHash('sha256').update(token).digest('hex');
-    const [rows] = await db.query(
-      'SELECT id FROM users WHERE verification_token_hash = ? AND verification_expires_at > NOW() AND email_verified = 0',
-      [hash]
-    );
-    if (rows.length === 0) return res.status(400).send('رابط التفعيل غير صالح أو منتهي الصلاحية');
-
-    await db.query(
-      'UPDATE users SET email_verified = 1, verification_token_hash = NULL, verification_expires_at = NULL WHERE id = ?',
-      [rows[0].id]
-    );
-    res.send('<div dir="rtl" style="font-family:Arial;text-align:center;margin:80px auto;max-width:560px"><h1>تم تفعيل الحساب بنجاح</h1><p>يمكنك الآن العودة إلى الموقع وتسجيل الدخول.</p></div>');
-  } catch (err) {
-    console.error('❌ Verification Error:', err.message);
-    res.status(500).send('حدث خطأ أثناء تفعيل الحساب');
   }
 });
 
@@ -181,8 +114,6 @@ app.post('/api/login', async (req, res) => {
       return res.status(401).json({ message: 'البريد الإلكتروني أو كلمة المرور غير صحيحة' });
 
     const user = rows[0];
-    if (!user.email_verified)
-      return res.status(403).json({ message: 'يرجى تفعيل بريدك الإلكتروني أولًا' });
     const match = await bcrypt.compare(password, user.password);
     if (!match)
       return res.status(401).json({ message: 'البريد الإلكتروني أو كلمة المرور غير صحيحة' });

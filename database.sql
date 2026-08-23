@@ -9,9 +9,6 @@ CREATE TABLE IF NOT EXISTS users (
   full_name VARCHAR(100) NOT NULL,
   email VARCHAR(150) NOT NULL UNIQUE,
   password VARCHAR(255) NOT NULL,
-  email_verified TINYINT(1) NOT NULL DEFAULT 0,
-  verification_token_hash CHAR(64),
-  verification_expires_at DATETIME,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
