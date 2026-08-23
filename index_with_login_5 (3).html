@@ -177,7 +177,7 @@ body{font-family:'Tajawal',sans-serif;background:var(--cream);color:var(--text);
 .cg-body{padding:16px}
 .cg-title{font-size:15px;font-weight:800;color:var(--navy);margin-bottom:8px;line-height:1.4}
 .cg-teacher{display:flex;align-items:center;gap:8px;margin-bottom:12px}
-.cg-av{width:26px;height:26px;border-radius:50%;color:white;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
+.cg-av{display:none}
 .cg-tname{font-size:12px;color:var(--muted)}
 .cg-meta{display:flex;align-items:center;justify-content:space-between;font-size:12px;color:var(--muted)}
 .cg-rating{color:#f59e0b;font-weight:700}
@@ -772,7 +772,7 @@ body{font-family:'Tajawal',sans-serif;background:var(--cream);color:var(--text);
             <div class="lesson-title-big" id="lesson-title-dynamic" data-i18n="lesson-title">مقدمة في الجبر: المفاهيم الأساسية والمعادلات</div>
             <div class="teacher-card-row">
               <div class="tc-av">م</div>
-              <div><div class="tc-name" data-i18n="lesson-teacher-name">أ. محمد الكتاني</div><div class="tc-exp" data-i18n="lesson-teacher-exp">خبير في تعليم الرياضيات · 15 عام خبرة</div></div>
+              <div><div class="tc-name" id="lesson-teacher-name" data-i18n="lesson-teacher-name">أ. محمد الكتاني</div><div class="tc-exp" data-i18n="lesson-teacher-exp">خبير في تعليم الرياضيات · 15 عام خبرة</div></div>
             </div>
             <div class="lesson-meta-row">
               <div class="lm"><svg class="lucide" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span id="lesson-duration-dynamic">45 دقيقة</span></div>
@@ -1035,6 +1035,16 @@ body{font-family:'Tajawal',sans-serif;background:var(--cream);color:var(--text);
             <div class="up-field">
               <div class="up-label">عنوان الفيديو <span class="req">*</span></div>
               <input class="up-input" id="up-title" type="text" placeholder="مثال: مقدمة في الجبر الخطي — الدرس الأول" oninput="updateInfoCard()">
+            </div>
+            <div class="up-field">
+              <div class="up-label">اسم المدرس <span class="req">*</span></div>
+              <select class="up-input" id="up-teacher">
+                <option value="">اختر المدرس</option>
+                <option value="بيتر رضا">بيتر رضا — علوم</option>
+                <option value="سلمى جمعة">سلمى جمعة — إنجليزي</option>
+                <option value="علاء الجالي">علاء الجالي — فلسفة</option>
+                <option value="إبراهيم الدوسري">إبراهيم الدوسري — تاريخ</option>
+              </select>
             </div>
             <div class="up-field">
               <div class="up-label">وصف الفيديو</div>
@@ -1349,7 +1359,7 @@ async function loadUploadedCoursesIntoGrid() {
           </div>
           <div class="cg-body">
             <div class="cg-title">${c.title}</div>
-            <div class="cg-teacher"><div class="cg-av" style="background:${c.subject_color || 'var(--navy)'};font-size:13px">${subjectIcon(c.subject_emoji)}</div><span class="cg-tname">${c.description ? c.description.slice(0,40) : 'فيديو تعليمي'}</span></div>
+            <div class="cg-teacher"><span class="cg-tname">${c.teacher_name ? 'أ. ' + c.teacher_name : 'اسم المدرس غير محدد'}</span></div>
             <div class="cg-meta"><span><svg class="lucide" viewBox="0 0 24 24" style="width:13px;height:13px;vertical-align:-2px"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg> ${c.views || 0} مشاهدة</span>${c.duration ? `<span>${c.duration}</span>` : ''}</div>
             <button class="cg-btn">شاهد الآن</button>
           </div>
@@ -1786,7 +1796,7 @@ function updateInfoCard() {
 
 // ─── Reset form ───────────────────────────────────────────────
 function resetUploadForm() {
-  ['up-title','up-desc','up-duration','up-level','up-subject','up-subject-color','up-subject-emoji'].forEach(id => {
+  ['up-title','up-teacher','up-desc','up-duration','up-level','up-subject','up-subject-color','up-subject-emoji'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.value = '';
   });
@@ -1812,6 +1822,7 @@ function resetUploadForm() {
 // ─── Upload Video ─────────────────────────────────────────────
 async function handleUpload() {
   const title    = document.getElementById('up-title').value.trim();
+  const teacher  = document.getElementById('up-teacher').value;
   const desc     = document.getElementById('up-desc').value.trim();
   const duration = document.getElementById('up-duration').value.trim();
   const subject  = document.getElementById('up-subject').value;
@@ -1830,12 +1841,16 @@ async function handleUpload() {
   if (!subject) {
     msgEl.className='up-status error'; msgEl.innerHTML='<svg class="lucide" viewBox="0 0 24 24" style="width:14px;height:14px;vertical-align:-2px"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> يرجى اختيار المادة'; msgEl.style.display='flex'; document.getElementById('up-idle-msg').style.display='none'; return;
   }
+  if (!teacher) {
+    msgEl.className='up-status error'; msgEl.innerHTML='<svg class="lucide" viewBox="0 0 24 24" style="width:14px;height:14px;vertical-align:-2px"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> يرجى اختيار اسم المدرس'; msgEl.style.display='flex'; document.getElementById('up-idle-msg').style.display='none'; return;
+  }
   if (!videoFile) {
     msgEl.className='up-status error'; msgEl.innerHTML='<svg class="lucide" viewBox="0 0 24 24" style="width:14px;height:14px;vertical-align:-2px"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> يرجى اختيار ملف فيديو'; msgEl.style.display='flex'; document.getElementById('up-idle-msg').style.display='none'; return;
   }
 
   const formData = new FormData();
   formData.append('title', title);
+  formData.append('teacher_name', teacher);
   formData.append('description', desc);
   formData.append('duration', duration);
   formData.append('subject', subject);
@@ -1945,7 +1960,7 @@ async function loadVideos() {
         </div>
         <div style="padding:16px">
           <div style="font-weight:700;font-size:15px;color:#1e3a5f;margin-bottom:6px">${c.title}</div>
-          <div style="font-size:12px;color:#888">${c.instructor_name ? 'المدرس: ' + c.instructor_name : (c.description || '')}</div>
+          <div style="font-size:12px;color:#888">${c.teacher_name ? 'المدرس: ' + c.teacher_name : 'اسم المدرس غير محدد'}</div>
           <div style="font-size:12px;color:#aaa;margin-top:8px;display:flex;align-items:center;gap:4px"><svg class="lucide" viewBox="0 0 24 24" style="width:13px;height:13px"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg> ${c.views} مشاهدة</div>
         </div>
       </div>
@@ -1973,6 +1988,8 @@ function playVideo(filename, title, course) {
   if (course) {
     const descEl = document.getElementById('lesson-desc-dynamic');
     if (descEl) descEl.textContent = course.description || descEl.textContent;
+    const teacherEl = document.getElementById('lesson-teacher-name');
+    if (teacherEl && course.teacher_name) teacherEl.textContent = 'أ. ' + course.teacher_name;
     const durEl = document.getElementById('lesson-duration-dynamic');
     if (durEl) durEl.textContent = course.duration || durEl.textContent;
     const subjBadge = document.getElementById('lesson-subject-badge');
@@ -2032,7 +2049,7 @@ async function loadPlaylist(activeFilename) {
         <div class="pl-thumb">${thumbHtml}${isActive ? '<div class="pl-playing">يُعرض الآن</div>' : ''}</div>
         <div class="pl-info">
           <div class="pl-title">${c.title}</div>
-          <div class="pl-meta">${c.duration ? '<span>'+c.duration+'</span>' : ''}${c.subject ? '<span>· '+c.subject+'</span>' : ''}</div>
+          <div class="pl-meta">${c.teacher_name ? '<span>أ. '+c.teacher_name+'</span>' : ''}${c.duration ? '<span> · '+c.duration+'</span>' : ''}${c.subject ? '<span> · '+c.subject+'</span>' : ''}</div>
         </div>
       </div>`;
   }).join('');

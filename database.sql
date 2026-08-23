@@ -17,6 +17,7 @@ CREATE TABLE IF NOT EXISTS courses (
   id INT AUTO_INCREMENT PRIMARY KEY,
   title VARCHAR(200) NOT NULL,
   description TEXT,
+  teacher_name VARCHAR(150),
   video_filename VARCHAR(255) NOT NULL,
   thumbnail VARCHAR(255),
   subject VARCHAR(100),

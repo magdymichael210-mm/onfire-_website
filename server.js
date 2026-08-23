@@ -212,7 +212,7 @@ app.post('/api/courses/upload', verifyToken, requireAdmin, (req, res, next) => {
   });
 }, async (req, res) => {
   try {
-    const { title, description, duration, subject, subject_color, subject_emoji } = req.body;
+    const { title, description, teacher_name, duration, subject, subject_color, subject_emoji } = req.body;
     const videoFile = req.files?.['video']?.[0];
     const thumbFile = req.files?.['thumbnail']?.[0];
 
@@ -222,10 +222,12 @@ app.post('/api/courses/upload', verifyToken, requireAdmin, (req, res, next) => {
       return res.status(400).json({ message: 'ملف الفيديو مطلوب' });
     if (!subject)
       return res.status(400).json({ message: 'يرجى اختيار المادة' });
+    if (!teacher_name || !teacher_name.trim())
+      return res.status(400).json({ message: 'يرجى اختيار اسم المدرس' });
 
     const [result] = await db.query(
-      'INSERT INTO courses (title, description, video_filename, thumbnail, duration, subject, subject_color, subject_emoji, instructor_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
-      [title.trim(), description?.trim() || '', videoFile.filename, thumbFile?.filename || null, duration?.trim() || '', subject, subject_color || '#1a2b4a', subject_emoji || '📚', req.user.id]
+      'INSERT INTO courses (title, description, teacher_name, video_filename, thumbnail, duration, subject, subject_color, subject_emoji, instructor_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+      [title.trim(), description?.trim() || '', teacher_name.trim(), videoFile.filename, thumbFile?.filename || null, duration?.trim() || '', subject, subject_color || '#1a2b4a', subject_emoji || '📚', req.user.id]
     );
 
     console.log('✅ Video uploaded:', videoFile.filename, 'by user:', req.user.id);
@@ -243,7 +245,7 @@ app.post('/api/courses/upload', verifyToken, requireAdmin, (req, res, next) => {
 app.get('/api/courses', async (req, res) => {
   try {
     const [rows] = await db.query(
-      `SELECT c.id, c.title, c.description, c.video_filename, c.thumbnail, c.duration,
+      `SELECT c.id, c.title, c.description, c.teacher_name, c.video_filename, c.thumbnail, c.duration,
               c.subject, c.subject_color, c.subject_emoji, c.views, c.created_at,
               u.full_name AS instructor_name
        FROM courses c LEFT JOIN users u ON u.id = c.instructor_id
@@ -258,7 +260,7 @@ app.get('/api/courses', async (req, res) => {
 app.get('/api/courses/mine', verifyToken, requireAdmin, async (req, res) => {
   try {
     const [rows] = await db.query(
-      `SELECT c.id, c.title, c.description, c.video_filename, c.thumbnail, c.duration,
+      `SELECT c.id, c.title, c.description, c.teacher_name, c.video_filename, c.thumbnail, c.duration,
               c.subject, c.subject_color, c.subject_emoji, c.views, c.created_at,
               u.full_name AS instructor_name
        FROM courses c LEFT JOIN users u ON u.id = c.instructor_id
