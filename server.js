@@ -12,10 +12,10 @@ if (process.env.NODE_ENV !== 'production') require('dotenv').config();
 const db  = require('./db');
 const app = express();
 
-const mailer = process.env.SMTP_USER && process.env.SMTP_PASS
+const mailer = process.env.SMTP_USER && process.env.GMAIL_APP_PASSWORD
   ? nodemailer.createTransport({
       service: 'gmail',
-      auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS }
+      auth: { user: process.env.SMTP_USER, pass: process.env.GMAIL_APP_PASSWORD }
     })
   : null;
 
