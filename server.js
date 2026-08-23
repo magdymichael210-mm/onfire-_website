@@ -10,6 +10,12 @@ if (process.env.NODE_ENV !== 'production') require('dotenv').config();
 const db  = require('./db');
 const app = express();
 
+const adminEmails = new Set(
+  [process.env.ADMIN_EMAIL, ...(process.env.ADMIN_EMAILS || '').split(',')]
+    .map(email => String(email || '').trim().toLowerCase())
+    .filter(Boolean)
+);
+
 // ─── مجلدات الرفع ────────────────────────────────────────────
 const uploadsDir = path.join(__dirname, 'uploads');
 const thumbsDir  = path.join(__dirname, 'uploads', 'thumbnails');
@@ -176,8 +182,21 @@ function verifyToken(req, res, next) {
   }
 }
 
+function requireAdmin(req, res, next) {
+  if (!adminEmails.has(String(req.user?.email || '').trim().toLowerCase())) {
+    return res.status(403).json({ message: 'رفع الفيديو متاح لحساب الإدارة فقط' });
+  }
+  next();
+}
+
+app.get('/api/auth/can-upload', verifyToken, (req, res) => {
+  res.json({
+    canUpload: adminEmails.has(String(req.user?.email || '').trim().toLowerCase())
+  });
+});
+
 // ─── رفع فيديو ───────────────────────────────────────────────
-app.post('/api/courses/upload', verifyToken, (req, res, next) => {
+app.post('/api/courses/upload', verifyToken, requireAdmin, (req, res, next) => {
   upload.fields([
     { name: 'video', maxCount: 1 },
     { name: 'thumbnail', maxCount: 1 }
@@ -205,8 +224,8 @@ app.post('/api/courses/upload', verifyToken, (req, res, next) => {
       return res.status(400).json({ message: 'يرجى اختيار المادة' });
 
     const [result] = await db.query(
-      'INSERT INTO courses (title, description, video_filename, thumbnail, duration, subject, subject_color, subject_emoji) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-      [title.trim(), description?.trim() || '', videoFile.filename, thumbFile?.filename || null, duration?.trim() || '', subject, subject_color || '#1a2b4a', subject_emoji || '📚']
+      'INSERT INTO courses (title, description, video_filename, thumbnail, duration, subject, subject_color, subject_emoji, instructor_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+      [title.trim(), description?.trim() || '', videoFile.filename, thumbFile?.filename || null, duration?.trim() || '', subject, subject_color || '#1a2b4a', subject_emoji || '📚', req.user.id]
     );
 
     console.log('✅ Video uploaded:', videoFile.filename, 'by user:', req.user.id);
@@ -224,11 +243,31 @@ app.post('/api/courses/upload', verifyToken, (req, res, next) => {
 app.get('/api/courses', async (req, res) => {
   try {
     const [rows] = await db.query(
-      'SELECT id, title, description, video_filename, thumbnail, duration, subject, subject_color, subject_emoji, views, created_at FROM courses ORDER BY created_at DESC'
+      `SELECT c.id, c.title, c.description, c.video_filename, c.thumbnail, c.duration,
+              c.subject, c.subject_color, c.subject_emoji, c.views, c.created_at,
+              u.full_name AS instructor_name
+       FROM courses c LEFT JOIN users u ON u.id = c.instructor_id
+       ORDER BY c.created_at DESC`
     );
     res.json(rows);
   } catch (err) {
     res.status(500).json({ message: 'خطأ في جلب الكورسات' });
+  }
+});
+
+app.get('/api/courses/mine', verifyToken, requireAdmin, async (req, res) => {
+  try {
+    const [rows] = await db.query(
+      `SELECT c.id, c.title, c.description, c.video_filename, c.thumbnail, c.duration,
+              c.subject, c.subject_color, c.subject_emoji, c.views, c.created_at,
+              u.full_name AS instructor_name
+       FROM courses c LEFT JOIN users u ON u.id = c.instructor_id
+       WHERE c.instructor_id = ? ORDER BY c.created_at DESC`,
+      [req.user.id]
+    );
+    res.json(rows);
+  } catch (err) {
+    res.status(500).json({ message: 'خطأ في جلب فيديوهات الإدارة' });
   }
 });
 
