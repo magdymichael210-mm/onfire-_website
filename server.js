@@ -14,7 +14,13 @@ const app = express();
 
 const mailer = process.env.SMTP_USER && process.env.GMAIL_APP_PASSWORD
   ? nodemailer.createTransport({
-      service: 'gmail',
+      host: 'smtp.gmail.com',
+      port: 587,
+      secure: false,
+      requireTLS: true,
+      connectionTimeout: 30000,
+      greetingTimeout: 30000,
+      socketTimeout: 30000,
       auth: { user: process.env.SMTP_USER, pass: process.env.GMAIL_APP_PASSWORD }
     })
   : null;
