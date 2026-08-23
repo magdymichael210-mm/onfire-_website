@@ -19,13 +19,16 @@ const adminEmails = new Set(
 // ─── مجلدات الرفع ────────────────────────────────────────────
 const uploadsDir = path.join(__dirname, 'uploads');
 const thumbsDir  = path.join(__dirname, 'uploads', 'thumbnails');
+const attachmentsDir = path.join(__dirname, 'uploads', 'attachments');
 if (!fs.existsSync(uploadsDir)) fs.mkdirSync(uploadsDir);
 if (!fs.existsSync(thumbsDir))  fs.mkdirSync(thumbsDir);
+if (!fs.existsSync(attachmentsDir)) fs.mkdirSync(attachmentsDir, { recursive: true });
 
 // ─── Multer Config ────────────────────────────────────────────
 const videoStorage = multer.diskStorage({
   destination: (req, file, cb) => {
     if (file.fieldname === 'thumbnail') cb(null, thumbsDir);
+    else if (file.fieldname === 'attachments') cb(null, attachmentsDir);
     else cb(null, uploadsDir);
   },
   filename: (req, file, cb) => {
@@ -36,7 +39,6 @@ const videoStorage = multer.diskStorage({
 
 const upload = multer({
   storage: videoStorage,
-  limits: { fileSize: 2 * 1024 * 1024 * 1024 }, // 2GB
   fileFilter: (req, file, cb) => {
     if (file.fieldname === 'video') {
       const allowed = /\.(mp4|mkv|avi|mov|webm)$/i;
@@ -46,10 +48,15 @@ const upload = multer({
       const allowed = /\.(jpg|jpeg|png|webp)$/i;
       if (allowed.test(path.extname(file.originalname))) cb(null, true);
       else cb(new Error('نوع الصورة غير مدعوم — المسموح: jpg, png, webp'));
+    } else if (file.fieldname === 'attachments') {
+      const allowed = /\.(pdf|doc|docx|ppt|pptx|xls|xlsx|zip|jpg|jpeg|png|webp|txt)$/i;
+      if (allowed.test(path.extname(file.originalname))) cb(null, true);
+      else cb(new Error('نوع المرفق غير مدعوم'));
     } else {
       cb(null, false);
     }
-  }
+  },
+  limits: { fileSize: 2 * 1024 * 1024 * 1024, files: 22 }
 });
 
 app.use(cors());
@@ -199,7 +206,8 @@ app.get('/api/auth/can-upload', verifyToken, (req, res) => {
 app.post('/api/courses/upload', verifyToken, requireAdmin, (req, res, next) => {
   upload.fields([
     { name: 'video', maxCount: 1 },
-    { name: 'thumbnail', maxCount: 1 }
+    { name: 'thumbnail', maxCount: 1 },
+    { name: 'attachments', maxCount: 20 }
   ])(req, res, (err) => {
     if (err instanceof multer.MulterError) {
       if (err.code === 'LIMIT_FILE_SIZE')
@@ -215,6 +223,7 @@ app.post('/api/courses/upload', verifyToken, requireAdmin, (req, res, next) => {
     const { title, description, teacher_name, duration, subject, subject_color, subject_emoji } = req.body;
     const videoFile = req.files?.['video']?.[0];
     const thumbFile = req.files?.['thumbnail']?.[0];
+    const attachmentFiles = req.files?.['attachments'] || [];
 
     if (!title || !title.trim())
       return res.status(400).json({ message: 'عنوان الفيديو مطلوب' });
@@ -230,6 +239,21 @@ app.post('/api/courses/upload', verifyToken, requireAdmin, (req, res, next) => {
       [title.trim(), description?.trim() || '', teacher_name.trim(), videoFile.filename, thumbFile?.filename || null, duration?.trim() || '', subject, subject_color || '#1a2b4a', subject_emoji || '📚', req.user.id]
     );
 
+    if (attachmentFiles.length > 0) {
+      await db.query(
+        `INSERT INTO course_attachments
+          (course_id, original_name, stored_name, mime_type, file_size)
+         VALUES ?`,
+        [attachmentFiles.map(file => [
+          result.insertId,
+          file.originalname,
+          file.filename,
+          file.mimetype || null,
+          file.size || 0
+        ])]
+      );
+    }
+
     console.log('✅ Video uploaded:', videoFile.filename, 'by user:', req.user.id);
     res.status(201).json({
       message: 'تم رفع الفيديو بنجاح',
@@ -238,6 +262,83 @@ app.post('/api/courses/upload', verifyToken, requireAdmin, (req, res, next) => {
   } catch (err) {
     console.error('❌ Upload Error:', err.message);
     res.status(500).json({ message: 'خطأ في قاعدة البيانات: ' + err.message });
+  }
+});
+
+// ─── مرفقات الفيديو ─────────────────────────────────────────
+app.get('/api/courses/:id/attachments', async (req, res) => {
+  try {
+    const [rows] = await db.query(
+      `SELECT id, original_name, stored_name, mime_type, file_size, created_at
+       FROM course_attachments WHERE course_id = ? ORDER BY id ASC`,
+      [req.params.id]
+    );
+    res.json(rows.map(file => ({
+      ...file,
+      url: `/uploads/attachments/${encodeURIComponent(file.stored_name)}`
+    })));
+  } catch (err) {
+    res.status(500).json({ message: 'خطأ في جلب المرفقات' });
+  }
+});
+
+// ─── التعليقات ───────────────────────────────────────────────
+app.get('/api/courses/:id/comments', async (req, res) => {
+  try {
+    const [rows] = await db.query(
+      `SELECT c.id, c.body, c.author_name, c.user_id, c.created_at,
+              u.email AS author_email
+       FROM comments c LEFT JOIN users u ON u.id = c.user_id
+       WHERE c.course_id = ? ORDER BY c.created_at ASC, c.id ASC`,
+      [req.params.id]
+    );
+    res.json(rows);
+  } catch (err) {
+    res.status(500).json({ message: 'خطأ في جلب التعليقات' });
+  }
+});
+
+app.post('/api/courses/:id/comments', verifyToken, async (req, res) => {
+  const body = String(req.body?.body || '').trim();
+  if (!body) return res.status(400).json({ message: 'اكتب التعليق أولاً' });
+  if (body.length > 2000) return res.status(400).json({ message: 'التعليق طويل جداً' });
+
+  try {
+    const [users] = await db.query('SELECT full_name, email FROM users WHERE id = ?', [req.user.id]);
+    if (!users.length) return res.status(401).json({ message: 'المستخدم غير موجود' });
+    const author = users[0];
+    const [result] = await db.query(
+      'INSERT INTO comments (course_id, user_id, author_name, body) VALUES (?, ?, ?, ?)',
+      [req.params.id, req.user.id, author.full_name, body]
+    );
+    res.status(201).json({
+      id: result.insertId,
+      body,
+      author_name: author.full_name,
+      user_id: req.user.id,
+      author_email: author.email,
+      created_at: new Date().toISOString()
+    });
+  } catch (err) {
+    res.status(500).json({ message: 'خطأ في إضافة التعليق' });
+  }
+});
+
+app.delete('/api/comments/:id', verifyToken, async (req, res) => {
+  try {
+    const [rows] = await db.query(
+      `SELECT c.user_id, u.email AS author_email
+       FROM comments c LEFT JOIN users u ON u.id = c.user_id WHERE c.id = ?`,
+      [req.params.id]
+    );
+    if (!rows.length) return res.status(404).json({ message: 'التعليق غير موجود' });
+    const isAdmin = adminEmails.has(String(req.user.email || '').trim().toLowerCase());
+    const isAuthor = Number(rows[0].user_id) === Number(req.user.id);
+    if (!isAdmin && !isAuthor) return res.status(403).json({ message: 'لا تملك صلاحية حذف هذا التعليق' });
+    await db.query('DELETE FROM comments WHERE id = ?', [req.params.id]);
+    res.json({ ok: true });
+  } catch (err) {
+    res.status(500).json({ message: 'خطأ في حذف التعليق' });
   }
 });
 

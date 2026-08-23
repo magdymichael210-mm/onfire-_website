@@ -167,6 +167,7 @@ body{font-family:'Tajawal',sans-serif;background:var(--cream);color:var(--text);
 .filter-chip.active{background:var(--navy);color:white;border-color:var(--navy)}
 .courses-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
 #page-courses-d .main > .courses-grid:last-child{display:none}
+#page-courses-d #uploaded-courses-section{display:none}
 .cg-card{background:var(--white);border-radius:18px;overflow:hidden;border:1px solid var(--border);cursor:pointer;transition:transform .15s,box-shadow .15s}
 .cg-card:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(26,43,74,.1)}
 .cg-thumb{height:148px;display:flex;align-items:center;justify-content:center;font-size:52px;position:relative}
@@ -788,11 +789,13 @@ body{font-family:'Tajawal',sans-serif;background:var(--cream);color:var(--text);
           </div>
 
           <div class="desc-block">
-            <h3 data-i18n="discussions-title">النقاشات والاستفسارات (24)</h3>
-            <div class="ask-area"><div class="ask-placeholder" data-i18n="ask-placeholder">لديك سؤال؟ اطرحه هنا...</div><button class="ask-btn" data-i18n="ask-btn">إرسال التعليق</button></div>
-            <div class="comment-list">
-              <div class="cm"><div class="cm-av" style="background:#3498db">أ</div><div class="cm-body"><div class="cm-meta"><span class="cm-name">أحمد خالد</span><span class="cm-time">منذ ساعتين</span></div><div class="cm-text">هل يمكننا استخدام الآلة الحاسبة في حل هذه النوعية من المعادلات في الاختبار النهائي؟</div></div></div>
-              <div class="cm"><div class="cm-av" style="background:var(--navy)">م</div><div class="cm-body"><div class="cm-meta"><span class="cm-name">أ. محمد الكتاني</span><span class="cm-badge">مدرس</span><span class="cm-time">منذ ساعة</span></div><div class="cm-text reply">أهلاً بك يا أحمد، نعم، مسموح بالآلة الحاسبة العلمية فقط، ولكن من الضروري إظهار خطوات الحل كاملة.</div></div></div>
+            <h3>النقاشات والاستفسارات <span id="comments-count" style="font-size:13px;color:var(--muted);font-weight:600">(0)</span></h3>
+            <div class="ask-area" style="display:flex;gap:10px;align-items:stretch">
+              <textarea id="comment-input" class="ask-placeholder" placeholder="لديك سؤال؟ اطرحه هنا..." rows="2" style="flex:1;resize:vertical;border:0;background:transparent;font:inherit;color:inherit;outline:none"></textarea>
+              <button class="ask-btn" onclick="submitComment()">إرسال التعليق</button>
+            </div>
+            <div id="comments-list" class="comment-list">
+              <div style="text-align:center;color:#aaa;padding:18px 0">لا توجد تعليقات بعد</div>
             </div>
           </div>
         </div>
@@ -811,8 +814,7 @@ body{font-family:'Tajawal',sans-serif;background:var(--cream);color:var(--text);
           </div>
           <div class="card">
             <div class="card-title"><svg class="lucide" viewBox="0 0 24 24"><path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg> <span data-i18n="attachments-title">المرفقات التعليمية</span></div>
-            <div class="ls-resource"><div class="ls-res-icon pdf"><svg class="lucide" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div><div><div class="ls-res-name" data-i18n="res1-name">ملخص الدرس.pdf</div><div class="ls-res-size">MB 2.4</div></div><div class="ls-dl"><svg class="lucide" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></div></div>
-            <div class="ls-resource"><div class="ls-res-icon doc"><svg class="lucide" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div><div><div class="ls-res-name" data-i18n="res2-name">تمارين إضافية.pdf</div><div class="ls-res-size">MB 1.1</div></div><div class="ls-dl"><svg class="lucide" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></div></div>
+            <div id="lesson-attachments-list"><div style="text-align:center;color:#aaa;font-size:13px;padding:14px 0">لا توجد مرفقات لهذا الفيديو</div></div>
           </div>
           <div class="next-card">
             <div class="next-label" data-i18n="next-lesson">الدرس التالي</div>
@@ -1150,6 +1152,20 @@ body{font-family:'Tajawal',sans-serif;background:var(--cream);color:var(--text);
             </div>
             <input type="file" id="up-thumb-input" accept="image/*" style="display:none" onchange="onThumbSelected(this)">
             <img id="up-thumb-preview" class="up-thumb-preview" alt="معاينة الصورة">
+          </div>
+
+          <!-- Attachments -->
+          <div class="up-card" style="margin-top:20px">
+            <div class="up-card-title">
+              <svg class="lucide" viewBox="0 0 24 24" style="width:17px;height:17px"><path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+              مرفقات الدرس <span style="font-size:12px;color:#aaa;font-weight:500">(اختياري)</span>
+            </div>
+            <div class="up-dropzone" id="up-attachments-drop" onclick="document.getElementById('up-attachments-input').click()">
+              <div class="up-dz-icon"><svg class="lucide" viewBox="0 0 24 24" style="width:36px;height:36px;color:var(--orange)"><path d="M21.44 11.05 12.25 20.24a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg></div>
+              <div class="up-dz-text" id="up-attachments-name">اضغط لاختيار ملفات الدرس</div>
+              <div class="up-dz-sub">PDF · Word · PowerPoint · Excel · ZIP · صور — حتى 20 ملفاً</div>
+            </div>
+            <input type="file" id="up-attachments-input" multiple accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.zip,.jpg,.jpeg,.png,.webp,.txt" style="display:none" onchange="onAttachmentsSelected(this)">
           </div>
         </div>
 
@@ -1762,6 +1778,14 @@ function onThumbSelected(input) {
   reader.readAsDataURL(file);
 }
 
+function onAttachmentsSelected(input) {
+  const files = Array.from(input.files || []);
+  if (!files.length) return;
+  const nameEl = document.getElementById('up-attachments-name');
+  nameEl.innerHTML = '<div class="up-dz-filename">' + files.length + ' ملف/ملفات: ' + files.map(file => file.name).join('، ') + '</div>';
+  document.getElementById('up-attachments-drop').classList.add('has-file');
+}
+
 // ─── Drag & Drop ─────────────────────────────────────────────────
 function handleVideoDrop(e) {
   e.preventDefault();
@@ -1804,10 +1828,13 @@ function resetUploadForm() {
   });
   document.getElementById('up-video-input').value = '';
   document.getElementById('up-thumb-input').value = '';
+  document.getElementById('up-attachments-input').value = '';
   document.getElementById('up-video-name').innerHTML = 'اسحب الفيديو هنا أو اضغط للاختيار';
   document.getElementById('up-thumb-name').innerHTML = 'اسحب الصورة هنا أو اضغط للاختيار';
   document.getElementById('up-video-drop').classList.remove('has-file');
   document.getElementById('up-thumb-drop').classList.remove('has-file');
+  document.getElementById('up-attachments-drop').classList.remove('has-file');
+  document.getElementById('up-attachments-name').textContent = 'اضغط لاختيار ملفات الدرس';
   const thumbPrev = document.getElementById('up-thumb-preview');
   if (thumbPrev) thumbPrev.style.display = 'none';
   document.querySelectorAll('.up-subject-item').forEach(e => e.classList.remove('selected'));
@@ -1832,6 +1859,7 @@ async function handleUpload() {
   const subEmoji = document.getElementById('up-subject-emoji').value;
   const videoFile = document.getElementById('up-video-input').files[0];
   const thumbFile = document.getElementById('up-thumb-input').files[0];
+  const attachmentFiles = Array.from(document.getElementById('up-attachments-input').files || []);
   const msgEl    = document.getElementById('up-msg');
   const btn      = document.getElementById('up-btn');
 
@@ -1860,6 +1888,7 @@ async function handleUpload() {
   formData.append('subject_emoji', subEmoji);
   formData.append('video', videoFile);
   if (thumbFile) formData.append('thumbnail', thumbFile);
+  attachmentFiles.forEach(file => formData.append('attachments', file));
 
   btn.disabled = true;
   btn.textContent = 'جاري الرفع...';
@@ -1907,8 +1936,11 @@ async function handleUpload() {
       document.getElementById('up-duration').value = '';
       document.getElementById('up-video-input').value = '';
       document.getElementById('up-thumb-input').value = '';
+      document.getElementById('up-attachments-input').value = '';
       document.getElementById('up-video-name').textContent = 'اضغط لاختيار فيديو أو اسحبه هنا';
       document.getElementById('up-thumb-name').textContent = 'اضغط لاختيار صورة';
+      document.getElementById('up-attachments-name').textContent = 'اضغط لاختيار ملفات الدرس';
+      document.getElementById('up-attachments-drop').classList.remove('has-file');
       document.getElementById('up-bar').style.width = '100%';
       setTimeout(() => {
         document.getElementById('up-progress').style.display = 'none';
@@ -1973,6 +2005,109 @@ async function loadVideos() {
 }
 
 // ─── Play Video → Open Lesson Page ─────────────────────────────
+function escapeHtml(value) {
+  return String(value ?? '').replace(/[&<>"']/g, char => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  }[char]));
+}
+
+function formatFileSize(bytes) {
+  const size = Number(bytes || 0);
+  if (size < 1024 * 1024) return Math.max(1, Math.round(size / 1024)) + ' KB';
+  return (size / (1024 * 1024)).toFixed(1) + ' MB';
+}
+
+async function loadComments(courseId) {
+  const list = document.getElementById('comments-list');
+  const count = document.getElementById('comments-count');
+  if (!list || !courseId) return;
+  list.innerHTML = '<div style="text-align:center;color:#aaa;padding:18px 0">جاري تحميل التعليقات...</div>';
+  try {
+    const res = await fetch(`${API}/courses/${courseId}/comments`);
+    const comments = await res.json();
+    if (count) count.textContent = '(' + comments.length + ')';
+    if (!comments.length) {
+      list.innerHTML = '<div style="text-align:center;color:#aaa;padding:18px 0">لا توجد تعليقات بعد</div>';
+      return;
+    }
+    list.innerHTML = comments.map(comment => {
+      const name = escapeHtml(comment.author_name || 'مستخدم');
+      const initial = escapeHtml((comment.author_name || 'م').trim().charAt(0));
+      const date = comment.created_at ? new Date(comment.created_at).toLocaleString('ar-EG') : '';
+      return `<div class="cm">
+        <div class="cm-av" style="background:var(--navy)">${initial}</div>
+        <div class="cm-body">
+          <div class="cm-meta"><span class="cm-name">${name}</span><span class="cm-time">${escapeHtml(date)}</span></div>
+          <div class="cm-text">${escapeHtml(comment.body).replace(/\n/g, '<br>')}</div>
+          <button type="button" onclick="deleteComment(${Number(comment.id)}, ${Number(courseId)})" style="border:0;background:transparent;color:#ef4444;font-size:12px;cursor:pointer;padding:4px 0">حذف التعليق</button>
+        </div>
+      </div>`;
+    }).join('');
+  } catch (error) {
+    list.innerHTML = '<div style="text-align:center;color:#ef4444;padding:18px 0">تعذر تحميل التعليقات</div>';
+  }
+}
+
+async function submitComment() {
+  const input = document.getElementById('comment-input');
+  const body = input?.value.trim();
+  if (!body) return;
+  if (!activeLessonCourseId) return;
+  const token = localStorage.getItem('token');
+  if (!token) { alert('سجّل الدخول أولاً لإضافة تعليق'); return; }
+  try {
+    const res = await fetch(`${API}/courses/${activeLessonCourseId}/comments`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + token },
+      body: JSON.stringify({ body })
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.message || 'تعذر إضافة التعليق');
+    input.value = '';
+    await loadComments(activeLessonCourseId);
+  } catch (error) {
+    alert(error.message);
+  }
+}
+
+async function deleteComment(commentId, courseId) {
+  const token = localStorage.getItem('token');
+  if (!token || !confirm('هل تريد حذف هذا التعليق؟')) return;
+  try {
+    const res = await fetch(`${API}/comments/${commentId}`, {
+      method: 'DELETE',
+      headers: { Authorization: 'Bearer ' + token }
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.message || 'تعذر حذف التعليق');
+    await loadComments(courseId);
+  } catch (error) {
+    alert(error.message);
+  }
+}
+
+async function loadAttachments(courseId) {
+  const list = document.getElementById('lesson-attachments-list');
+  if (!list || !courseId) return;
+  list.innerHTML = '<div style="text-align:center;color:#aaa;font-size:13px;padding:14px 0">جاري تحميل المرفقات...</div>';
+  try {
+    const res = await fetch(`${API}/courses/${courseId}/attachments`);
+    const files = await res.json();
+    if (!files.length) {
+      list.innerHTML = '<div style="text-align:center;color:#aaa;font-size:13px;padding:14px 0">لا توجد مرفقات لهذا الفيديو</div>';
+      return;
+    }
+    list.innerHTML = files.map(file => `<a class="ls-resource" href="${API_ROOT + escapeHtml(file.url)}" target="_blank" rel="noopener" download>
+      <div class="ls-res-icon doc"><svg class="lucide" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+      <div><div class="ls-res-name">${escapeHtml(file.original_name)}</div><div class="ls-res-size">${formatFileSize(file.file_size)}</div></div>
+      <div class="ls-dl"><svg class="lucide" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></div>
+    </a>`).join('');
+  } catch (error) {
+    list.innerHTML = '<div style="text-align:center;color:#ef4444;font-size:13px;padding:14px 0">تعذر تحميل المرفقات</div>';
+  }
+}
+
+let activeLessonCourseId = null;
 function playVideo(filename, title, course) {
   // course param optional (full course object) for richer info
   const player = document.getElementById('lesson-video-player');
@@ -1988,6 +2123,7 @@ function playVideo(filename, title, course) {
   if (titleEl) titleEl.textContent = title || titleEl.textContent;
 
   if (course) {
+    activeLessonCourseId = course.id || null;
     const descEl = document.getElementById('lesson-desc-dynamic');
     if (descEl) descEl.textContent = course.description || descEl.textContent;
     const teacherEl = document.getElementById('lesson-teacher-name');
@@ -2003,6 +2139,11 @@ function playVideo(filename, title, course) {
 
   showPage('page-lesson-d');
   setActiveByPage('page-lesson-d');
+
+  if (activeLessonCourseId) {
+    loadComments(activeLessonCourseId);
+    loadAttachments(activeLessonCourseId);
+  }
 
   // Track view
   if (course && course.id) {
