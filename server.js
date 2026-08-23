@@ -6,37 +6,37 @@ const multer  = require('multer');
 const path    = require('path');
 const fs      = require('fs');
 const crypto  = require('crypto');
-const nodemailer = require('nodemailer');
 if (process.env.NODE_ENV !== 'production') require('dotenv').config();
 
 const db  = require('./db');
 const app = express();
 
-const mailer = process.env.SMTP_USER && process.env.GMAIL_APP_PASSWORD
-  ? nodemailer.createTransport({
-      host: 'smtp.gmail.com',
-      port: 587,
-      secure: false,
-      requireTLS: true,
-      connectionTimeout: 30000,
-      greetingTimeout: 30000,
-      socketTimeout: 30000,
-      auth: { user: process.env.SMTP_USER, pass: process.env.GMAIL_APP_PASSWORD }
-    })
-  : null;
+const resendApiKey = process.env.RESEND_API_KEY;
+const resendFrom = process.env.RESEND_FROM;
 
 const appBaseUrl = (process.env.APP_BASE_URL || `http://localhost:${process.env.PORT || 3000}`).replace(/\/$/, '');
 
 async function sendVerificationEmail({ email, fullName, token }) {
-  if (!mailer) throw new Error('إعدادات Gmail غير موجودة في Railway');
+  if (!resendApiKey || !resendFrom) throw new Error('إعدادات Resend غير موجودة في Railway');
   const verifyUrl = `${appBaseUrl}/api/verify-email?token=${encodeURIComponent(token)}`;
-  await mailer.sendMail({
-    from: `On Fire <${process.env.SMTP_USER}>`,
-    to: email,
-    subject: 'تفعيل حسابك في On Fire',
-    text: `مرحبًا ${fullName}، افتح الرابط التالي لتفعيل حسابك: ${verifyUrl}`,
-    html: `<div dir="rtl" style="font-family:Arial,sans-serif;line-height:1.8"><h2>مرحبًا ${fullName}</h2><p>اضغط على الزر التالي لتفعيل حسابك في On Fire:</p><p><a href="${verifyUrl}" style="display:inline-block;padding:12px 22px;background:#1e3a5f;color:#fff;text-decoration:none;border-radius:6px">تفعيل الحساب</a></p><p>الرابط صالح لمدة 24 ساعة.</p></div>`
+  const response = await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${resendApiKey}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      from: resendFrom,
+      to: [email],
+      subject: 'تفعيل حسابك في On Fire',
+      text: `مرحبًا ${fullName}، افتح الرابط التالي لتفعيل حسابك: ${verifyUrl}`,
+      html: `<div dir="rtl" style="font-family:Arial,sans-serif;line-height:1.8"><h2>مرحبًا ${fullName}</h2><p>اضغط على الزر التالي لتفعيل حسابك في On Fire:</p><p><a href="${verifyUrl}" style="display:inline-block;padding:12px 22px;background:#1e3a5f;color:#fff;text-decoration:none;border-radius:6px">تفعيل الحساب</a></p><p>الرابط صالح لمدة 24 ساعة.</p></div>`
+    })
   });
+  if (!response.ok) {
+    const details = await response.text();
+    throw new Error(`Resend ${response.status}: ${details}`);
+  }
 }
 
 // ─── مجلدات الرفع ────────────────────────────────────────────
@@ -106,7 +106,7 @@ app.post('/api/register', async (req, res) => {
   if (password.length < 6)
     return res.status(400).json({ message: 'كلمة المرور يجب أن تكون 6 أحرف على الأقل' });
 
-  if (!mailer)
+  if (!resendApiKey || !resendFrom)
     return res.status(503).json({ message: 'خدمة البريد غير مهيأة بعد في Railway' });
 
   try {
