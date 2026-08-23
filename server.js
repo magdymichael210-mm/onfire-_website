@@ -374,6 +374,42 @@ app.get('/api/courses/mine', verifyToken, requireAdmin, async (req, res) => {
   }
 });
 
+// ─── حذف كل فيديوهات الإدارة ────────────────────────────────
+app.delete('/api/courses', verifyToken, requireAdmin, async (req, res) => {
+  try {
+    const [courses] = await db.query(
+      'SELECT id, video_filename, thumbnail FROM courses'
+    );
+    const [attachments] = await db.query(
+      'SELECT stored_name FROM course_attachments'
+    );
+
+    await db.query('DELETE FROM courses');
+
+    const files = [
+      ...courses.flatMap(course => [
+        course.video_filename && path.join(uploadsDir, course.video_filename),
+        course.thumbnail && path.join(thumbsDir, course.thumbnail)
+      ]),
+      ...attachments.map(file => path.join(attachmentsDir, file.stored_name))
+    ].filter(Boolean);
+
+    await Promise.all(files.map(async filePath => {
+      try {
+        await fs.promises.unlink(filePath);
+      } catch (err) {
+        if (err.code !== 'ENOENT') throw err;
+      }
+    }));
+
+    console.log('🗑️ All courses deleted by admin:', req.user.email);
+    res.json({ ok: true, deleted: courses.length });
+  } catch (err) {
+    console.error('❌ Delete all courses error:', err.message);
+    res.status(500).json({ message: 'تعذر حذف الفيديوهات: ' + err.message });
+  }
+});
+
 // ─── زيادة المشاهدات ──────────────────────────────────────────
 app.post('/api/courses/:id/view', async (req, res) => {
   await db.query('UPDATE courses SET views = views + 1 WHERE id = ?', [req.params.id]);
