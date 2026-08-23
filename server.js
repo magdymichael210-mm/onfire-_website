@@ -91,8 +91,8 @@ app.get('/api/test', async (req, res) => {
 
 // ─── تسجيل مستخدم جديد ───────────────────────────────────────
 app.post('/api/register', async (req, res) => {
-  console.log('📥 Register request:', req.body);
   const { full_name, email, password } = req.body;
+  console.log('📥 Register request:', { full_name, email });
 
   if (!full_name || !email || !password)
     return res.status(400).json({ message: 'جميع الحقول مطلوبة' });
@@ -163,8 +163,8 @@ app.get('/api/verify-email', async (req, res) => {
 
 // ─── تسجيل الدخول ────────────────────────────────────────────
 app.post('/api/login', async (req, res) => {
-  console.log('📥 Login request:', req.body);
   const { email, password } = req.body;
+  console.log('📥 Login request:', { email });
 
   if (!email || !password)
     return res.status(400).json({ message: 'جميع الحقول مطلوبة' });
