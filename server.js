@@ -380,9 +380,15 @@ app.delete('/api/courses', verifyToken, requireAdmin, async (req, res) => {
     const [courses] = await db.query(
       'SELECT id, video_filename, thumbnail FROM courses'
     );
-    const [attachments] = await db.query(
-      'SELECT stored_name FROM course_attachments'
-    );
+    let attachments = [];
+    try {
+      const [rows] = await db.query(
+        'SELECT stored_name FROM course_attachments'
+      );
+      attachments = rows;
+    } catch (err) {
+      if (err.code !== 'ER_NO_SUCH_TABLE') throw err;
+    }
 
     await db.query('DELETE FROM courses');
 
