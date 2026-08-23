@@ -350,7 +350,7 @@ app.get('/api/courses', async (req, res) => {
               c.subject, c.subject_color, c.subject_emoji, c.views, c.created_at,
               u.full_name AS instructor_name
        FROM courses c LEFT JOIN users u ON u.id = c.instructor_id
-       ORDER BY c.created_at DESC`
+       ORDER BY c.created_at ASC, c.id ASC`
     );
     res.json(rows);
   } catch (err) {
@@ -365,7 +365,7 @@ app.get('/api/courses/mine', verifyToken, requireAdmin, async (req, res) => {
               c.subject, c.subject_color, c.subject_emoji, c.views, c.created_at,
               u.full_name AS instructor_name
        FROM courses c LEFT JOIN users u ON u.id = c.instructor_id
-       WHERE c.instructor_id = ? ORDER BY c.created_at DESC`,
+       WHERE c.instructor_id = ? ORDER BY c.created_at ASC, c.id ASC`,
       [req.user.id]
     );
     res.json(rows);

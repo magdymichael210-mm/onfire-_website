@@ -166,6 +166,8 @@ body{font-family:'Tajawal',sans-serif;background:var(--cream);color:var(--text);
 .filter-chip:hover{border-color:var(--navy);color:var(--navy)}
 .filter-chip.active{background:var(--navy);color:white;border-color:var(--navy)}
 .courses-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+#page-courses-d .main > .courses-grid:last-child{display:none}
+#page-courses-d #uploaded-courses-section{display:block}
 .cg-card{background:var(--white);border-radius:18px;overflow:hidden;border:1px solid var(--border);cursor:pointer;transition:transform .15s,box-shadow .15s}
 .cg-card:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(26,43,74,.1)}
 .cg-thumb{height:148px;display:flex;align-items:center;justify-content:center;font-size:52px;position:relative}
@@ -2158,13 +2160,15 @@ async function loadPlaylist(activeFilename) {
   const countEl = document.getElementById('playlist-count');
   if (!listEl) return;
 
-  let courses = loadedVideosCache;
-  if (!courses || courses.length === 0) {
-    try {
-      const res = await fetch(`${API}/courses`);
-      courses = await res.json();
-      loadedVideosCache = courses;
-    } catch (e) {
+  let courses = [];
+  try {
+    // Always refresh so a newly uploaded video appears in this same playlist card.
+    const res = await fetch(`${API}/courses?ts=${Date.now()}`, { cache: 'no-store' });
+    courses = await res.json();
+    loadedVideosCache = courses;
+  } catch (e) {
+    courses = loadedVideosCache || [];
+    if (courses.length === 0) {
       listEl.innerHTML = '<div style="text-align:center;color:#ef4444;font-size:13px;padding:20px 0">تعذر تحميل القائمة</div>';
       return;
     }
