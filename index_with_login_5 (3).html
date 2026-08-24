@@ -551,9 +551,9 @@ body{font-family:'Tajawal',sans-serif;background:var(--cream);color:var(--text);
 
     <!-- Featured Courses -->
     <section class="landing-courses-section">
-      <div class="sec-eyebrow" data-i18n="sec-eyebrow">الدورات المميزة</div>
-      <div class="sec-title" data-i18n="sec-title">اكتشف أبرز دوراتنا التعليمية</div>
-      <div class="courses-grid">
+      <div class="sec-eyebrow" data-i18n="sec-eyebrow">الدورات المرفوعة</div>
+      <div class="sec-title" data-i18n="sec-title">الدورات المتاحة على الموقع</div>
+      <div class="courses-grid" style="display:none">
         <div class="cg-card" onclick="showPage('page-lesson-d')">
           <div class="cg-thumb" style="padding:0;overflow:hidden;position:relative"><img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=400&h=148&fit=crop" style="width:100%;height:100%;object-fit:cover;display:block"><span class="cg-cat m" data-i18n="cat-math">رياضيات</span></div>
           <div class="cg-body">
@@ -581,6 +581,9 @@ body{font-family:'Tajawal',sans-serif;background:var(--cream);color:var(--text);
             <button class="cg-btn" data-i18n="btn-subscribe">ابدأ الآن</button>
           </div>
         </div>
+      </div>
+      <div id="landing-courses-grid" class="courses-grid">
+        <div style="grid-column:1/-1;text-align:center;color:#888;padding:40px">جاري تحميل الدورات...</div>
       </div>
     </section>
 
@@ -776,7 +779,7 @@ body{font-family:'Tajawal',sans-serif;background:var(--cream);color:var(--text);
             <div class="lesson-title-big" id="lesson-title-dynamic" data-i18n="lesson-title">مقدمة في الجبر: المفاهيم الأساسية والمعادلات</div>
             <div class="teacher-card-row">
               <div class="tc-av">م</div>
-              <div><div class="tc-name" id="lesson-teacher-name" data-i18n="lesson-teacher-name">أ. محمد الكتاني</div><div class="tc-exp" data-i18n="lesson-teacher-exp">خبير في تعليم الرياضيات · 15 عام خبرة</div></div>
+              <div><div class="tc-name" id="lesson-teacher-name" data-i18n="lesson-teacher-name">أ. محمد الكتاني</div><div class="tc-exp" id="lesson-teacher-subject">رياضيات</div></div>
             </div>
             <div class="lesson-meta-row">
               <div class="lm"><svg class="lucide" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span id="lesson-duration-dynamic">45 دقيقة</span></div>
@@ -817,11 +820,6 @@ body{font-family:'Tajawal',sans-serif;background:var(--cream);color:var(--text);
           <div class="card">
             <div class="card-title"><svg class="lucide" viewBox="0 0 24 24"><path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg> <span data-i18n="attachments-title">المرفقات التعليمية</span></div>
             <div id="lesson-attachments-list"><div style="text-align:center;color:#aaa;font-size:13px;padding:14px 0">لا توجد مرفقات لهذا الفيديو</div></div>
-          </div>
-          <div class="next-card">
-            <div class="next-label" data-i18n="next-lesson">الدرس التالي</div>
-            <div class="next-title-s" data-i18n="next-lesson-title">المتطابقات الجبرية والفرق بين مربعين</div>
-            <button class="next-btn" onclick="showPage('page-payment-d')" data-i18n="next-btn">بدء الدرس التالي →</button>
           </div>
         </div>
       </div>
@@ -1355,8 +1353,10 @@ function showPage(id){
 
 // ─── عرض الفيديوهات المرفوعة في صفحة "تصفح الدورات" — متاحة لأي مستخدم بأي إيميل ───
 async function loadUploadedCoursesIntoGrid() {
-  const grid = document.getElementById('uploaded-courses-grid');
-  if (!grid) return;
+  const grids = ['uploaded-courses-grid', 'landing-courses-grid']
+    .map(id => document.getElementById(id))
+    .filter(Boolean);
+  if (!grids.length) return;
   try {
     const res = await fetch(`${API}/courses`);
     const courses = await res.json();
@@ -1367,10 +1367,11 @@ async function loadUploadedCoursesIntoGrid() {
     document.querySelectorAll('#sb-courses-badge').forEach(el => el.textContent = totalCount);
 
     if (!courses || courses.length === 0) {
-      grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;color:#888;padding:40px">لا توجد فيديوهات مرفوعة بعد</div>';
+      const emptyHtml = '<div style="grid-column:1/-1;text-align:center;color:#888;padding:40px">لا توجد فيديوهات مرفوعة بعد</div>';
+      grids.forEach(grid => grid.innerHTML = emptyHtml);
       return;
     }
-    grid.innerHTML = courses.map((c, idx) => {
+    const coursesHtml = courses.map((c, idx) => {
       const thumbHtml = c.thumbnail
         ? `<img src="${API.replace('/api','')}/uploads/thumbnails/${c.thumbnail}" style="width:100%;height:100%;object-fit:cover;display:block">`
         : `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:32px;color:white;background:${c.subject_color || '#1e3a5f'}">${subjectIcon(c.subject_emoji)}</div>`;
@@ -1388,8 +1389,9 @@ async function loadUploadedCoursesIntoGrid() {
           </div>
         </div>`;
     }).join('');
+    grids.forEach(grid => grid.innerHTML = coursesHtml);
   } catch (e) {
-    grid.innerHTML = '';
+    grids.forEach(grid => grid.innerHTML = '');
   }
 }
 function setActive(el){
@@ -1701,6 +1703,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
   document.querySelectorAll('.t-lang').forEach(btn=>{
     btn.addEventListener('click', toggleLang);
   });
+  loadUploadedCoursesIntoGrid();
   // تحديث عدد الدورات في الـ badge عند تحميل الصفحة لأول مرة
   fetch(`${API}/courses`)
     .then(r => r.json())
@@ -2156,6 +2159,8 @@ function playVideo(filename, title, course) {
     if (descEl) descEl.textContent = course.description || descEl.textContent;
     const teacherEl = document.getElementById('lesson-teacher-name');
     if (teacherEl && course.teacher_name) teacherEl.textContent = 'أ. ' + course.teacher_name;
+    const teacherSubjectEl = document.getElementById('lesson-teacher-subject');
+    if (teacherSubjectEl && course.subject) teacherSubjectEl.textContent = course.subject;
     const durEl = document.getElementById('lesson-duration-dynamic');
     if (durEl) durEl.textContent = course.duration || durEl.textContent;
     const subjBadge = document.getElementById('lesson-subject-badge');
