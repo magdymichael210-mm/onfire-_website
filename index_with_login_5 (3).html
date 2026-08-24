@@ -1376,7 +1376,7 @@ async function loadUploadedCoursesIntoGrid() {
         ? `<img src="${API.replace('/api','')}/uploads/thumbnails/${c.thumbnail}" style="width:100%;height:100%;object-fit:cover;display:block">`
         : `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:32px;color:white;background:${c.subject_color || '#1e3a5f'}">${subjectIcon(c.subject_emoji)}</div>`;
       return `
-        <div class="cg-card" data-course-id="${c.id || ''}" data-subject="${(c.subject || '').replace(/"/g,'&quot;')}" onclick="playVideo('${c.video_filename}','${(c.title||'').replace(/'/g,"\\'")}', loadedVideosCache[${idx}])">
+        <div class="cg-card" data-course-id="${c.id || ''}" data-subject="${(c.subject || '').replace(/"/g,'&quot;')}" onclick="showPage('page-login')">
           <div class="cg-thumb" style="padding:0;overflow:hidden;position:relative">
             ${thumbHtml}
             ${c.subject ? `<span class="cg-cat m">${c.subject}</span>` : ''}
