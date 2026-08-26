@@ -374,6 +374,51 @@ app.get('/api/courses/mine', verifyToken, requireAdmin, async (req, res) => {
   }
 });
 
+// حذف فيديو واحد من فيديوهات الإدارة
+app.delete('/api/courses/:id', verifyToken, requireAdmin, async (req, res) => {
+  try {
+    const [courses] = await db.query(
+      'SELECT id, video_filename, thumbnail FROM courses WHERE id = ? AND instructor_id = ?',
+      [req.params.id, req.user.id]
+    );
+    if (!courses.length) return res.status(404).json({ message: 'الفيديو غير موجود' });
+
+    const course = courses[0];
+    let attachments = [];
+    try {
+      const [rows] = await db.query(
+        'SELECT stored_name FROM course_attachments WHERE course_id = ?',
+        [req.params.id]
+      );
+      attachments = rows;
+    } catch (err) {
+      if (err.code !== 'ER_NO_SUCH_TABLE') throw err;
+    }
+
+    await db.query(
+      'DELETE FROM courses WHERE id = ? AND instructor_id = ?',
+      [req.params.id, req.user.id]
+    );
+
+    const files = [
+      course.video_filename && path.join(uploadsDir, course.video_filename),
+      course.thumbnail && path.join(thumbsDir, course.thumbnail),
+      ...attachments.map(file => path.join(attachmentsDir, file.stored_name))
+    ].filter(Boolean);
+
+    await Promise.all(files.map(async filePath => {
+      try { await fs.promises.unlink(filePath); }
+      catch (err) { if (err.code !== 'ENOENT') throw err; }
+    }));
+
+    console.log('Course deleted by admin:', req.user.email, req.params.id);
+    res.json({ ok: true, deleted: 1 });
+  } catch (err) {
+    console.error('Delete course error:', err.message);
+    res.status(500).json({ message: 'تعذر حذف الفيديو: ' + err.message });
+  }
+});
+
 // ─── حذف كل فيديوهات الإدارة ────────────────────────────────
 app.delete('/api/courses', verifyToken, requireAdmin, async (req, res) => {
   try {
