@@ -245,6 +245,9 @@ body{font-family:'Tajawal',sans-serif;background:var(--cream);color:var(--text);
 
 .next-card{background:var(--navy);border-radius:16px;padding:20px}
 /* ─── PLAYLIST ─── */
+.playlist-teacher-group{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:8px}
+.playlist-teacher-heading{font-size:12px;font-weight:800;color:var(--navy);padding:3px 6px 8px;border-bottom:1px solid var(--border);margin-bottom:6px}
+.playlist-teacher-videos{display:flex;flex-direction:column;gap:6px}
 .pl-item{display:flex;align-items:center;gap:10px;padding:8px;border-radius:10px;cursor:pointer;transition:background .15s;border:1.5px solid transparent}
 .pl-item:hover{background:var(--cream)}
 .pl-item.active{background:#eef2ff;border-color:var(--navy)}
@@ -2220,24 +2223,46 @@ async function loadPlaylist(activeFilename, subjectFilter = null) {
     courses = courses.filter(c => String(c.subject || '').trim() === selectedSubject);
   }
 
+  // Keep the cache aligned with the visible playlist after filtering.
+  loadedVideosCache = courses;
+
   if (countEl) countEl.textContent = courses.length + ' فيديو';
 
-  listEl.innerHTML = courses.map((c, idx) => {
-    const isActive = activeFilename && c.video_filename === activeFilename;
-    const thumbHtml = c.thumbnail
-      ? `<img src="${API.replace('/api','')}/uploads/thumbnails/${c.thumbnail}">`
-      : subjectIcon(c.subject_emoji);
-    return `
-      <div class="pl-item${isActive ? ' active' : ''}" data-filename="${c.video_filename}"
-        onclick="playVideo('${c.video_filename}','${(c.title||'').replace(/'/g,"\\'")}', loadedVideosCache[${idx}])">
-        <div class="pl-num">${isActive ? '▶' : idx + 1}</div>
-        <div class="pl-thumb">${thumbHtml}${isActive ? '<div class="pl-playing">يُعرض الآن</div>' : ''}</div>
-        <div class="pl-info">
-          <div class="pl-title">${c.title}</div>
-          <div class="pl-meta">${c.teacher_name ? '<span>أ. '+c.teacher_name+'</span>' : ''}${c.duration ? '<span> · '+c.duration+'</span>' : ''}${c.subject ? '<span> · '+c.subject+'</span>' : ''}</div>
-        </div>
-      </div>`;
-  }).join('');
+  const teacherGroups = [];
+  const groupsByTeacher = new Map();
+  courses.forEach((course, idx) => {
+    const teacherName = String(course.teacher_name || 'اسم المدرس غير محدد').trim();
+    let group = groupsByTeacher.get(teacherName);
+    if (!group) {
+      group = { teacherName, items: [] };
+      groupsByTeacher.set(teacherName, group);
+      teacherGroups.push(group);
+    }
+    group.items.push({ course, index: idx });
+  });
+
+  listEl.innerHTML = teacherGroups.map(group => `
+    <div class="playlist-teacher-group">
+      <div class="playlist-teacher-heading">${group.teacherName === 'اسم المدرس غير محدد' ? group.teacherName : 'أ. ' + group.teacherName}</div>
+      <div class="playlist-teacher-videos">
+        ${group.items.map(({ course: c, index: idx }) => {
+          const isActive = activeFilename && c.video_filename === activeFilename;
+          const thumbHtml = c.thumbnail
+            ? `<img src="${API.replace('/api','')}/uploads/thumbnails/${c.thumbnail}">`
+            : subjectIcon(c.subject_emoji);
+          return `
+            <div class="pl-item${isActive ? ' active' : ''}" data-filename="${c.video_filename}"
+              onclick="playVideo('${c.video_filename}','${(c.title||'').replace(/'/g,"\\'")}', loadedVideosCache[${idx}])">
+              <div class="pl-num">${isActive ? '▶' : idx + 1}</div>
+              <div class="pl-thumb">${thumbHtml}${isActive ? '<div class="pl-playing">يُعرض الآن</div>' : ''}</div>
+              <div class="pl-info">
+                <div class="pl-title">${c.title}</div>
+                <div class="pl-meta">${c.duration ? '<span> · '+c.duration+'</span>' : ''}${c.subject ? '<span> · '+c.subject+'</span>' : ''}</div>
+              </div>
+            </div>`;
+        }).join('')}
+      </div>
+    </div>`).join('');
 }
 
 // Helper: highlight correct sidebar item when navigating programmatically
