@@ -644,41 +644,8 @@ body{font-family:'Tajawal',sans-serif;background:var(--cream);color:var(--text);
       <div class="two-col">
         <div class="card">
           <div class="card-title"><span data-i18n="ongoing-title">دوراتي الحالية</span> <a href="#" onclick="showPage('page-courses-d')">عرض الكل ←</a></div>
-          <div class="course-row">
-            <div class="cr-thumb" style="padding:0;overflow:hidden"><img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=56&h=42&fit=crop" style="width:100%;height:100%;object-fit:cover;border-radius:10px"></div>
-            <div class="cr-info">
-              <div class="cr-name" data-i18n="course1-title">أساسيات الجبر المتقدمة</div>
-              <div class="cr-teacher" data-i18n="course1-teacher">أ. محمد الكتاني</div>
-              <div class="cr-progress-wrap"><div class="cr-bar"><div class="cr-fill" style="width:72%"></div></div><span class="cr-pct">72%</span></div>
-            </div>
-            <span class="cr-badge math">رياضيات</span>
-          </div>
-          <div class="course-row">
-            <div class="cr-thumb" style="padding:0;overflow:hidden"><img src="https://images.unsplash.com/photo-1530026186672-2cd00ffc50fe?w=56&h=42&fit=crop" style="width:100%;height:100%;object-fit:cover;border-radius:10px"></div>
-            <div class="cr-info">
-              <div class="cr-name" data-i18n="course2-title">رحلة في أعماق الخلية الحية</div>
-              <div class="cr-teacher" data-i18n="course2-teacher">أ. بيتر رضا</div>
-              <div class="cr-progress-wrap"><div class="cr-bar"><div class="cr-fill" style="width:45%"></div></div><span class="cr-pct">45%</span></div>
-            </div>
-            <span class="cr-badge sci">العلوم</span>
-          </div>
-          <div class="course-row">
-            <div class="cr-thumb" style="padding:0;overflow:hidden"><img src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=56&h=42&fit=crop" style="width:100%;height:100%;object-fit:cover;border-radius:10px"></div>
-            <div class="cr-info">
-              <div class="cr-name" data-i18n="course3-title">جماليات الشعر الجاهلي</div>
-              <div class="cr-teacher" data-i18n="course3-teacher">أ. سلمى جمعة</div>
-              <div class="cr-progress-wrap"><div class="cr-bar"><div class="cr-fill" style="width:90%"></div></div><span class="cr-pct">90%</span></div>
-            </div>
-            <span class="cr-badge lang">اللغة العربية</span>
-          </div>
-          <div class="course-row">
-            <div class="cr-thumb" style="padding:0;overflow:hidden"><img src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=56&h=42&fit=crop" style="width:100%;height:100%;object-fit:cover;border-radius:10px"></div>
-            <div class="cr-info">
-              <div class="cr-name" data-i18n="course4-title">مبادئ التفاعلات الكيميائية</div>
-              <div class="cr-teacher" data-i18n="course4-teacher">أ. حسن علي</div>
-              <div class="cr-progress-wrap"><div class="cr-bar"><div class="cr-fill" style="width:28%"></div></div><span class="cr-pct">28%</span></div>
-            </div>
-            <span class="cr-badge sci">العلوم</span>
+          <div id="dashboard-uploaded-courses-list">
+            <div style="color:#888;padding:24px 0;text-align:center">جاري تحميل الدورات المرفوعة...</div>
           </div>
         </div>
         <div class="card">
@@ -1349,17 +1316,21 @@ function showPage(id){
     const currentFile = currentSrc.split('/uploads/')[1] || null;
     loadPlaylist(currentFile, activeLessonCourse?.subject || null);
   }
-  if (id === 'page-courses-d') {
-    loadUploadedCoursesIntoGrid();
+    if (id === 'page-courses-d') {
+      loadUploadedCoursesIntoGrid();
+    }
+    if (id === 'page-dashboard') {
+      loadUploadedCoursesIntoGrid();
+    }
   }
-}
 
 // ─── عرض الفيديوهات المرفوعة في صفحة "تصفح الدورات" — متاحة لأي مستخدم بأي إيميل ───
 async function loadUploadedCoursesIntoGrid() {
   const grids = ['uploaded-courses-grid', 'landing-courses-grid']
     .map(id => document.getElementById(id))
     .filter(Boolean);
-  if (!grids.length) return;
+  const dashboardList = document.getElementById('dashboard-uploaded-courses-list');
+  if (!grids.length && !dashboardList) return;
   try {
     const res = await fetch(`${API}/courses`);
     const courses = await res.json();
@@ -1372,6 +1343,9 @@ async function loadUploadedCoursesIntoGrid() {
     if (!courses || courses.length === 0) {
       const emptyHtml = '<div style="grid-column:1/-1;text-align:center;color:#888;padding:40px">لا توجد فيديوهات مرفوعة بعد</div>';
       grids.forEach(grid => grid.innerHTML = emptyHtml);
+      if (dashboardList) {
+        dashboardList.innerHTML = '<div style="color:#888;padding:24px 0;text-align:center">لا توجد دورات مرفوعة بعد</div>';
+      }
       return;
     }
     const coursesHtml = courses.map((c, idx) => {
@@ -1393,8 +1367,37 @@ async function loadUploadedCoursesIntoGrid() {
         </div>`;
     }).join('');
     grids.forEach(grid => grid.innerHTML = coursesHtml);
+    if (dashboardList) {
+      dashboardList.innerHTML = courses.map((c, idx) => {
+        const title = escapeHtml(c.title || 'بدون عنوان');
+        const teacher = escapeHtml(c.teacher_name ? 'أ. ' + c.teacher_name : 'اسم المدرس غير محدد');
+        const subject = escapeHtml(c.subject || 'غير محدد');
+        const subjectClass = c.subject === 'رياضيات' ? 'math' : c.subject === 'العلوم' ? 'sci' : c.subject === 'اللغة العربية' ? 'lang' : '';
+        const thumb = c.thumbnail
+          ? `<img src="${API.replace('/api','')}/uploads/thumbnails/${encodeURIComponent(c.thumbnail)}" style="width:100%;height:100%;object-fit:cover;border-radius:10px">`
+          : `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:white;background:${c.subject_color || '#1e3a5f'}">${subjectIcon(c.subject_emoji)}</div>`;
+        return `<div class="course-row" data-dashboard-course-index="${idx}" style="cursor:pointer">
+          <div class="cr-thumb" style="padding:0;overflow:hidden">${thumb}</div>
+          <div class="cr-info">
+            <div class="cr-name">${title}</div>
+            <div class="cr-teacher">${teacher}</div>
+            <div class="cr-progress-wrap"><div class="cr-bar"><div class="cr-fill" style="width:0%"></div></div><span class="cr-pct">0%</span></div>
+          </div>
+          <span class="cr-badge ${subjectClass}">${subject}</span>
+        </div>`;
+      }).join('');
+      dashboardList.querySelectorAll('[data-dashboard-course-index]').forEach(row => {
+        row.addEventListener('click', () => {
+          const course = loadedVideosCache[Number(row.dataset.dashboardCourseIndex)];
+          if (course) playVideo(course.video_filename, course.title || '', course);
+        });
+      });
+    }
   } catch (e) {
     grids.forEach(grid => grid.innerHTML = '');
+    if (dashboardList) {
+      dashboardList.innerHTML = '<div style="color:#b91c1c;padding:24px 0;text-align:center">تعذر تحميل الدورات المرفوعة</div>';
+    }
   }
 }
 function setActive(el){
